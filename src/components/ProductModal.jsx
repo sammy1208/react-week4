@@ -34,6 +34,20 @@ function ProductModal({
       const modalInstance = Modal.getInstance(productModalRef.current);
       modalInstance.show();
     }
+    if (!isOpen) {
+        setModalData({
+            title: "",
+            category: "",
+            unit: "",
+            origin_price: "",
+            price: "",
+            description: "",
+            content: "",
+            is_enabled: false,
+            imageUrl: "",
+            imagesUrl: [],
+        });
+      }
   }, [isOpen]);
 
   const handleFileChange = async (e) => {
