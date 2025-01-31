@@ -2,27 +2,123 @@ import { useEffect, useRef, useState } from 'react'
 // import reactLogo from './assets/react.svg'
 import axios from 'axios';
 import { Modal } from 'bootstrap';
+// import ProductPage from './pages/ProductPage';
+// import './App.css'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 const defaultModalState = {
-    imageUrl: "",
-    title: "",
-    category: "",
-    unit: "",
-    origin_price: "",
-    price: "",
-    description: "",
-    content: "",
-    is_enabled: 0,
-    imagesUrl: [""]
+  imageUrl: "",
+  title: "",
+  category: "",
+  unit: "",
+  origin_price: "",
+  price: "",
+  description: "",
+  content: "",
+  is_enabled: 0,
+  imagesUrl: [""]
+};
+
+function ProductPage({ setIsAuth }) {
+  const [products, setProduct] = useState([]);
+
+  const handleOpenModal = (mode, product) => {
+    setModalMode(mode);
+
+    switch (mode) {
+      case "create":
+      setTempProduct(defaultModalState);
+      break;
+
+      case "edit":
+      setTempProduct(product);
+      break;
+    }
+
+    const modalInstance = Modal.getInstance(productModalRef.current);
+    modalInstance.show();
   };
 
-function ProductPage({ getProduct }) {
-  const [products, setProduct] = useState([]);
+  const handleOpenDelModal = (product) => {
+    setTempProduct(product);
+    const modalInstance = Modal.getInstance(delProductModalRef.current);
+    modalInstance.show();
+  };
+
+  const [pageInfo, setPageInfo] = useState({});
+
+  const handlePageChange = (page) => {
+    getProduct(page);
+  };
+
+  const getProduct = async (page) => {
+    try{
+      const res =await axios.get(`${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`)
+      setProduct(res.data.products)
+      setPageInfo(res.data.pagination)
+    } catch (err) {
+      console.log(err)
+    }
+  };
+
+  const checkUser = async () =>{
+    try{
+      await axios.post(`${BASE_URL}/v2/api/user/check`);
+      getProduct();
+      setIsAuth(true);
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  useEffect(() =>{
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/,
+      "$1",
+    );
+
+    axios.defaults.headers.common['Authorization'] = token;
+
+    checkUser();
+  }, []);
+
+  const productModalRef =  useRef(null);
+  const delProductModalRef = useRef(null);
   const [modalMode, setModalMode] = useState(null);
-    const [tempProduct, setTempProduct] = useState(defaultModalState);
+  const [tempProduct, setTempProduct] = useState(defaultModalState);
+
+  useEffect(() => {
+    new Modal(productModalRef.current, {
+      backdrop: false
+    });
+
+    new Modal(delProductModalRef.current, {
+      backdrop: false
+    });
+
+  }, []);
+
+  const handleFileChange =async (e) =>{
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file-to-upload", file)
+
+    
+    try {
+      const res = await axios.post(`${BASE_URL}/v2/api/${API_PATH}/admin/upload`, formData);
+      const uploadedImageUrl = res.data.imageUrl;
+
+      setTempProduct({
+        ...tempProduct,
+        imageUrl: uploadedImageUrl
+      })
+    } catch (error) {
+      alert(`上傳失敗`);
+    }
+
+  };
 
   const handleCloseModal = () => {
     const modalInstance = Modal.getInstance(productModalRef.current);
@@ -30,15 +126,6 @@ function ProductPage({ getProduct }) {
   };
 
 
-  const getProduct = async (page) => {
-    try{
-      const res =await axios.get(`${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`);
-      setProduct(res.data.products);
-      setPageInfo(res.data.pagination)
-    } catch (err) {
-      console.log(err)
-    }
-  };
 
   const handleCloseDelModal = () => {
     const modalInstance = Modal.getInstance(delProductModalRef.current);
@@ -152,175 +239,126 @@ function ProductPage({ getProduct }) {
 
   };
 
-  const handleFileChange =async (e) =>{
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file-to-upload", file)
-
-    
-    try {
-      const res = await axios.post(`${BASE_URL}/v2/api/${API_PATH}/admin/upload`, formData);
-      const uploadedImageUrl = res.data.imageUrl;
-
-      setTempProduct({
-        ...tempProduct,
-        imageUrl: uploadedImageUrl
-      })
-    } catch (error) {
-      alert(`上傳失敗`);
-    }
-
-  };
-
-  const handleOpenModal = (mode, product) => {
-    setModalMode(mode);
-
-    switch (mode) {
-      case "create":
-        setTempProduct(defaultModalState);
-        break;
-
-      case "edit":
-        setTempProduct(product);
-        break;
-    }
-
-    const modalInstance = Modal.getInstance(productModalRef.current);
-    modalInstance.show();
-  };
-
-  const handleOpenDelModal = (product) => {
-    setTempProduct(product);
-    const modalInstance = Modal.getInstance(delProductModalRef.current);
-    modalInstance.show();
-  };
-
-  const [pageInfo, setPageInfo] = useState({});
-
-  const handlePageChange = (page) => {
-    getProduct(page);
-  };
-
   return (
     <>
-      <div className="container py-5">
-        <div className="row">
-          <div className="col">
-            <div className="d-flex justify-content-between">
-              <h2>產品列表</h2>
-              <button
-                onClick={() => {
-                  handleOpenModal("create");
-                }}
-                type="button"
-                className="btn btn-primary"
-              >
-                建立新的產品
-              </button>
-            </div>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">產品名稱</th>
-                  <th scope="col">原價</th>
-                  <th scope="col">售價</th>
-                  <th scope="col">是否啟用</th>
-                  <th scope="col">查看細節</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((product) => (
-                  <tr key={product.id}>
-                    <th scope="row">{product.title}</th>
-                    <td>{product.origin_price}</td>
-                    <td>{product.price}</td>
-                    <td>
-                      {product.is_enabled ? (
-                        <span className="text-success">啟用</span>
-                      ) : (
-                        <span>未啟用</span>
-                      )}
-                    </td>
-                    <td>
-                      <div className="btn-group">
-                        <button
-                          onClick={() => {
-                            handleOpenModal("edit", product);
-                          }}
-                          type="button"
-                          className="btn btn-outline-primary btn-sm"
-                        >
-                          編輯
-                        </button>
-                        <button
-                          onClick={() => {
-                            handleOpenDelModal(product);
-                          }}
-                          type="button"
-                          className="btn btn-outline-danger btn-sm"
-                        >
-                          刪除
-                        </button>
-                      </div>
-                    </td>
+                  <div className="container py-5">
+          <div className="row">
+            <div className="col">
+              <div className="d-flex justify-content-between">
+                <h2>產品列表</h2>
+                <button
+                  onClick={() => {
+                    handleOpenModal("create");
+                  }}
+                  type="button"
+                  className="btn btn-primary"
+                >
+                  建立新的產品
+                </button>
+              </div>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">產品名稱</th>
+                    <th scope="col">原價</th>
+                    <th scope="col">售價</th>
+                    <th scope="col">是否啟用</th>
+                    <th scope="col">查看細節</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {products.map((product) => (
+                    <tr key={product.id}>
+                      <th scope="row">{product.title}</th>
+                      <td>{product.origin_price}</td>
+                      <td>{product.price}</td>
+                      <td>
+                        {product.is_enabled ? (
+                          <span className="text-success">啟用</span>
+                        ) : (
+                          <span>未啟用</span>
+                        )}
+                      </td>
+                      <td>
+                        <div className="btn-group">
+                          <button
+                            onClick={() => {
+                              handleOpenModal("edit", product);
+                            }}
+                            type="button"
+                            className="btn btn-outline-primary btn-sm"
+                          >
+                            編輯
+                          </button>
+                          <button
+                            onClick={() => {
+                              handleOpenDelModal(product);
+                            }}
+                            type="button"
+                            className="btn btn-outline-danger btn-sm"
+                          >
+                            刪除
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+  
+          <div className="d-flex justify-content-center">
+            {products.length < 1 ? (
+              ""
+            ) : (
+              <nav>
+                <ul className="pagination">
+                  <li className={`page-item ${!pageInfo.has_pre && "disabled"}`}>
+                    <a
+                      onClick={() => handlePageChange(pageInfo.current_page - 1)}
+                      className="page-link"
+                      href="#"
+                    >
+                      上一頁
+                    </a>
+                  </li>
+  
+                  {Array.from({ length: pageInfo.total_pages }).map(
+                    (item, index) => (
+                      <li
+                        key={index}
+                        className={`page-item ${
+                          pageInfo.current_page === index + 1 && "active"
+                        }`}
+                      >
+                        <a
+                          onClick={() => handlePageChange(index + 1)}
+                          className="page-link"
+                          href="#"
+                        >
+                          {index + 1}
+                        </a>
+                      </li>
+                    )
+                  )}
+  
+                  <li className={`page-item ${!pageInfo.has_next && "disabled"}`}>
+                    <a
+                      onClick={() => handlePageChange(pageInfo.current_page + 1)}
+                      className="page-link"
+                      href="#"
+                    >
+                      下一頁
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            )}
           </div>
         </div>
 
-        <div className="d-flex justify-content-center">
-          {products.length < 1 ? (
-            ""
-          ) : (
-            <nav>
-              <ul className="pagination">
-                <li className={`page-item ${!pageInfo.has_pre && "disabled"}`}>
-                  <a
-                    onClick={() => handlePageChange(pageInfo.current_page - 1)}
-                    className="page-link"
-                    href="#"
-                  >
-                    上一頁
-                  </a>
-                </li>
-
-                {Array.from({ length: pageInfo.total_pages }).map(
-                  (item, index) => (
-                    <li
-                      key={index}
-                      className={`page-item ${
-                        pageInfo.current_page === index + 1 && "active"
-                      }`}
-                    >
-                      <a
-                        onClick={() => handlePageChange(index + 1)}
-                        className="page-link"
-                        href="#"
-                      >
-                        {index + 1}
-                      </a>
-                    </li>
-                  )
-                )}
-
-                <li className={`page-item ${!pageInfo.has_next && "disabled"}`}>
-                  <a
-                    onClick={() => handlePageChange(pageInfo.current_page + 1)}
-                    className="page-link"
-                    href="#"
-                  >
-                    下一頁
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          )}
-        </div>
-      </div>
-
-      <div
+        <div
         ref={productModalRef}
         id="productModal"
         className="modal"
@@ -339,7 +377,7 @@ function ProductPage({ getProduct }) {
                 aria-label="Close"
               ></button>
             </div>
-
+  
             <div className="modal-body p-4">
               <div className="row g-4">
                 <div className="col-md-4">
@@ -356,7 +394,6 @@ function ProductPage({ getProduct }) {
                       id="fileInput"
                     />
                   </div>
-
                   <div className="mb-4">
                     <label htmlFor="primary-image" className="form-label">
                       主圖
@@ -378,7 +415,7 @@ function ProductPage({ getProduct }) {
                       className="img-fluid"
                     />
                   </div>
-
+  
                   {/* 副圖 */}
                   <div className="border border-2 border-dashed rounded-3 p-3">
                     {tempProduct.imagesUrl?.map((image, index) => (
@@ -406,7 +443,7 @@ function ProductPage({ getProduct }) {
                         )}
                       </div>
                     ))}
-
+  
                     <div className="btn-group w-100">
                       {tempProduct.imagesUrl.length < 5 &&
                         tempProduct.imagesUrl[
@@ -419,7 +456,7 @@ function ProductPage({ getProduct }) {
                             新增圖片
                           </button>
                         )}
-
+  
                       {tempProduct.imagesUrl.length > 1 && (
                         <button
                           onClick={handleRemoveImage}
@@ -431,7 +468,7 @@ function ProductPage({ getProduct }) {
                     </div>
                   </div>
                 </div>
-
+  
                 <div className="col-md-8">
                   <div className="mb-3">
                     <label htmlFor="title" className="form-label">
@@ -447,7 +484,7 @@ function ProductPage({ getProduct }) {
                       placeholder="請輸入標題"
                     />
                   </div>
-
+  
                   <div className="mb-3">
                     <label htmlFor="category" className="form-label">
                       分類
@@ -462,7 +499,7 @@ function ProductPage({ getProduct }) {
                       placeholder="請輸入分類"
                     />
                   </div>
-
+  
                   <div className="mb-3">
                     <label htmlFor="unit" className="form-label">
                       單位
@@ -477,7 +514,7 @@ function ProductPage({ getProduct }) {
                       placeholder="請輸入單位"
                     />
                   </div>
-
+  
                   <div className="row g-3 mb-3">
                     <div className="col-6">
                       <label htmlFor="origin_price" className="form-label">
@@ -508,7 +545,7 @@ function ProductPage({ getProduct }) {
                       />
                     </div>
                   </div>
-
+  
                   <div className="mb-3">
                     <label htmlFor="description" className="form-label">
                       產品描述
@@ -523,7 +560,7 @@ function ProductPage({ getProduct }) {
                       placeholder="請輸入產品描述"
                     ></textarea>
                   </div>
-
+  
                   <div className="mb-3">
                     <label htmlFor="content" className="form-label">
                       說明內容
@@ -538,7 +575,7 @@ function ProductPage({ getProduct }) {
                       placeholder="請輸入說明內容"
                     ></textarea>
                   </div>
-
+  
                   <div className="form-check">
                     <input
                       checked={tempProduct.is_enabled}
@@ -555,7 +592,7 @@ function ProductPage({ getProduct }) {
                 </div>
               </div>
             </div>
-
+  
             <div className="modal-footer border-top bg-light">
               <button
                 onClick={handleCloseModal}
@@ -575,7 +612,7 @@ function ProductPage({ getProduct }) {
           </div>
         </div>
       </div>
-
+  
       <div
         ref={delProductModalRef}
         className="modal fade"

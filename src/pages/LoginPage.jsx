@@ -3,7 +3,7 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-function LoginPage({ getProduct }) {
+function LoginPage( {setIsAuth} ) {
   const [account, setAccount] = useState({
     username: "qa821746@gmail.com",
     password: "az821746"
@@ -27,7 +27,6 @@ function LoginPage({ getProduct }) {
       document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = `${token}`;
       setIsAuth(true);
-      getProduct();
     } catch (error) {
       alert(`登入失敗`);
     }
