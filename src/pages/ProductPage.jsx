@@ -34,7 +34,7 @@ function ProductPage({ setIsAuth }) {
 
     switch (mode) {
       case "create":
-        setTempProduct(defaultModalState);
+        setTempProduct({...defaultModalState});
         break;
 
       case "edit":
@@ -59,8 +59,9 @@ function ProductPage({ setIsAuth }) {
       );
       setProduct(res.data.products);
       setPageInfo(res.data.pagination);
-    } catch (err) {
-      console.log(err);
+      console.log(res.data)
+    } catch (error) {
+      alert(error.data.message)
     }
   };
 
@@ -70,7 +71,7 @@ function ProductPage({ setIsAuth }) {
       getProduct();
       setIsAuth(true);
     } catch (error) {
-      console.log(error);
+      alert(error.data.message)
     }
   };
 

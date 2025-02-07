@@ -5,8 +5,8 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function LoginPage( {setIsAuth} ) {
   const [account, setAccount] = useState({
-    username: "",
-    password: ""
+    username: "qa821746@gmail.com",
+    password: "az821746"
   });
 
   const handleInput = (e) => {
@@ -17,6 +17,7 @@ function LoginPage( {setIsAuth} ) {
       [name]: value
     });
   };
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,6 +32,7 @@ function LoginPage( {setIsAuth} ) {
       alert(`登入失敗`);
     }
   };
+
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">

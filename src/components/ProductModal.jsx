@@ -34,18 +34,6 @@ function ProductModal({
       const modalInstance = Modal.getInstance(productModalRef.current);
       modalInstance.show();
     }
-    // if (!isOpen) {
-    //     setModalData({
-    //         title: "",
-    //         category: "",
-    //         unit: "",
-    //         origin_price: "",
-    //         price: "",
-    //         description: "",
-    //         content: "",
-    //         is_enabled: false,
-    //     });
-    //   }
   }, [isOpen]);
 
   const handleFileChange = async (e) => {
@@ -120,7 +108,7 @@ function ProductModal({
 
       handleCloseModal();
     } catch (error) {
-      alert(`更新產品失敗`);
+      alert("更新產品失敗");
     }
   };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import reactLogo from './assets/react.svg'
 import LoginPage from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage";
