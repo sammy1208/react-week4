@@ -6,7 +6,7 @@ import axios from "axios";
 // import ProductPage from './pages/ProductPage';
 // import './App.css'
 
-function App({checkUser}) {
+function App() {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
