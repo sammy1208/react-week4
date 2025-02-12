@@ -142,6 +142,7 @@ function ProductModal({
       );
     } catch (error) {
       alert(`新增產品失敗`);
+      throw error;
     }
   };
 
