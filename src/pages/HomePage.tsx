@@ -12,8 +12,8 @@ export default function HomePage() {
 
   async function getData() {
     try {
-      const res = await fetch("/data/themes.json");
-      // if (!res.ok) throw new Error("無法載入主題資料");
+      const res = await fetch("./data/themes.json");
+      if (!res.ok) throw new Error("無法載入主題資料");
       const json = await res.json();
       setThemeData(json);
     } catch (error) {
