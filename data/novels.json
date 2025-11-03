@@ -1,0 +1,28 @@
+[
+  {
+    "id": "moon_meet",
+    "title": "月下初遇",
+    "author": "柳青風",
+    "tags": ["古代", "言情", "完結"],
+    "file": "/novels/moon_meet.md",
+    "description": "一段月光下的邂逅，牽起前世今生的緣分。",
+    "rating": 4.8,
+    "structure": [
+  { "title": "第一章 月下初遇", "file": "/novels/galaxy_dream/01.md" },
+  { "title": "第二章 星光流影", "file": "/novels/galaxy_dream/02.md" }
+]
+  },
+  {
+    "id": "galaxy_dream",
+    "title": "星河夢境",
+    "author": "蘇念",
+    "tags": ["奇幻", "冒險", "連載中"],
+    "file": "/novels/galaxy_dream.md",
+    "description": "夢境與現實交錯的奇幻冒險。",
+    "rating": 4.8,
+    "structure": [
+  { "title": "第一章 月下初遇", "file": "/novels/galaxy_dream/01.md" },
+  { "title": "第二章 星光流影", "file": "/novels/galaxy_dream/02.md" }
+]
+  }
+]
