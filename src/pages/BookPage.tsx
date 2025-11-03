@@ -22,7 +22,7 @@ export default function BookPage() {
 
   async function getNovels(data: NovelsData) {
     console.log(data);
-    const res = await fetch(`./novels/${data.id}.md`);
+    const res = await fetch(`./novels/${encodeURIComponent(data.id)}.md`);
     const text = await res.text();
 
     const { attributes, body } = fm(text);
