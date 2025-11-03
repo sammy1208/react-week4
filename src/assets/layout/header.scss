@@ -1,9 +1,13 @@
-.header{
+.header {
   background-color: #5c6e7c;
-  padding: 24px;
+  padding: 12px;
   font-size: 18px;
   display: flex;
   background-color: var(--color-bg-theme);
   color: var(--dark-green);
   font-weight: 700;
+}
+
+.logo {
+  font-size: 36px;
 }

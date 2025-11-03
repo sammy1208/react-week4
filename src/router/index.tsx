@@ -7,22 +7,22 @@ import BookPage from "../pages/BookPage";
 const router = createHashRouter([
   {
     path: "/",
-    element: <FrontLayout/>,
+    element: <FrontLayout />,
     children: [
       {
         path: "",
-        element: <HomePage />
+        element: <HomePage />,
       },
       {
-        path: "word",
-        element: <WordPage />
+        path: "word/:id",
+        element: <WordPage />,
       },
       {
-        path: "book",
-        element: <BookPage />
-      }
-    ]
-  }
+        path: "book/:id",
+        element: <BookPage />,
+      },
+    ],
+  },
 ]);
 
 export default router;

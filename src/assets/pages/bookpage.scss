@@ -1,0 +1,36 @@
+.book {
+  &-main {
+    text-align: center;
+    color: var(--off-white);
+    background-color: var(--main-green);
+  }
+  &-title {
+    font-size: 32px;
+    padding-top: 40px;
+  }
+}
+
+.author {
+  font-size: 18px;
+  padding: 8px 0;
+}
+.description {
+  text-align: start;
+  padding: 8px 40px;
+  &-p {
+    padding: 0 12px;
+  }
+  &-title {
+    margin-bottom: 12px;
+    font-size: 20px;
+    border-bottom: 1px solid var(--off-white);
+  }
+}
+.article {
+  text-align: start;
+  padding: 60px 12px;
+  line-height: 1.8;
+  p {
+    margin-bottom: 20px; /* 段落之間的距離，可依需求調整 */
+  }
+}
