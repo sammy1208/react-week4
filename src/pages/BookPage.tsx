@@ -30,7 +30,7 @@ export default function BookPage() {
     setMeta(attributes as Meta);
   }
   async function loadBook(bookId: string) {
-    const res = await fetch("/data/novels.json");
+    const res = await fetch("./data/novels.json");
     if (!res.ok) throw new Error("無法載入主題資料");
     const json: NovelsData[] = await res.json();
 

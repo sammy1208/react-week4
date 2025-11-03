@@ -11,7 +11,7 @@ export default function Word() {
   };
 
   async function getNovels() {
-    const res = await fetch("/data/novels.json");
+    const res = await fetch("./data/novels.json");
     const data = await res.json();
     setNovelsData(data);
   }
