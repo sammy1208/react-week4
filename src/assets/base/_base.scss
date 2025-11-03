@@ -1,0 +1,56 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+body{
+    line-height: 1.8;
+    font-size: 16px;
+    font-family: "Noto Serif TC", "Quicksand", "Noto Sans TC", sans-serif;
+    font-weight: 450;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+a {
+  color: inherit;
+  display: inline-block;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: 0.02em;
+}
+
+p {
+  letter-spacing: 0.02em;
+}
+.container{
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+// .bi {
+//   font-size: 1.25rem;
+//   @include media-breakpoint-up(lg) {
+//     font-size: 1.5rem;
+//   }
+// }
+
+strong {
+  font-weight: bold !important;
+}
+

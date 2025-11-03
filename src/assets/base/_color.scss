@@ -1,0 +1,49 @@
+:root {
+  --main-green: #1D3124;
+  --light-green: #BACEC1;
+  --dark-green: #113328;
+  
+  --main-orange: #E59560;
+  --light-orange: #CC8B65;
+
+  --gray-100: #707070;
+  --gray-300: #555;
+  --gray-500: #00000029;
+  
+  --black: #100C0D;
+  --white: #fff;
+
+  --off-white: #F6F4E8;
+  --brown: #E3DCD2;
+
+
+    /*主題層級顏色 */
+  --color-primary: var(--main-green);       /* 主色（網站識別色、按鈕主色） */
+  --color-secondary: var(--main-orange);   /* 輔助色（hover、標籤、強調） */
+  --color-accent: var(--light-green);       /* 柔和強調（邊框、icon、分隔） */
+
+  /*中性色 */
+  --color-bg: var(--off-white);             /* 預設背景（整體頁面） */
+  --color-surface: var(--light-green);            /* 元件背景（卡片、框體） */
+  --color-border: var(--main-green);              /* 邊界線條 */
+  --color-shadow: var(--gray-300);       /* 投影陰影 */
+
+  /*文字色 */
+  --color-text: var(--black);           /* 主文字（正文） */
+  --color-text-subtle: var(--main-orange);         /* 副文字（說明、meta） */
+  --color-text-invert: var(--off-white);        /* 反色文字（深底用） */
+
+  /*狀態色 */
+  --color-success: var(--light-green);
+  --color-warning: var(--light-orange);
+  --color-error: #D54C4C;
+
+
+
+  --color-bg-theme: var(--off-white);        /* 主題頁背景 */
+  --color-surface-theme: var(--light-green);       /* 主題卡底色 */
+  --color-text-theme: var(--color-primary);     /* 主題標題文字 */
+  --color-accent-theme: var(--color-secondary); /* 主題 hover 高亮 */
+
+  
+}
