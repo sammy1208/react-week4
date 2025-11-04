@@ -1,15 +1,22 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
-body{
-    line-height: 1.8;
-    font-size: 16px;
-    font-family: "Noto Serif TC", "Quicksand", "Noto Sans TC", sans-serif;
-    font-weight: 450;
-    background-color: var(--color-bg);
-    color: var(--color-text);
+body {
+  line-height: 1.8;
+  font-size: 16px;
+  font-family: "Noto Serif TC", "Quicksand", "Noto Sans TC", sans-serif;
+  font-weight: 450;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  // background: linear-gradient(
+  //   200deg,
+  //   var(--dark-green) 0%,
+  //   var(--main-green) 50%,
+  //   var(--light-green) 100%
+  // );
+  // color: var(--color-text-invert);
 }
 
 img {
@@ -36,11 +43,11 @@ h6 {
 p {
   letter-spacing: 0.02em;
 }
-.container{
-    max-width: 1320px;
-    margin: 0 auto;
-    padding-left: 12px;
-    padding-right: 12px;
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 // .bi {
@@ -53,4 +60,3 @@ p {
 strong {
   font-weight: bold !important;
 }
-

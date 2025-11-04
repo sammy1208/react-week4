@@ -43,11 +43,11 @@ export default function HomePage() {
         {themeData.map((theme) => (
           <div className="theme" key={theme.id}>
             <h5 className="theme-title">{theme.themeName}</h5>
-            <div className="jc-center">
+            <div className="jc-center glass-container">
               <ul className="theme-ul">
                 {theme.themeTitle.map((item, index) => (
                   <li
-                    className="theme-list"
+                    className="theme-list glass"
                     key={index}
                     onClick={() => handleTheme(item)}
                   >
