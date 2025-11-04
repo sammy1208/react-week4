@@ -60,7 +60,7 @@ export default function BookPage() {
         <div className=" bookpage">
           <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
         </div>
-        <div className=" bookpage1">
+        <div className="1212 bookpage1">
           <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
         </div>
         <div className=" bookpage2">
