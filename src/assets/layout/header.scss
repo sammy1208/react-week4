@@ -1,7 +1,7 @@
 .header {
   background-color: #5c6e7c;
   padding: 12px;
-  font-size: 18px;
+  font-size: 20px;
   display: flex;
   background-color: var(--color-bg-theme);
   color: var(--dark-green);
@@ -9,5 +9,11 @@
 }
 
 .logo {
-  font-size: 36px;
+  font-size: 24px;
+  padding-right: 4px;
+}
+.navLink {
+  display: flex;
+  font-family: "Gabriela";
+  align-items: center;
 }
