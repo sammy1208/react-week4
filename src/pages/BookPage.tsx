@@ -8,8 +8,9 @@ import { NovelsData } from "../types/theme";
 
 export default function BookPage() {
   const [content, setContent] = useState("");
-  const { id } = useParams<{ id: string }>();
-  const decodeId = decodeURIComponent(id || "");
+  const { cpId, bookId } = useParams<{ cpId: string; bookId: string }>();
+  const decodeCpId = decodeURIComponent(cpId || "");
+  const decodeBookId = decodeURIComponent(bookId || "");
   const [meta, setMeta] = useState<Meta>({
     title: "",
     author: "",
@@ -17,12 +18,11 @@ export default function BookPage() {
   });
 
   useEffect(() => {
-    loadBook(decodeId);
+    loadBook(decodeBookId);
   }, []);
 
   async function getNovels(data: NovelsData) {
     const res = await fetch(`./novels/${data.file}`);
-    console.log(res);
     const text = await res.text();
 
     const { attributes, body } = fm(text);
@@ -30,14 +30,14 @@ export default function BookPage() {
     setMeta(attributes as Meta);
   }
   async function loadBook(bookId: string) {
-    const res = await fetch("./data/novels.json");
+    const res = await fetch(`./data/${decodeCpId}.json`);
     if (!res.ok) throw new Error("無法載入主題資料");
     const json: NovelsData[] = await res.json();
 
     const novel = json.find((n) => n.id === bookId);
 
     if (!novel) {
-      console.log("找不到指定小說:", bookId);
+      console.log("找不到指定小說:", decodeBookId);
       return;
     }
 

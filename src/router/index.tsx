@@ -3,6 +3,8 @@ import FrontLayout from "../layouts/FrontLayout";
 import HomePage from "../pages/HomePage";
 import WordPage from "../pages/WordPage";
 import BookPage from "../pages/BookPage";
+import CompanionPage from "../pages/companionPage";
+import BookPage1 from "../pages/111";
 
 const router = createHashRouter([
   {
@@ -18,7 +20,11 @@ const router = createHashRouter([
         element: <WordPage />,
       },
       {
-        path: "book/:id",
+        path: "CP/:cpId",
+        element: <CompanionPage />,
+      },
+      {
+        path: "CP/:cpId/:bookId",
         element: <BookPage />,
       },
     ],

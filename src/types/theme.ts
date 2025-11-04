@@ -19,3 +19,9 @@ export interface Meta {
   author: string;
   summary: string;
 }
+
+export interface WordData {
+  id: string;
+  wordName: string;
+  wordTitle: string[];
+}
