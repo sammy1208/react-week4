@@ -17,6 +17,8 @@ export default function BookPage() {
     summary: "",
   });
 
+  const [toc, setToc] = useState<{ title: string; id: string }[]>([]);
+
   useEffect(() => {
     loadBook(decodeBookId);
   }, []);
@@ -28,6 +30,9 @@ export default function BookPage() {
     const { attributes, body } = fm(text);
     setContent(body);
     setMeta(attributes as Meta);
+
+    const tocData = extractToc(body);
+    setToc(tocData);
   }
   async function loadBook(bookId: string) {
     const res = await fetch(`./data/${decodeCpId}.json`);
@@ -43,6 +48,20 @@ export default function BookPage() {
 
     getNovels(novel);
   }
+
+  function extractToc(body: string) {
+    const toc: { title: string; id: string }[] = [];
+    const regex = /# (.+)/g; // 查找二級標題 (如 ## 第一章)
+    let match;
+    while ((match = regex.exec(body)) !== null) {
+      toc.push({
+        title: match[1], // 章節標題
+        id: match[1].toLowerCase().replace(/\s+/g, "-"), // 用標題生成 ID
+      });
+    }
+    return toc;
+  }
+
   return (
     <>
       <div className="book-main container">
@@ -52,6 +71,17 @@ export default function BookPage() {
           <p className="description-title">Summary:</p>
           <p className="description-p">{meta.summary}</p>
         </div>
+        {/* 目錄 */}
+        {/* <div className="toc">
+          <h3>目錄</h3>
+          <ul>
+            {toc.map((item) => (
+              <li key={item.id}>
+                <a href={`#${item.id}`}>{item.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div> */}
         <div className="article">
           <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
         </div>

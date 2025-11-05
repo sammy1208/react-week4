@@ -37,6 +37,9 @@ export default function CompanionPage() {
       case "太光":
         setCpData("TaiKou");
         break;
+      case "原創角色":
+        setCpData("NyaMix");
+        break;
       default:
         console.warn("沒有對應的 CP ID:", cpIdName);
     }
@@ -68,17 +71,25 @@ export default function CompanionPage() {
 
   return (
     <>
-      {novelsData.map((item) => (
-        <div
-          className="book-box"
-          key={item.id}
-          onClick={() => handleBook(item.id)}
-        >
-          <h5 className="word-title">{item.title}</h5>
-          <p>{item.tags}</p>
-          <p>{item.description}</p>
-        </div>
-      ))}
+      <div className="container cp-page">
+        {novelsData.map((item) => (
+          <div
+            className="book-box glass-card"
+            key={item.id}
+            onClick={() => handleBook(item.id)}
+          >
+            <h5 className="word-title">{item.title}</h5>
+            <p className="cp-tag">
+              {item.tags?.map((item, index) => (
+                <p key={index} className="tag">
+                  {item}
+                </p>
+              ))}
+            </p>
+            <p className="cp-description">{item.description}</p>
+          </div>
+        ))}
+      </div>
     </>
   );
 }

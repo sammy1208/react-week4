@@ -69,7 +69,11 @@ export default function Word() {
                   onClick={() => handleBook(item)}
                 >
                   <div className="card-content">{item}</div>
-                  <img src="../img/banner.jpg" alt="" className="card-bg" />
+                  <img
+                    src="/public/img/banner.jpg"
+                    alt=""
+                    className="card-bg"
+                  />
                 </li>
               ))}
             </ul>
