@@ -44,7 +44,7 @@ export default function HomePage() {
           <div className="theme" key={theme.id}>
             <div className="glass-container">
               <h5 className="theme-title">{theme.themeName}</h5>
-              <div className="jc-center">
+              <div className="theme-container">
                 <ul className="theme-ul">
                   {theme.themeTitle.map((item, index) => (
                     <li

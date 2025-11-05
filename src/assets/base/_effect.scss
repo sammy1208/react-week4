@@ -1,0 +1,60 @@
+.glass {
+  background: #bacec1ba;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.glass-container {
+  // background: rgba(122, 143, 162, 0.25); /* 使用你的霧藍灰 */
+  // background: rgba(255, 255, 255, 0.084);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding-top: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  // background: linear-gradient(
+  //   200deg,
+  //   var(--light-green) 0%,
+  //   var(--main-green) 20%,
+  //   var(--light-green) 100%
+  // );
+}
+.glass-dark {
+  background: rgba(255, 255, 255, 0.279);
+  border: 1px solid rgba(255, 255, 255, 0.536);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: 1rem;
+  color: #eae8e1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.099);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.626);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.115),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 12px 12px rgba(255, 255, 255, 0.226);
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+}

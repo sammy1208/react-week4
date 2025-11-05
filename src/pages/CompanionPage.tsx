@@ -34,6 +34,9 @@ export default function CompanionPage() {
       case "多CP":
         setCpData("other");
         break;
+      case "太光":
+        setCpData("TaiKou");
+        break;
       default:
         console.warn("沒有對應的 CP ID:", cpIdName);
     }

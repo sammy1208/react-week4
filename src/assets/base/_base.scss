@@ -10,13 +10,6 @@ body {
   font-weight: 450;
   background-color: var(--color-bg);
   color: var(--color-text);
-  // background: linear-gradient(
-  //   200deg,
-  //   var(--dark-green) 0%,
-  //   var(--main-green) 50%,
-  //   var(--light-green) 100%
-  // );
-  // color: var(--color-text-invert);
 }
 
 img {
@@ -49,13 +42,6 @@ p {
   padding-left: 12px;
   padding-right: 12px;
 }
-
-// .bi {
-//   font-size: 1.25rem;
-//   @include media-breakpoint-up(lg) {
-//     font-size: 1.5rem;
-//   }
-// }
 
 strong {
   font-weight: bold !important;

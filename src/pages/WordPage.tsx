@@ -59,15 +59,17 @@ export default function Word() {
       <main className="container theme-page">
         <div className="theme">
           <h5 className="theme-title">{cpData.wordName}</h5>
-          <div className="jc-center">
+
+          <div className="theme-container">
             <ul className="theme-ul">
               {cpData.wordTitle?.map((item: string, index: number) => (
                 <li
-                  className="theme-list"
+                  className="word-list glass-card"
                   key={index}
                   onClick={() => handleBook(item)}
                 >
-                  {item}
+                  <div className="card-content">{item}</div>
+                  <img src="../img/banner.jpg" alt="" className="card-bg" />
                 </li>
               ))}
             </ul>
