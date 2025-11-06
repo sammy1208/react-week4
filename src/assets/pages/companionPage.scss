@@ -27,6 +27,11 @@
   cursor: pointer;
   color: var(--color-primary);
 }
+@media (max-width: 768px) {
+  .book-box {
+    width: 80%;
+  }
+}
 .cp-tag {
   border-bottom: 2px solid var(--color-surface-theme);
   margin-bottom: 12px;
@@ -37,10 +42,25 @@
 .tag {
   margin-right: 8px;
   background-color: var(--color-surface-theme);
+  // color: var(--brown);
   padding: 2px 16px;
   border-radius: 24px;
   font-size: 14px;
 }
 .cp-description {
   color: var(--off-white);
+  white-space: pre-line;
+}
+
+.cp-nav {
+  color: var(--off-white);
+  font-size: 20px;
+  span {
+    padding-left: 8px;
+  }
+}
+.word-title1 {
+  color: var(--color-text-subtle);
+  font-size: 20px;
+  font-weight: 600;
 }

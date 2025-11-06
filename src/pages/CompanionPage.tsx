@@ -37,6 +37,9 @@ export default function CompanionPage() {
       case "太光":
         setCpData("TaiKou");
         break;
+      case "忍岳":
+        setCpData("OshiGaku");
+        break;
       case "原創角色":
         setCpData("NyaMix");
         break;
@@ -72,20 +75,25 @@ export default function CompanionPage() {
   return (
     <>
       <div className="container cp-page">
+        <div className="book-box glass-card02">
+          <p className="cp-nav">
+            {decodeId} <span>{`${novelsData.length}篇文章`}</span>
+          </p>
+        </div>
         {novelsData.map((item) => (
           <div
-            className="book-box glass-card"
+            className="book-box glass-card02"
             key={item.id}
             onClick={() => handleBook(item.id)}
           >
-            <h5 className="word-title">{item.title}</h5>
-            <p className="cp-tag">
+            <h5 className="word-title1">{item.title}</h5>
+            <div className="cp-tag">
               {item.tags?.map((item, index) => (
                 <p key={index} className="tag">
                   {item}
                 </p>
               ))}
-            </p>
+            </div>
             <p className="cp-description">{item.description}</p>
           </div>
         ))}

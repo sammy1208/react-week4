@@ -70,7 +70,7 @@ export default function Word() {
                 >
                   <div className="card-content">{item}</div>
                   <img
-                    src="/public/img/banner.jpg"
+                    src="./public/img/img01.jpg"
                     alt=""
                     className="card-bg"
                   />

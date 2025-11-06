@@ -5,6 +5,7 @@ import fm from "front-matter";
 import { Meta } from "../types/theme";
 import { useParams } from "react-router";
 import { NovelsData } from "../types/theme";
+import MarkdownRenderer from "../components/ReactMarkdown";
 
 export default function BookPage() {
   const [content, setContent] = useState("");
@@ -69,7 +70,9 @@ export default function BookPage() {
         <p className="author">{meta.author}</p>
         <div className="description">
           <p className="description-title">Summary:</p>
-          <p className="description-p">{meta.summary}</p>
+          <div className="description-p">
+            <ReactMarkdown>{meta.summary}</ReactMarkdown>
+          </div>
         </div>
         {/* 目錄 */}
         {/* <div className="toc">
@@ -83,7 +86,8 @@ export default function BookPage() {
           </ul>
         </div> */}
         <div className="article">
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
+          {/* <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown> */}
+          <MarkdownRenderer content={content} />
         </div>
       </div>
       {/* <div className="container jc-center">
