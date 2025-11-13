@@ -1,0 +1,47 @@
+[
+  {
+    "id": "Abcdefu",
+    "title": "【盾冬】Abcdefu",
+    "author": "未知",
+    "tags": ["Marvel", "Stucky"],
+    "file": "Marvel/Stucky/Abcdefu.md",
+    "description": "",
+    "rating": 4.7
+  },
+  {
+    "id": "Bloody_Dark_Hours",
+    "title": "【盾冬】Bloody Dark Hours",
+    "author": "未知",
+    "tags": ["Marvel", "Stucky"],
+    "file": "Marvel/Stucky/Bloody_Dark_Hours.md",
+    "description": "",
+    "rating": 4.6
+  },
+  {
+    "id": "Collector",
+    "title": "【盾冬】Collector 收藏家",
+    "author": "未知",
+    "tags": ["Marvel", "Stucky"],
+    "file": "Marvel/Stucky/Collector.md",
+    "description": "",
+    "rating": 4.6
+  },
+  {
+    "id": "最强卧底",
+    "title": "【盾冬】最强卧底",
+    "author": "未知",
+    "tags": ["Marvel", "Stucky"],
+    "file": "Marvel/Stucky/最强卧底.md",
+    "description": "",
+    "rating": 4.7
+  },
+  {
+    "id": "请远离发情室友",
+    "title": "【盾冬】请远离发情室友",
+    "author": "未知",
+    "tags": ["Marvel", "Stucky"],
+    "file": "Marvel/Stucky/请远离发情室友.md",
+    "description": "",
+    "rating": 4.8
+  }
+]

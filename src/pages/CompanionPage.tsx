@@ -9,6 +9,7 @@ export default function CompanionPage() {
   const { cpId } = useParams<{ cpId: string }>();
   const decodeId = decodeURIComponent(cpId || "");
   const [cpData, setCpData] = useState("");
+  // const [tags, setTags] = useState([]);
 
   const handleBook = (id: string) => {
     Navigate(`/cp/${cpData}/${id}`);
@@ -43,6 +44,18 @@ export default function CompanionPage() {
       case "原創角色":
         setCpData("NyaMix");
         break;
+      case "鐵蟲":
+        setCpData("IronSpider");
+        break;
+      case "盾冬":
+        setCpData("Stucky");
+        break;
+      case "锤基":
+        setCpData("Thorki");
+        break;
+      case "漫威其他":
+        setCpData("MultiCP");
+        break;
       default:
         console.warn("沒有對應的 CP ID:", cpIdName);
     }
@@ -72,31 +85,47 @@ export default function CompanionPage() {
     }
   }, [decodeId]);
 
+  // function tagData() {
+  //   setTags(tags);
+  // }
+  const tags = [...new Set(novelsData.flatMap((item) => item.tags))];
+
   return (
     <>
       <div className="container cp-page">
-        <div className="book-box glass-card02">
-          <p className="cp-nav">
-            {decodeId} <span>{`${novelsData.length}篇文章`}</span>
-          </p>
-        </div>
-        {novelsData.map((item) => (
-          <div
-            className="book-box glass-card02"
-            key={item.id}
-            onClick={() => handleBook(item.id)}
-          >
-            <h5 className="word-title1">{item.title}</h5>
-            <div className="cp-tag">
-              {item.tags?.map((item, index) => (
-                <p key={index} className="tag">
-                  {item}
-                </p>
+        <div className="cp-page-box">
+          <div className="">
+            <div className="book-box glass-card02">
+              <p className="cp-nav">
+                {decodeId} <span>{`${novelsData.length}篇文章`}</span>
+              </p>
+            </div>
+            {novelsData.map((item) => (
+              <div
+                className="book-box glass-card02"
+                key={item.id}
+                onClick={() => handleBook(item.id)}
+              >
+                <h5 className="word-title1">{item.title}</h5>
+                <div className="cp-tag">
+                  {item.tags?.map((item, index) => (
+                    <p key={index} className="tag">
+                      {item}
+                    </p>
+                  ))}
+                </div>
+                <p className="cp-description">{item.description}</p>
+              </div>
+            ))}
+          </div>
+          <div>
+            <div className="tage-box glass-card03">
+              {tags.map((item) => (
+                <p className="cp-list">{item}</p>
               ))}
             </div>
-            <p className="cp-description">{item.description}</p>
           </div>
-        ))}
+        </div>
       </div>
     </>
   );

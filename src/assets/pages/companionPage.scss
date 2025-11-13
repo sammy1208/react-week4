@@ -3,22 +3,17 @@
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
-  // background-image: url("/public/img/img01.jpg");
-  // background-repeat: no-repeat;
-  // // background-size: contain; /* 👈 縮放以完整顯示圖片 */
-  // background-position: center; /* 👈 置中顯示 */
-  // background: linear-gradient(
-  //   45deg,
-  //   var(--light-green) 0%,
-  //   var(--light-green) 40%,
-  //   var(--dark-green) 100%
-  // );
+
   background-color: var(--dark-green);
+}
+
+.cp-page-box {
+  display: flex;
 }
 
 .book-box {
   // background-color: var(--color-surface-theme);
-  width: 55%;
+  // width: 55%;
   height: auto;
   border: 2px solid var(--color-surface-theme);
   border-radius: 8px;
@@ -63,4 +58,35 @@
   color: var(--color-text-subtle);
   font-size: 20px;
   font-weight: 600;
+}
+
+.cp-list {
+  flex: 0 0 150px; /* 寬度最小150px，能自動換行 */
+  background-color: var(--color-surface-theme);
+  margin: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--off-white);
+  cursor: pointer;
+}
+
+.tage-box {
+  // background-color: var(--color-surface-theme);
+  // width: 55%;
+  height: auto;
+  border: 2px solid var(--color-surface-theme);
+  border-radius: 8px;
+  padding: 32px;
+  margin: 8px;
+  color: var(--color-primary);
+}
+
+.bg {
+  background-image: url("/public/img/background02.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

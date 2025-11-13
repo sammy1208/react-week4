@@ -14,18 +14,18 @@ export default function Word() {
     wordTitle: [],
   });
 
-  const handleBook = (id: string) => {
+  const handleBookClick = (id: string) => {
     Navigate(`/CP/${id}`);
   };
 
-  async function getNovels() {
+  async function loadWordData() {
     const res = await fetch("./data/word.json");
     const data = await res.json();
     setWordData(data);
   }
 
   useEffect(() => {
-    getNovels();
+    loadWordData();
   }, []);
 
   useEffect(() => {
@@ -39,15 +39,6 @@ export default function Word() {
     }
   }, [wordData, decodeId]);
 
-  // function getId(id: string) {
-  //   const AA = wordData.find((item) => item.id === id);
-  //   if (!AA) {
-  //     console.log("找不到指定小說:");
-  //     return;
-  //   }
-  //   setCpData(AA);
-  // }
-
   interface cpData {
     id: string;
     wordName: string;
@@ -56,29 +47,27 @@ export default function Word() {
 
   return (
     <>
-      <main className="container theme-page">
-        <div className="theme">
-          <h5 className="theme-title">{cpData.wordName}</h5>
+      <main className="container word-section">
+        <section className="word-card">
+          <h2 className="word-card__title">{cpData.wordName}</h2>
 
-          <div className="theme-container">
-            <ul className="theme-ul">
-              {cpData.wordTitle?.map((item: string, index: number) => (
-                <li
-                  className="word-list glass-card"
-                  key={index}
-                  onClick={() => handleBook(item)}
-                >
-                  <div className="card-content">{item}</div>
-                  <img
-                    src="./public/img/img01.jpg"
-                    alt=""
-                    className="card-bg"
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+          <ul className="word-card__list">
+            {cpData.wordTitle?.map((item: string, index: number) => (
+              <li
+                className="word-card__item glass-card"
+                key={index}
+                onClick={() => handleBookClick(item)}
+              >
+                <div className="word-card__item-text">{item}</div>
+                <img
+                  src="./public/img/img01.jpg"
+                  alt={`${item} 封面背景`}
+                  className="word-card__bg"
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
     </>
   );

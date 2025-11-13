@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [themeData, setThemeData] = useState<ThemeData[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getData();
+    loadThemes();
   }, []);
 
-  async function getData() {
+  async function loadThemes() {
     try {
       const res = await fetch("./data/themes.json");
       if (!res.ok) throw new Error("無法載入主題資料");
@@ -21,36 +22,33 @@ export default function HomePage() {
     }
   }
 
-  const navigate = useNavigate();
-
-  const handleTheme = (id: string) => {
+  const handleThemeClick = (id: string) => {
     navigate(`/word/${id}`);
   };
 
   return (
     <>
-      <div className="banner"></div>
-      <div>
-        <p className="theme-slogan">
+      <div className="hero-banner"></div>
+      <section>
+        <p className="homepage-slogan">
           You are very much ON TIME, and in your TIME ZONE destiny set up for
           you.
         </p>
-      </div>
-      <main className="container theme-page">
-        {/* {data.map((item) => (
-      <ThemeList data1={item}/>
-    ))} */}
+      </section>
+      <main className="container theme-section">
         {themeData.map((theme) => (
-          <div className="theme" key={theme.id}>
+          <section className="theme-card" key={theme.id}>
             <div className="glass-container">
-              <h5 className="theme-title">{theme.themeName}</h5>
+              <h2 className="theme-card__title">{theme.themeName}</h2>
               <div className="theme-container">
-                <ul className="theme-ul">
+                <ul className="theme-card__list">
                   {theme.themeTitle.map((item, index) => (
                     <li
-                      className="theme-list glass"
+                      className="theme-card__item glass-effect"
                       key={index}
-                      onClick={() => handleTheme(item)}
+                      onClick={() => handleThemeClick(item)}
+                      role="button"
+                      tabIndex={0}
                     >
                       {item}
                     </li>
@@ -58,7 +56,7 @@ export default function HomePage() {
                 </ul>
               </div>
             </div>
-          </div>
+          </section>
         ))}
       </main>
     </>

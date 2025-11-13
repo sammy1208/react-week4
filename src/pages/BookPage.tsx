@@ -66,16 +66,18 @@ export default function BookPage() {
   return (
     <>
       <div className="book-main container">
-        <h2 className="book-title">{meta.title}</h2>
-        <p className="author">{meta.author}</p>
-        <div className="description">
-          <p className="description-title">Summary:</p>
-          <div className="description-p">
-            <ReactMarkdown>{meta.summary}</ReactMarkdown>
-          </div>
-        </div>
-        {/* 目錄 */}
-        {/* <div className="toc">
+        <div className=" book-reader">
+          <div className=" book-reader02">
+            <h2 className="book-title">{meta.title}</h2>
+            <p className="author">{meta.author}</p>
+            <div className="description">
+              <p className="description-title">Summary:</p>
+              <div className="description-p">
+                <ReactMarkdown>{meta.summary}</ReactMarkdown>
+              </div>
+            </div>
+            {/* 目錄 */}
+            {/* <div className="toc">
           <h3>目錄</h3>
           <ul>
             {toc.map((item) => (
@@ -85,9 +87,11 @@ export default function BookPage() {
             ))}
           </ul>
         </div> */}
-        <div className="article">
-          {/* <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown> */}
-          <MarkdownRenderer content={content} />
+            <div className="article">
+              {/* <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown> */}
+              <MarkdownRenderer content={content} />
+            </div>
+          </div>
         </div>
       </div>
       {/* <div className="container jc-center">

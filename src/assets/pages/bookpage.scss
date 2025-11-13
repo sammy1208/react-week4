@@ -3,6 +3,8 @@
     text-align: center;
     color: var(--off-white);
     background-color: var(--main-green);
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   &-title {
     font-size: 32px;
@@ -34,4 +36,24 @@
   p {
     margin-bottom: 20px; /* 段落之間的距離，可依需求調整 */
   }
+}
+
+.book-reader {
+  background-color: #1d3124; /* 深綠主底 */
+  border: 5px solid #d9b36c; /* 金色邊 */
+  // border-radius: 12px;
+  padding: 10px;
+  // max-width: 900px;
+  // margin: 40px auto;
+  color: var(--off-white);
+}
+
+.book-reader02 {
+  background-color: #1d3124; /* 深綠主底 */
+  border: 2px solid #d9b36c; /* 金色邊 */
+  // border-radius: 12px;
+  padding: 40px;
+  // max-width: 900px;
+  // margin: 40px auto;
+  color: var(--off-white);
 }

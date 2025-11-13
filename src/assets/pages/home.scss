@@ -1,21 +1,31 @@
-.theme-page {
-  // background-color: var(--color-bg-theme);
+/* ===========================
+   首頁主區塊：背景（主題牆）
+   =========================== */
+.theme-section {
   color: var(--color-text-theme);
   padding-bottom: 60px;
+
   background-image: url("/public/img/ChatGPT.png");
   background-repeat: repeat;
-  background-size: contain; /* 👈 縮放以完整顯示圖片 */
-  background-position: center; /* 👈 置中顯示 */
+  background-size: contain;
+  background-position: center;
 }
 
-.banner {
-  background-image: url("/public/img/banner.jpg");
+/* ===========================
+   HERO 主視覺 banner
+   =========================== */
+.hero-banner {
   height: 300px;
+  background-image: url("/public/img/banner02.png");
   background-size: cover;
-  background-position: center; /* 縮放時保持中心點 */
-  background-repeat: no-repeat; /* 避免重複 */
+  background-position: center;
+  background-repeat: no-repeat;
 }
-.theme-slogan {
+
+/* ===========================
+   Slogan 區塊
+   =========================== */
+.homepage-slogan {
   color: var(--color-accent-theme);
   text-align: center;
   font-size: 24px;
@@ -23,59 +33,82 @@
   padding: 12px 0;
 }
 
-.theme {
+.theme-card {
   padding-top: 80px;
-}
 
-.theme-title {
-  position: relative;
-  padding-bottom: 16px;
-  text-align: center;
-  color: var(--off-white);
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 3px;
-    background-color: var(--color-accent-theme);
-    border-radius: 2px;
+  &__title {
+    position: relative;
+    padding-bottom: 16px;
+    margin-bottom: 12px;
+    text-align: center;
+
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--off-white);
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 3px;
+      background-color: var(--color-accent-theme);
+      border-radius: 2px;
+    }
   }
-}
 
-.theme-ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  padding: 0;
-  margin: 0 auto;
-}
-.theme-list {
-  flex: 0 0 150px; /* 寬度最小150px，能自動換行 */
-  // background-color: var(--color-surface-theme);
-  margin: 8px;
-  padding: 12px;
-  border-radius: 12px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--off-white);
-  cursor: pointer;
-}
-@media (max-width: 768px) {
-  .theme-ul {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 16px;
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+  }
+
+  &__item {
+    flex: 0 0 150px;
+    padding: 12px;
+    margin: 8px;
+
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--off-white);
+
+    cursor: pointer;
+
+    /* 霧面玻璃效果 */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    transition: 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-3px);
+    }
   }
 }
 
+/* ===========================
+   主題容器（置中）
+   =========================== */
 .theme-container {
   display: flex;
   justify-content: center;
   padding: 20px 0;
+}
+
+/* ===========================
+   RWD
+   =========================== */
+@media (max-width: 768px) {
+  .theme-card__list {
+    justify-content: center;
+  }
 }

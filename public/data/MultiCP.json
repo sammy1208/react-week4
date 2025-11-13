@@ -1,0 +1,38 @@
+[
+  {
+    "id": "该死的流感",
+    "title": "【多cp】该死的流感",
+    "author": "未知",
+    "tags": ["Marvel", "MultiCP", "IronSpider", "Thorki", "Stucky"],
+    "file": "Marvel/MultiCP/该死的流感.md",
+    "description": "",
+    "rating": 4.6
+  },
+  {
+    "id": "合租引起的麻烦事",
+    "title": "【多cp】合租引起的麻烦事",
+    "author": "未知",
+    "tags": ["Marvel", "MultiCP", "IronSpider", "Thorki", "Stucky"],
+    "file": "Marvel/MultiCP/合租引起的麻烦事.md",
+    "description": "",
+    "rating": 4.6
+  },
+  {
+    "id": "你们搞到真的了",
+    "title": "【盾冬/锤基】你们搞到真的了",
+    "author": "未知",
+    "tags": ["Marvel", "MultiCP", "Stucky", "Thorki"],
+    "file": "Marvel/MultiCP/你们搞到真的了.md",
+    "description": "",
+    "rating": 4.7
+  },
+  {
+    "id": "狩猎Breaking_Rules",
+    "title": "【铁虫/錘基】狩猎Breaking Rules",
+    "author": "未知",
+    "tags": ["Marvel", "MultiCP", "IronSpider", "Thorki"],
+    "file": "Marvel/MultiCP/狩猎Breaking_Rules.md",
+    "description": "",
+    "rating": 4.7
+  }
+]
