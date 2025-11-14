@@ -1,32 +1,37 @@
 .cp-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
+  padding: 40px 0;
 
   background-color: var(--dark-green);
 }
 
 .cp-page-box {
   display: flex;
+  justify-content: space-between;
+  // flex-direction: column;
+  // align-items: center;
 }
-
+.box1 {
+  width: 70%;
+}
+.box2 {
+  width: 30%;
+}
 .book-box {
   // background-color: var(--color-surface-theme);
   // width: 55%;
   height: auto;
-  border: 2px solid var(--color-surface-theme);
+  // border: 2px solid var(--color-surface-theme);
   border-radius: 8px;
   padding: 32px;
   margin: 8px;
   cursor: pointer;
   color: var(--color-primary);
 }
-@media (max-width: 768px) {
-  .book-box {
-    width: 80%;
-  }
-}
+// @media (max-width: 768px) {
+//   .box1 {
+//     width: 80%;
+//   }
+// }
 .cp-tag {
   border-bottom: 2px solid var(--color-surface-theme);
   margin-bottom: 12px;
@@ -61,23 +66,21 @@
 }
 
 .cp-list {
-  flex: 0 0 150px; /* 寬度最小150px，能自動換行 */
-  background-color: var(--color-surface-theme);
-  margin: 8px;
+  flex: 0 0 150px;
   padding: 12px;
+  margin: 8px;
+
   border-radius: 12px;
   text-align: center;
   font-size: 16px;
   font-weight: 700;
   color: var(--off-white);
+
   cursor: pointer;
 }
 
 .tage-box {
-  // background-color: var(--color-surface-theme);
-  // width: 55%;
   height: auto;
-  border: 2px solid var(--color-surface-theme);
   border-radius: 8px;
   padding: 32px;
   margin: 8px;
@@ -85,8 +88,15 @@
 }
 
 .bg {
-  background-image: url("/public/img/background02.png");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: url("/public/img/background04.png");
+  background-repeat: repeat;
+  background-size: contain;
   background-position: center;
+}
+
+.gla {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: 0.25s ease;
 }

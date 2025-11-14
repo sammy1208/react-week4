@@ -54,16 +54,16 @@ export default function Word() {
           <ul className="word-card__list">
             {cpData.wordTitle?.map((item: string, index: number) => (
               <li
-                className="word-card__item glass-card"
+                className="word-card__item glass-btn-l"
                 key={index}
                 onClick={() => handleBookClick(item)}
               >
                 <div className="word-card__item-text">{item}</div>
-                <img
+                {/* <img
                   src="./public/img/img01.jpg"
                   alt={`${item} 封面背景`}
                   className="word-card__bg"
-                />
+                /> */}
               </li>
             ))}
           </ul>

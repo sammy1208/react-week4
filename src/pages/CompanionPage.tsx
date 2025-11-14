@@ -92,36 +92,36 @@ export default function CompanionPage() {
 
   return (
     <>
-      <div className="container cp-page">
+      <div className="container cp-page bg">
         <div className="cp-page-box">
-          <div className="">
-            <div className="book-box glass-card02">
+          <div className="box1">
+            <div className="book-box glass-card">
               <p className="cp-nav">
                 {decodeId} <span>{`${novelsData.length}篇文章`}</span>
               </p>
-            </div>
-            {novelsData.map((item) => (
-              <div
-                className="book-box glass-card02"
-                key={item.id}
-                onClick={() => handleBook(item.id)}
-              >
-                <h5 className="word-title1">{item.title}</h5>
-                <div className="cp-tag">
-                  {item.tags?.map((item, index) => (
-                    <p key={index} className="tag">
-                      {item}
-                    </p>
-                  ))}
+              {novelsData.map((item) => (
+                <div
+                  className="book-box glass-card--hover"
+                  key={item.id}
+                  onClick={() => handleBook(item.id)}
+                >
+                  <h5 className="word-title1">{item.title}</h5>
+                  <div className="cp-tag">
+                    {item.tags?.map((item, index) => (
+                      <p key={index} className="tag">
+                        {item}
+                      </p>
+                    ))}
+                  </div>
+                  <p className="cp-description">{item.description}</p>
                 </div>
-                <p className="cp-description">{item.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-          <div>
-            <div className="tage-box glass-card03">
+          <div className="box2">
+            <div className="tage-box glass-card">
               {tags.map((item) => (
-                <p className="cp-list">{item}</p>
+                <p className="cp-list glass-btn-s">{item}</p>
               ))}
             </div>
           </div>
