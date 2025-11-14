@@ -67,7 +67,7 @@ export default function BookPage() {
     <>
       <div className="book-main container bg">
         <div className="">
-          <div className=" glass-card--border">
+          <div className=" glass-card">
             <h2 className="book-title">{meta.title}</h2>
             <p className="author">{meta.author}</p>
             <div className="description">
