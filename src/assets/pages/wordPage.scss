@@ -2,8 +2,6 @@
    Word Page 主內容區
    ========================================= */
 .word-section {
-  color: var(--color-text-theme);
-  padding-bottom: 60px;
   min-height: 100vh;
 
   background-image: url("/public/img/background03.png");
@@ -17,31 +15,7 @@
    ========================================= */
 
 .word-card {
-  padding-top: 80px;
-
-  &__title {
-    position: relative;
-    padding-bottom: 16px;
-    margin-bottom: 12px;
-    text-align: center;
-
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--off-white);
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 3px;
-      background-color: var(--color-accent-theme);
-      border-radius: 2px;
-    }
-  }
-
+  padding-bottom: 80px;
   &__list {
     display: flex;
     flex-wrap: wrap;
@@ -51,54 +25,19 @@
     margin: 0 auto;
     list-style: none;
   }
-}
 
-/* =========================================
-   單一項目（小說卡片）
-   ========================================= */
-
-.word-card__item {
-  position: relative;
-  flex: 0 0 280px;
-  height: 100px;
-
-  margin: 10px;
-  padding: 20px;
-  border-radius: 14px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--off-white);
-
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.word-card__bg {
-  top: 0;
-  left: 0;
-  z-index: 0;
-  filter: brightness(0.7) blur(2px); /* 稍微暗一點＋模糊 */
-}
-.word-card__item-text {
-  position: relative;
-  z-index: 2;
+  &__item {
+    flex: 0 0 200px;
+    padding: 30px 12px;
+    margin: 8px;
+  }
 }
 
 /* =========================================
    RWD — 手機版調整
    ========================================= */
-@media (max-width: 768px) {
-  .word-card__item {
-    flex: 0 0 40%;
-    height: 100px;
-  }
-
-  .word-card__title {
-    font-size: 22px;
-  }
-}
+// @media (max-width: 768px) {
+//   .word-card__item {
+//     justify-content: center;
+//   }
+// }

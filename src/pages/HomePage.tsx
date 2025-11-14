@@ -2,6 +2,7 @@ import ThemeList from "../components/ThemeList";
 import { useState, useEffect } from "react";
 import { ThemeData } from "../types/theme";
 import { useNavigate } from "react-router-dom";
+import GlassCard from "../components/GlassCard";
 
 export default function HomePage() {
   const [themeData, setThemeData] = useState<ThemeData[]>([]);
@@ -38,24 +39,21 @@ export default function HomePage() {
       <main className="container theme-section">
         {themeData.map((theme) => (
           <section className="theme-card" key={theme.id}>
-            <div className="glass-card">
-              <h2 className="theme-card__title">{theme.themeName}</h2>
-              <div className="theme-container">
-                <ul className="theme-card__list">
-                  {theme.themeTitle.map((item, index) => (
-                    <li
-                      className="theme-card__item glass-btn-m"
-                      key={index}
-                      onClick={() => handleThemeClick(item)}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <GlassCard title={theme.themeName}>
+              <ul className="theme-card__list">
+                {theme.themeTitle.map((item, index) => (
+                  <li
+                    className="theme-card__item glass-btn-m"
+                    key={index}
+                    onClick={() => handleThemeClick(item)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </GlassCard>
           </section>
         ))}
       </main>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { WordData } from "../types/theme";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
+import GlassCard from "../components/GlassCard";
 
 export default function Word() {
   const Navigate = useNavigate();
@@ -49,24 +50,21 @@ export default function Word() {
     <>
       <main className="container word-section">
         <section className="word-card">
-          <h2 className="word-card__title">{cpData.wordName}</h2>
-
-          <ul className="word-card__list">
-            {cpData.wordTitle?.map((item: string, index: number) => (
-              <li
-                className="word-card__item glass-btn-l"
-                key={index}
-                onClick={() => handleBookClick(item)}
-              >
-                <div className="word-card__item-text">{item}</div>
-                {/* <img
-                  src="./public/img/img01.jpg"
-                  alt={`${item} 封面背景`}
-                  className="word-card__bg"
-                /> */}
-              </li>
-            ))}
-          </ul>
+          <GlassCard title={cpData.wordName}>
+            <ul className="theme-card__list">
+              {cpData.wordTitle?.map((item: string, index: number) => (
+                <li
+                  className="word-card__item glass-btn-l"
+                  role="button"
+                  tabIndex={0}
+                  key={index}
+                  onClick={() => handleBookClick(item)}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </GlassCard>
         </section>
       </main>
     </>

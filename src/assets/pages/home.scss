@@ -2,9 +2,6 @@
    首頁主區塊：背景（主題牆）
    =========================== */
 .theme-section {
-  color: var(--color-text-theme);
-  padding-bottom: 60px;
-
   background-image: url("/public/img/ChatGPT.png");
   background-repeat: repeat;
   background-size: contain;
@@ -34,31 +31,7 @@
 }
 
 .theme-card {
-  padding-top: 80px;
-
-  &__title {
-    position: relative;
-    padding-bottom: 16px;
-    margin-bottom: 12px;
-    text-align: center;
-
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--off-white);
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 3px;
-      background-color: var(--color-accent-theme);
-      border-radius: 2px;
-    }
-  }
-
+  padding-bottom: 80px;
   &__list {
     display: flex;
     flex-wrap: wrap;
@@ -73,31 +46,14 @@
     flex: 0 0 150px;
     padding: 12px;
     margin: 8px;
-
-    border-radius: 12px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--off-white);
-
-    cursor: pointer;
   }
 }
 
-/* ===========================
-   主題容器（置中）
-   =========================== */
-.theme-container {
-  display: flex;
-  justify-content: center;
-  padding: 20px 0;
-}
-
-/* ===========================
-   RWD
-   =========================== */
-@media (max-width: 768px) {
-  .theme-card__list {
-    justify-content: center;
-  }
-}
+// /* ===========================
+//    RWD
+//    =========================== */
+// @media (max-width: 768px) {
+//   .theme-card__list {
+//     justify-content: center;
+//   }
+// }

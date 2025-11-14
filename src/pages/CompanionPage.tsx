@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NovelsData } from "../types/theme";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
+import GlassCard from "../components/GlassCard";
 
 export default function CompanionPage() {
   const Navigate = useNavigate();
@@ -9,6 +10,7 @@ export default function CompanionPage() {
   const { cpId } = useParams<{ cpId: string }>();
   const decodeId = decodeURIComponent(cpId || "");
   const [cpData, setCpData] = useState("");
+  const [openSidebar, setOpenSidebar] = useState(false);
   // const [tags, setTags] = useState([]);
 
   const handleBook = (id: string) => {
@@ -92,21 +94,43 @@ export default function CompanionPage() {
 
   return (
     <>
-      <div className="container cp-page bg">
-        <div className="cp-page-box">
-          <div className="box1">
-            <div className="book-box glass-card">
-              <p className="cp-nav">
-                {decodeId} <span>{`${novelsData.length}篇文章`}</span>
+      <div className="container cp-section">
+        <button
+          className="tag-toggle-btn glass-btn-s"
+          onClick={() => setOpenSidebar(true)}
+        >
+          標籤列表 ☰
+        </button>
+        <div className={`sidebar ${openSidebar ? "open" : ""}`}>
+          <button
+            className="sidebar-close"
+            onClick={() => setOpenSidebar(false)}
+          >
+            ✕
+          </button>
+
+          <h3 className="cp-tag__title">{`${novelsData.length} 篇文章`}</h3>
+
+          <div className="sidebar-tags">
+            {tags.map((item) => (
+              <p key={item} className="cp-tag__list glass-btn-s">
+                {item}
               </p>
+            ))}
+          </div>
+        </div>
+
+        <div className="cp-card">
+          <div className="cp-card__box1">
+            <GlassCard title={decodeId}>
               {novelsData.map((item) => (
                 <div
-                  className="book-box glass-card--hover"
+                  className="glass-card--hover"
                   key={item.id}
                   onClick={() => handleBook(item.id)}
                 >
-                  <h5 className="word-title1">{item.title}</h5>
-                  <div className="cp-tag">
+                  <h5 className="cp-card__title">{item.title}</h5>
+                  <div className="cp-card__tag">
                     {item.tags?.map((item, index) => (
                       <p key={index} className="tag">
                         {item}
@@ -116,14 +140,15 @@ export default function CompanionPage() {
                   <p className="cp-description">{item.description}</p>
                 </div>
               ))}
-            </div>
+            </GlassCard>
           </div>
-          <div className="box2">
-            <div className="tage-box glass-card">
+          <div className="cp-card__box2">
+            <GlassCard title={""}>
+              <h3 className="cp-tag__title">{`${novelsData.length}篇文章`}</h3>
               {tags.map((item) => (
-                <p className="cp-list glass-btn-s">{item}</p>
+                <p className="cp-tag__list glass-btn-s">{item}</p>
               ))}
-            </div>
+            </GlassCard>
           </div>
         </div>
       </div>

@@ -1,0 +1,27 @@
+.title-h2 {
+  padding-top: 12px;
+  padding-bottom: 36px;
+}
+
+.h2 {
+  position: relative;
+
+  text-align: center;
+
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--off-white);
+  padding-bottom: 8px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--color-accent-theme);
+    border-radius: 2px;
+  }
+}
