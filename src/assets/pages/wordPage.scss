@@ -4,6 +4,7 @@
 .word-section {
   color: var(--color-text-theme);
   padding-bottom: 60px;
+  min-height: 100vh;
 
   background-image: url("/public/img/background03.png");
   background-repeat: no-repeat;
