@@ -3,6 +3,7 @@ import { WordData } from "../types/theme";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import GlassCard from "../components/GlassCard";
+import Nav from "../components/Nav";
 
 export default function Word() {
   const Navigate = useNavigate();
@@ -50,6 +51,7 @@ export default function Word() {
     <>
       <main className="container word-section">
         <section className="word-card">
+          {/* <Nav /> */}
           <GlassCard title={cpData.wordName}>
             <ul className="theme-card__list">
               {cpData.wordTitle?.map((item: string, index: number) => (
