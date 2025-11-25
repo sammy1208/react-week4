@@ -13,6 +13,7 @@ export default function CompanionPage() {
   const [cpData, setCpData] = useState("");
   const [openSidebar, setOpenSidebar] = useState(false);
   const [filterData, setFilterData] = useState<NovelsData[]>([]);
+  const TAG_ORDER = ["超好", "不錯", "不好不壞", "嗯…", "PWP", "待看"];
 
   const handleBook = (id: string) => {
     Navigate(`/CP/${cpData}/${id}`);
@@ -103,8 +104,6 @@ export default function CompanionPage() {
     };
   }, [openSidebar]);
 
-  const tags = [...new Set(novelsData.flatMap((item) => item.tags))];
-
   function handleTag(item: string) {
     const res = novelsData.filter((novel) => novel.tags?.includes(item));
 
@@ -113,6 +112,18 @@ export default function CompanionPage() {
 
     setOpenSidebar(false);
   }
+
+  const rawTags = [...new Set(novelsData.flatMap((item) => item.tags))];
+
+  const tags = rawTags.sort((a, b) => {
+    const indexA = TAG_ORDER.indexOf(a);
+    const indexB = TAG_ORDER.indexOf(b);
+
+    if (indexA === -1) return 1;
+    if (indexB === -1) return -1;
+
+    return indexA - indexB;
+  });
 
   return (
     <>
@@ -127,7 +138,9 @@ export default function CompanionPage() {
           </button>
         </div>
         <div
-          className={`sidebar glass-card--border ${openSidebar ? "open" : ""}`}
+          className={`sidebar glass-card--border scrollbar ${
+            openSidebar ? "open" : ""
+          }`}
         >
           <button
             className="sidebar-close"

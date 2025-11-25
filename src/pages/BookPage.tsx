@@ -5,13 +5,15 @@ import fm from "front-matter";
 import { Meta } from "../types/theme";
 import { useParams } from "react-router";
 import { NovelsData } from "../types/theme";
-import MarkdownRenderer from "../components/ReactMarkdown";
+import MarkdownRenderer from "../components/MarkdownRenderer";
+import { generateId } from "../utils/generateId";
 
 export default function BookPage() {
   const [content, setContent] = useState("");
   const { cpId, bookId } = useParams<{ cpId: string; bookId: string }>();
   const decodeCpId = decodeURIComponent(cpId || "");
   const decodeBookId = decodeURIComponent(bookId || "");
+  const [hasToc, setHasToc] = useState(false);
   const [meta, setMeta] = useState<Meta>({
     title: "",
     author: "",
@@ -57,10 +59,14 @@ export default function BookPage() {
     while ((match = regex.exec(body)) !== null) {
       toc.push({
         title: match[1], // 章節標題
-        id: match[1].toLowerCase().replace(/\s+/g, "-"), // 用標題生成 ID
+        id: generateId(match[1]),
       });
     }
     return toc;
+  }
+
+  function handleToc() {
+    setHasToc((prev) => !prev);
   }
 
   return (
@@ -72,37 +78,47 @@ export default function BookPage() {
           <div className="description">
             <p className="description-title">Summary:</p>
             <div className="description-p">
-              <ReactMarkdown>{meta.summary}</ReactMarkdown>
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                {meta.summary}
+              </ReactMarkdown>
             </div>
           </div>
           {/* 目錄 */}
-          {/* <div className="toc">
-          <h3>目錄</h3>
-          <ul>
-            {toc.map((item) => (
-              <li key={item.id}>
-                <a href={`#${item.id}`}>{item.title}</a>
-              </li>
-            ))}
-          </ul>
-        </div> */}
           <div className="article">
-            {/* <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown> */}
             <MarkdownRenderer content={content} />
           </div>
         </div>
       </div>
-      {/* <div className="container jc-center">
-        <div className=" bookpage">
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
+      {toc.length !== 0 ? (
+        <button className=" toc-btn " onClick={handleToc}></button>
+      ) : (
+        ""
+      )}
+
+      {hasToc ? (
+        <div
+          className={`toc ${hasToc ? "open" : ""} glass-card--border scrollbar`}
+        >
+          <h3 className="sidebar-title">目錄</h3>
+          <ul>
+            {toc.map((item, index) => (
+              <li key={`${item.id}-${index}`}>
+                <button
+                  className="toc-list glass-btn-m"
+                  onClick={() => {
+                    const el = document.getElementById(generateId(item.title));
+                    el?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  {item.title}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="1212 bookpage1">
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
-        </div>
-        <div className=" bookpage2">
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
-        </div>
-      </div> */}
+      ) : (
+        ""
+      )}
     </>
   );
 }
