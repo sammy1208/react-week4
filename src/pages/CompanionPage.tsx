@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import GlassCard from "../components/GlassCard";
 import Nav from "../components/Nav";
+import { decryptContent } from "../utils/decrypt";
+import CP_MAP from "../data_encrypted";
 
 export default function CompanionPage() {
   const Navigate = useNavigate();
@@ -36,8 +38,8 @@ export default function CompanionPage() {
       case "灰夜久":
         setCpData("HaiYaku");
         break;
-      case "多CP":
-        setCpData("other");
+      case "排球其他":
+        setCpData("HaikyuuCP");
         break;
       case "太光":
         setCpData("TaiKou");
@@ -60,6 +62,19 @@ export default function CompanionPage() {
       case "漫威其他":
         setCpData("MultiCP");
         break;
+      case "太中":
+        setCpData("Dachu");
+        break;
+      case "芥敦":
+        setCpData("AkuAtsu");
+        break;
+      case "福亂":
+        setCpData("FukuRan");
+        break;
+      case "文豪其他":
+        setCpData("BungouCP");
+        break;
+
       default:
         console.warn("沒有對應的 CP ID:", cpIdName);
     }
@@ -68,10 +83,20 @@ export default function CompanionPage() {
   async function getNovels() {
     if (!cpData) return;
     try {
-      const res = await fetch(`./data/${cpData}.json`);
-      if (!res.ok) throw new Error("無法讀取檔案");
-      const data = await res.json();
-      setNovelsData(data);
+      const list = CP_MAP[cpData]; // ⬅ 就這句！
+
+      if (!list) return;
+
+      const safeList = list.map((novel: NovelsData) => ({
+        id: novel.id,
+        title: novel.title,
+        author: novel.author,
+        tags: novel.tags,
+        description: novel.description,
+        rating: novel.rating,
+      }));
+
+      setNovelsData(safeList);
     } catch (error) {
       console.error("抓取資料錯誤:", error);
     }

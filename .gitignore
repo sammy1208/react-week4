@@ -8,17 +8,35 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist-ssr
+dist/
+dist-ssr/
 *.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# 不要上傳你的原始小說
+src/novels/
+
+# 不要上傳未加密 JSON（裡面含 file: xxx）
+src/data/
+
+# 不要上傳加密腳本
+encryption.cjs
+
+# 不要上傳環境變數（金鑰）
+.env
+
+# 不要上傳本地端的 node_modules
+node_modules/
+
+# 不要上傳 build 產物
+dist/

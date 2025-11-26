@@ -2,11 +2,12 @@ import ReactMarkdown from "react-markdown";
 import { useState, useEffect } from "react";
 import rehypeRaw from "rehype-raw";
 import fm from "front-matter";
-import { Meta } from "../types/theme";
+import { NovelsData, Meta } from "../types/theme";
 import { useParams } from "react-router";
-import { NovelsData } from "../types/theme";
+import CP_MAP from "../data_encrypted";
 import MarkdownRenderer from "../components/MarkdownRenderer";
 import { generateId } from "../utils/generateId";
+import { decryptContent } from "../utils/decrypt";
 
 export default function BookPage() {
   const [content, setContent] = useState("");
@@ -23,33 +24,62 @@ export default function BookPage() {
   const [toc, setToc] = useState<{ title: string; id: string }[]>([]);
 
   useEffect(() => {
-    loadBook(decodeBookId);
-  }, []);
+    if (!cpId || !bookId) return;
+    loadBook(cpId, bookId);
+  }, [decodeCpId, decodeBookId]);
 
-  async function getNovels(data: NovelsData) {
-    const res = await fetch(`./novels/${data.file}`);
-    const text = await res.text();
+  // async function getNovels(data: NovelsData) {
+  //   const res = await fetch(`./data_encrypted/${decodeCpId}.encrypted.json`);
+  //   const json = await res.json();
 
-    const { attributes, body } = fm(text);
-    setContent(body);
-    setMeta(attributes as Meta);
+  //   const novel = json.find((n: any) => n.id === bookId);
+  //   if (!novel) return;
 
-    const tocData = extractToc(body);
-    setToc(tocData);
-  }
-  async function loadBook(bookId: string) {
-    const res = await fetch(`./data/${decodeCpId}.json`);
-    if (!res.ok) throw new Error("無法載入主題資料");
-    const json: NovelsData[] = await res.json();
+  //   // 🔥 解密
+  //   const decrypted = await decryptContent(novel.contentEnc);
 
-    const novel = json.find((n) => n.id === bookId);
+  //   // 分離 meta + 文章 body
+  //   // 這裡你原本用 front-matter，保持一樣
+  //   const { attributes, body } = fm(decrypted);
+  //   setContent(body);
+  //   setMeta(attributes as Meta);
+
+  //   const tocData = extractToc(body);
+  //   setToc(tocData);
+  // }
+
+  async function loadBook(cpId: string, bookId: string) {
+    if (!decodeCpId || !decodeBookId) return;
+
+    const list = CP_MAP[decodeCpId]; // ⬅ 直接取得該 CP 的加密小說列表
+
+    if (!list) {
+      console.warn("找不到 CP:", decodeCpId);
+      return;
+    }
+
+    const novel = list.find((n: NovelsData) => n.id === bookId);
 
     if (!novel) {
       console.log("找不到指定小說:", decodeBookId);
       return;
     }
 
-    getNovels(novel);
+    try {
+      // 1️⃣ 解密 markdown 內容
+      const decrypted = await decryptContent(novel.contentEnc);
+
+      // 2️⃣ 解析 front-matter
+      const { attributes, body } = fm<Meta>(decrypted);
+      setMeta(attributes as Meta);
+      setContent(body);
+
+      // 3️⃣ 產生 TOC
+      const tocData = extractToc(body);
+      setToc(tocData);
+    } catch (error) {
+      console.error("解密或解析小說內容失敗:", error);
+    }
   }
 
   function extractToc(body: string) {
@@ -159,3 +189,15 @@ export default function BookPage() {
 // }
 
 // export default NovelReader;
+
+// import CP_MAP from "../data_encrypted";
+// import { decryptContent } from "../utils/decrypt";
+
+// async function loadBook() {
+//   const list = CP_MAP[cpData];
+//   const novel = list.find(n => n.id === bookId);
+
+//   const decrypted = await decryptContent(novel.contentEnc);
+
+//   setContent(decrypted);
+// }

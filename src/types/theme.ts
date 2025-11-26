@@ -9,7 +9,7 @@ export interface NovelsData {
   title: string;
   author: string;
   tags: string[];
-  file: string;
+  // file: string;
   description: string;
   rating: number;
 }

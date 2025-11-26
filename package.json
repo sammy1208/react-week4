@@ -8,11 +8,13 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist --dotfiles"
+    "deploy": "gh-pages -d dist --dotfiles",
+    "encrypt:novels": "node encryptNovels.cjs"
   },
   "dependencies": {
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "dotenv": "^17.2.3",
     "front-matter": "^4.0.2",
     "gray-matter": "^4.0.3",
     "react": "^18.3.1",
@@ -21,7 +23,8 @@
     "react-router": "^7.9.5",
     "react-router-dom": "^7.9.5",
     "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "scrypt-js": "^3.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
