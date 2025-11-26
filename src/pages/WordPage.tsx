@@ -21,7 +21,7 @@ export default function Word() {
   };
 
   async function loadWordData() {
-    const res = await fetch("../data/word.json");
+    const res = await fetch("./data/word.json");
     const data = await res.json();
     setWordData(data);
   }
