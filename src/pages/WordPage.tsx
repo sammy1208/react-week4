@@ -49,25 +49,27 @@ export default function Word() {
 
   return (
     <>
-      <main className="container word-section">
-        <section className="word-card">
-          {/* <Nav /> */}
-          <GlassCard title={cpData.wordName}>
-            <ul className="theme-card__list">
-              {cpData.wordTitle?.map((item: string, index: number) => (
-                <li
-                  className="word-card__item glass-btn-l"
-                  role="button"
-                  tabIndex={0}
-                  key={index}
-                  onClick={() => handleBookClick(item)}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </GlassCard>
-        </section>
+      <main className="word-section">
+        <div className="container">
+          <section className="word-card">
+            {/* <Nav /> */}
+            <GlassCard title={cpData.wordName}>
+              <ul className="theme-card__list">
+                {cpData.wordTitle?.map((item: string, index: number) => (
+                  <li
+                    className="word-card__item glass-btn-l"
+                    role="button"
+                    tabIndex={0}
+                    key={index}
+                    onClick={() => handleBookClick(item)}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </GlassCard>
+          </section>
+        </div>
       </main>
     </>
   );

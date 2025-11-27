@@ -1,14 +1,16 @@
 .book {
   &-section {
-    text-align: center;
-    color: var(--off-white);
-    padding-top: 20px;
-    padding-bottom: 20px;
-
+    min-height: 100vh;
     background-image: url("/public/img/background04.png");
     background-repeat: repeat;
     background-size: contain;
     background-position: center;
+  }
+  &-style {
+    text-align: center;
+    color: var(--off-white);
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   &-title {
     font-size: 32px;

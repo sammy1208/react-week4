@@ -81,21 +81,23 @@ export default function BookPage() {
 
   return (
     <>
-      <div className="container book-section">
-        <div className="glass-card--nobackground">
-          <h2 className="book-title">{meta.title}</h2>
-          <p className="author">{meta.author}</p>
-          <div className="description">
-            <p className="description-title">Summary:</p>
-            <div className="description-p">
-              <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                {meta.summary}
-              </ReactMarkdown>
+      <div className="book-section">
+        <div className="container book-style">
+          <div className="glass-card--nobackground">
+            <h2 className="book-title">{meta.title}</h2>
+            <p className="author">{meta.author}</p>
+            <div className="description">
+              <p className="description-title">Summary:</p>
+              <div className="description-p">
+                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                  {meta.summary}
+                </ReactMarkdown>
+              </div>
             </div>
-          </div>
-          {/* 目錄 */}
-          <div className="article">
-            <MarkdownRenderer content={content} />
+            {/* 目錄 */}
+            <div className="article">
+              <MarkdownRenderer content={content} />
+            </div>
           </div>
         </div>
       </div>

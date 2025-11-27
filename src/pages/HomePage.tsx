@@ -35,26 +35,28 @@ export default function HomePage() {
           you.
         </p>
       </section>
-      <main className="container theme-section">
-        {themeData.map((theme) => (
-          <section className="theme-card" key={theme.id}>
-            <GlassCard title={theme.themeName}>
-              <ul className="theme-card__list">
-                {theme.themeTitle.map((item, index) => (
-                  <li
-                    className="theme-card__item glass-btn-m"
-                    key={index}
-                    onClick={() => handleThemeClick(item)}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </GlassCard>
-          </section>
-        ))}
+      <main className="theme-section">
+        <div className="container">
+          {themeData.map((theme) => (
+            <section className="theme-card" key={theme.id}>
+              <GlassCard title={theme.themeName}>
+                <ul className="theme-card__list">
+                  {theme.themeTitle.map((item, index) => (
+                    <li
+                      className="theme-card__item glass-btn-m"
+                      key={index}
+                      onClick={() => handleThemeClick(item)}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </GlassCard>
+            </section>
+          ))}
+        </div>
       </main>
     </>
   );

@@ -172,94 +172,98 @@ export default function CompanionPage() {
 
   return (
     <>
-      <div className="container cp-section">
-        <div className="nav-item">
-          {/* <Nav /> */}
-          <button
-            className="tag-toggle-btn glass-btn-s"
-            onClick={() => setOpenSidebar(true)}
-          >
-            ☰
-          </button>
-        </div>
-        <div
-          className={`sidebar glass-card--border scrollbar ${
-            openSidebar ? "open" : ""
-          }`}
-        >
-          <button
-            className="sidebar-close"
-            onClick={() => setOpenSidebar(false)}
-          >
-            ✕
-          </button>
-
-          <h3 className="cp-tag__title">{`${
-            (filterData.length > 0 ? filterData : novelsData).length
-          }篇文章`}</h3>
-
-          <div className="sidebar-tags">
-            <p
-              className="cp-tag__list glass-btn-m"
-              onClick={() => setFilterData([])}
+      <div className="cp-section">
+        <div className="container">
+          <div className="nav-item">
+            {/* <Nav /> */}
+            <button
+              className="tag-toggle-btn glass-btn-s"
+              onClick={() => setOpenSidebar(true)}
             >
-              全部
-            </p>
-            {tags.map((item) => (
-              <p
-                key={item}
-                className="cp-tag__list glass-btn-m"
-                onClick={() => handleTag(item)}
-              >
-                {item}
-              </p>
-            ))}
+              ☰
+            </button>
           </div>
-        </div>
+          <div
+            className={`sidebar glass-card--border scrollbar ${
+              openSidebar ? "open" : ""
+            }`}
+          >
+            <button
+              className="sidebar-close"
+              onClick={() => setOpenSidebar(false)}
+            >
+              ✕
+            </button>
 
-        <div className="cp-card">
-          <div className="cp-card__box1">
-            <GlassCard title={decodeId}>
-              {(filterData.length > 0 ? filterData : novelsData).map((item) => (
-                <div
-                  className="glass-card--hover"
-                  key={item.id}
-                  onClick={() => handleBook(item.id)}
-                >
-                  <h5 className="cp-card__title">{item.title}</h5>
-                  <div className="cp-card__tag">
-                    {item.tags?.map((item, index) => (
-                      <p key={index} className="tag">
-                        {item}
-                      </p>
-                    ))}
-                  </div>
-                  <p className="cp-description">{item.description}</p>
-                </div>
-              ))}
-            </GlassCard>
-          </div>
-          <div className="cp-card__box2">
-            <GlassCard title={""}>
-              <h3 className="cp-tag__title">{`${
-                (filterData.length > 0 ? filterData : novelsData).length
-              }篇文章`}</h3>
+            <h3 className="cp-tag__title">{`${
+              (filterData.length > 0 ? filterData : novelsData).length
+            }篇文章`}</h3>
+
+            <div className="sidebar-tags">
               <p
-                className="cp-tag__list glass-btn-s"
+                className="cp-tag__list glass-btn-m"
                 onClick={() => setFilterData([])}
               >
                 全部
               </p>
-              {tags.map((item, index) => (
+              {tags.map((item) => (
                 <p
-                  className="cp-tag__list glass-btn-s"
-                  key={index}
+                  key={item}
+                  className="cp-tag__list glass-btn-m"
                   onClick={() => handleTag(item)}
                 >
                   {item}
                 </p>
               ))}
-            </GlassCard>
+            </div>
+          </div>
+
+          <div className="cp-card">
+            <div className="cp-card__box1">
+              <GlassCard title={decodeId}>
+                {(filterData.length > 0 ? filterData : novelsData).map(
+                  (item) => (
+                    <div
+                      className="glass-card--hover"
+                      key={item.id}
+                      onClick={() => handleBook(item.id)}
+                    >
+                      <h5 className="cp-card__title">{item.title}</h5>
+                      <div className="cp-card__tag">
+                        {item.tags?.map((item, index) => (
+                          <p key={index} className="tag">
+                            {item}
+                          </p>
+                        ))}
+                      </div>
+                      <p className="cp-description">{item.description}</p>
+                    </div>
+                  )
+                )}
+              </GlassCard>
+            </div>
+            <div className="cp-card__box2">
+              <GlassCard title={""}>
+                <h3 className="cp-tag__title">{`${
+                  (filterData.length > 0 ? filterData : novelsData).length
+                }篇文章`}</h3>
+                <p
+                  className="cp-tag__list glass-btn-s"
+                  onClick={() => setFilterData([])}
+                >
+                  全部
+                </p>
+                {tags.map((item, index) => (
+                  <p
+                    className="cp-tag__list glass-btn-s"
+                    key={index}
+                    onClick={() => handleTag(item)}
+                  >
+                    {item}
+                  </p>
+                ))}
+              </GlassCard>
+            </div>
           </div>
         </div>
       </div>
