@@ -28,26 +28,6 @@ export default function BookPage() {
     loadBook(cpId, bookId);
   }, [decodeCpId, decodeBookId]);
 
-  // async function getNovels(data: NovelsData) {
-  //   const res = await fetch(`./data_encrypted/${decodeCpId}.encrypted.json`);
-  //   const json = await res.json();
-
-  //   const novel = json.find((n: any) => n.id === bookId);
-  //   if (!novel) return;
-
-  //   // 🔥 解密
-  //   const decrypted = await decryptContent(novel.contentEnc);
-
-  //   // 分離 meta + 文章 body
-  //   // 這裡你原本用 front-matter，保持一樣
-  //   const { attributes, body } = fm(decrypted);
-  //   setContent(body);
-  //   setMeta(attributes as Meta);
-
-  //   const tocData = extractToc(body);
-  //   setToc(tocData);
-  // }
-
   async function loadBook(cpId: string, bookId: string) {
     if (!decodeCpId || !decodeBookId) return;
 
@@ -101,8 +81,8 @@ export default function BookPage() {
 
   return (
     <>
-      <div className="book-section container">
-        <div className="glass-card--border">
+      <div className="container book-section">
+        <div className="glass-card--nobackground">
           <h2 className="book-title">{meta.title}</h2>
           <p className="author">{meta.author}</p>
           <div className="description">

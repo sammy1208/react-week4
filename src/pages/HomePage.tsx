@@ -1,4 +1,3 @@
-import ThemeList from "../components/ThemeList";
 import { useState, useEffect } from "react";
 import { ThemeData } from "../types/theme";
 import { useNavigate } from "react-router-dom";

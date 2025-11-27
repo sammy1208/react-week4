@@ -11,7 +11,7 @@ export interface NovelsData {
   tags: string[];
   // file: string;
   description: string;
-  rating: number;
+  rating: number | null;
 }
 
 export interface Meta {

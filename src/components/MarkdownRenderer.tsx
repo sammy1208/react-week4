@@ -7,17 +7,18 @@ export default function MarkdownRenderer({ content }: { content: string }) {
     <ReactMarkdown
       rehypePlugins={[rehypeRaw]}
       components={{
-        h1: ({ node, ...props }) => {
+        h3: ({ node, ...props }) => {
           const text = String(props.children);
           const id = generateId(text);
 
           return (
-            <h1
+            <h3
               id={id}
               style={{
                 textAlign: "center",
-                fontSize: "28px",
+                fontSize: "24px",
                 margin: "38px 0 16px",
+                fontWeight: 600,
               }}
               {...props}
             />
@@ -29,6 +30,17 @@ export default function MarkdownRenderer({ content }: { content: string }) {
             style={{
               fontSize: "16px",
               margin: "1.5rem 0 1rem",
+            }}
+            {...props}
+          />
+        ),
+
+        img: ({ node, ...props }) => (
+          <img
+            style={{
+              display: "block",
+              margin: "0px auto",
+              width: "100%",
             }}
             {...props}
           />

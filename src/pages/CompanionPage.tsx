@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import GlassCard from "../components/GlassCard";
 import Nav from "../components/Nav";
-import { decryptContent } from "../utils/decrypt";
 import CP_MAP from "../data_encrypted";
 
 export default function CompanionPage() {
@@ -15,7 +14,7 @@ export default function CompanionPage() {
   const [cpData, setCpData] = useState("");
   const [openSidebar, setOpenSidebar] = useState(false);
   const [filterData, setFilterData] = useState<NovelsData[]>([]);
-  const TAG_ORDER = ["超好", "不錯", "不好不壞", "嗯…", "PWP", "待看"];
+  const TAG_ORDER = ["超好", "不錯", "不好不壞", "嗯…", "PWP", "圖", "待看"];
 
   const handleBook = (id: string) => {
     Navigate(`/CP/${cpData}/${id}`);
@@ -73,6 +72,27 @@ export default function CompanionPage() {
         break;
       case "文豪其他":
         setCpData("BungouCP");
+        break;
+      case "千叉":
+        setCpData("SenXeno");
+        break;
+      case "美國組":
+        setCpData("StanXeno");
+        break;
+      case "千幻":
+        setCpData("SenGen");
+        break;
+      case "龍羽":
+        setCpData("RyuUkyou");
+        break;
+      case "千琥":
+        setCpData("SenHaku");
+        break;
+      case "司千":
+        setCpData("TsuSen");
+        break;
+      case "新石紀其他":
+        setCpData("DrStoneCP");
         break;
 
       default:

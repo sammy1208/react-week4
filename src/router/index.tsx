@@ -4,7 +4,6 @@ import HomePage from "../pages/HomePage";
 import WordPage from "../pages/WordPage";
 import BookPage from "../pages/BookPage";
 import CompanionPage from "../pages/companionPage";
-import BookPage1 from "../pages/111";
 
 const router = createHashRouter([
   {
