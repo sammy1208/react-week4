@@ -34,6 +34,7 @@
     border-bottom: 1px solid var(--off-white);
   }
 }
+
 .article {
   text-align: start;
   font-size: 20px;
@@ -41,6 +42,14 @@
   line-height: 1.8;
   p {
     margin-bottom: 20px; /* 段落之間的距離，可依需求調整 */
+  }
+}
+@media (max-width: 640px) {
+  .description {
+    padding: 8px 10px;
+  }
+  .article {
+    padding: 30px 0px;
   }
 }
 

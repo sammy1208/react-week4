@@ -180,7 +180,7 @@ export default function CompanionPage() {
               className="tag-toggle-btn glass-btn-s"
               onClick={() => setOpenSidebar(true)}
             >
-              ☰
+              <span className="material-symbols-outlined">menu</span>
             </button>
           </div>
           <div

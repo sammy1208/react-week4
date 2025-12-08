@@ -12,6 +12,7 @@
     "encrypt:novels": "node encryption.cjs"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "dotenv": "^17.2.3",
