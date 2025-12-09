@@ -43,6 +43,9 @@
   p {
     margin-bottom: 20px; /* 段落之間的距離，可依需求調整 */
   }
+  em {
+    font-style: oblique;
+  }
 }
 @media (max-width: 640px) {
   .description {

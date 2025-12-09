@@ -14,7 +14,34 @@ export default function CompanionPage() {
   const [cpData, setCpData] = useState("");
   const [openSidebar, setOpenSidebar] = useState(false);
   const [filterData, setFilterData] = useState<NovelsData[]>([]);
-  const TAG_ORDER = ["超好", "不錯", "不好不壞", "嗯…", "PWP", "圖", "待看"];
+  // const [selectTag, setSelectTag] = useState("");
+  const TAG_ORDER = [
+    "珍藏",
+    "超好",
+    "不錯",
+    "不好不壞",
+    "嗯…",
+    "PWP",
+    "圖",
+    "待看",
+  ];
+  const [tagList, setTagList] = useState(() => {
+    const initTagList = localStorage.getItem("tagList")
+      ? JSON.parse(localStorage.getItem("tagList") || "{}")
+      : {};
+    return initTagList;
+  });
+
+  const toggleTagList = (selectTag: string) => {
+    const newTagList = Object.fromEntries(
+      Object.keys(tagList).map((tag) => [tag, false])
+    );
+
+    newTagList[selectTag] = true;
+
+    localStorage.setItem("tagList", JSON.stringify(newTagList));
+    setTagList(newTagList);
+  };
 
   const handleBook = (id: string) => {
     Navigate(`/CP/${cpData}/${id}`);
@@ -149,13 +176,29 @@ export default function CompanionPage() {
     };
   }, [openSidebar]);
 
+  useEffect(() => {
+    if (novelsData.length === 0) return;
+    const activeTag = Object.keys(tagList).find((tag) => tagList[tag]);
+
+    if (activeTag) {
+      handleTag(activeTag); // 自動篩選
+    }
+  }, [novelsData]);
+
   function handleTag(item: string) {
     const res = novelsData.filter((novel) => novel.tags?.includes(item));
 
+    if (item === "全部") {
+      setFilterData([]);
+      setOpenSidebar(false);
+      toggleTagList("全部");
+      return;
+    }
     setFilterData(res);
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     setOpenSidebar(false);
+    toggleTagList(item);
   }
 
   const rawTags = [...new Set(novelsData.flatMap((item) => item.tags))];
@@ -201,15 +244,19 @@ export default function CompanionPage() {
 
             <div className="sidebar-tags">
               <p
-                className="cp-tag__list glass-btn-m"
-                onClick={() => setFilterData([])}
+                className={`cp-tag__list glass-btn-m ${
+                  tagList["全部"] ? "select_tag" : ""
+                }`}
+                onClick={() => handleTag("全部")}
               >
                 全部
               </p>
               {tags.map((item) => (
                 <p
                   key={item}
-                  className="cp-tag__list glass-btn-m"
+                  className={`cp-tag__list glass-btn-m ${
+                    tagList[item] ? "select_tag" : ""
+                  }`}
                   onClick={() => handleTag(item)}
                 >
                   {item}
@@ -248,14 +295,18 @@ export default function CompanionPage() {
                   (filterData.length > 0 ? filterData : novelsData).length
                 }篇文章`}</h3>
                 <p
-                  className="cp-tag__list glass-btn-s"
-                  onClick={() => setFilterData([])}
+                  className={`cp-tag__list glass-btn-m ${
+                    tagList["全部"] ? "select_tag" : ""
+                  }`}
+                  onClick={() => handleTag("全部")}
                 >
                   全部
                 </p>
                 {tags.map((item, index) => (
                   <p
-                    className="cp-tag__list glass-btn-s"
+                    className={`cp-tag__list glass-btn-s ${
+                      tagList[item] ? "select_tag" : ""
+                    }`}
                     key={index}
                     onClick={() => handleTag(item)}
                   >
