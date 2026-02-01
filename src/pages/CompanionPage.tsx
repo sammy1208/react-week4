@@ -73,6 +73,9 @@ export default function CompanionPage() {
       case "忍岳":
         setCpData("OshiGaku");
         break;
+      case "我英":
+        setCpData("MyHero");
+        break;
       case "原創角色":
         setCpData("NyaMix");
         break;
