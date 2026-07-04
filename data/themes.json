@@ -1,17 +1,34 @@
-[
-  {
-    "id": "禁忌之戀",
-    "themeName": "禁忌之戀",
-    "themeTitle": ["排球", "漫威", "文豪", "新石紀", "家教", "雜食"]
-  },
-  {
-    "id": "輕小說",
-    "themeName": "輕小說",
-    "themeTitle": ["文豪野犬", "間諜教室", "冰菓"]
-  },
-  {
-    "id": "痴男怨女",
-    "themeName": "痴男怨女",
-    "themeTitle": ["古代", "言情", "現代"]
-  }
-]
+{
+  "quickLinks": [
+    { "label": "快速入口", "icon": "auto_awesome" },
+    { "label": "熱門排行", "icon": "local_fire_department" },
+    { "label": "最新上架", "icon": "favorite" },
+    { "label": "寫作靈感", "icon": "draw" }
+  ],
+  "themes": [
+    {
+      "id": "禁忌之戀",
+      "themeName": "禁忌之戀",
+      "description": "危險、曖昧與命運交錯的故事。",
+      "icon": "book-icon01.png",
+      "markIcon": "book-icon.png",
+      "themeTitle": ["排球", "漫威", "文豪", "新石紀", "家教", "雜食"]
+    },
+    {
+      "id": "輕小說",
+      "themeName": "輕小說",
+      "description": "輕盈又奇幻，適合深夜慢慢讀。",
+      "icon": "book-icon02.png",
+      "markIcon": "book-icon.png",
+      "themeTitle": ["文豪野犬", "間諜教室", "冰菓"]
+    },
+    {
+      "id": "痴男怨女",
+      "themeName": "痴男怨女",
+      "description": "愛恨拉扯、心動與遺憾的篇章。",
+      "icon": "book-icon03.png",
+      "markIcon": "book-icon.png",
+      "themeTitle": ["古代", "言情", "現代"]
+    }
+  ]
+}

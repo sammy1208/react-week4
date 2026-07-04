@@ -1,70 +1,151 @@
-[
-  {
-    "id": "排球",
-    "wordName": "排球",
-    "wordTitle": ["佐久侑", "治角名", "兔赤", "黑研", "灰夜久", "排球其他"]
-  },
-  {
-    "id": "漫威",
-    "wordName": "漫威",
-    "wordTitle": ["鐵蟲", "盾冬", "锤基", "漫威其他"]
-  },
-  {
-    "id": "文豪",
-    "wordName": "文豪野犬",
-    "wordTitle": ["太中", "芥敦", "福亂", "文豪其他"]
-  },
-  {
-    "id": "新石紀",
-    "wordName": "新石紀",
-    "wordTitle": [
-      "美國組",
-      "千叉",
-      "千幻",
-      "龍羽",
-      "千琥",
-      "司千",
-      "新石紀其他"
-    ]
-  },
-  {
-    "id": "家教",
-    "wordName": "家庭教師",
-    "wordTitle": ["貝弗"]
-  },
-  {
-    "id": "雜食",
-    "wordName": "其他作品",
-    "wordTitle": ["太光", "忍岳", "我英", "原創角色"]
-  },
-  {
-    "id": "文豪野犬",
-    "wordName": "文豪野犬",
-    "wordTitle": ["輕小說"]
-  },
-  {
-    "id": "間諜教室",
-    "wordName": "間諜教室",
-    "wordTitle": ["輕小說"]
-  },
-  {
-    "id": "冰菓",
-    "wordName": "冰菓",
-    "wordTitle": ["輕小說"]
-  },
-  {
-    "id": "古代",
-    "wordName": "古代愛情",
-    "wordTitle": ["帝后", "俠女", "王侯將相"]
-  },
-  {
-    "id": "言情",
-    "wordName": "現代言情",
-    "wordTitle": ["總裁x秘書", "校草x學霸", "明星x粉絲"]
-  },
-  {
-    "id": "現代",
-    "wordName": "都市現代",
-    "wordTitle": ["同事戀", "網戀", "鄰居戀"]
-  }
-]
+{
+  "tagOrder": ["珍藏", "超好", "不錯", "不好不壞", "嗯…", "PWP", "圖", "待看"],
+  "words": [
+    {
+      "id": "排球",
+      "wordName": "排球",
+      "themeId": "禁忌之戀",
+      "themeName": "禁忌之戀",
+      "subtitle": "收錄排球相關的小說與創作筆記",
+      "wordTitle": [
+        { "name": "佐久侑", "icon": "person", "cpKey": "SakuAtsu" },
+        { "name": "治角名", "icon": "sports_handball", "cpKey": "OsaSuna" },
+        { "name": "兔赤", "icon": "favorite", "cpKey": "BokuAka" },
+        { "name": "黑研", "icon": "eyeglasses", "cpKey": "KuroKen" },
+        { "name": "灰夜久", "icon": "dark_mode", "cpKey": "HaiYaku" },
+        { "name": "排球其他", "icon": "sports_volleyball", "cpKey": "HaikyuuCP" }
+      ]
+    },
+    {
+      "id": "漫威",
+      "wordName": "漫威",
+      "themeId": "禁忌之戀",
+      "themeName": "禁忌之戀",
+      "subtitle": "收錄漫威相關的小說與創作筆記",
+      "wordTitle": [
+        { "name": "鐵蟲", "icon": "security", "cpKey": "IronSpider" },
+        { "name": "盾冬", "icon": "shield", "cpKey": "Stucky" },
+        { "name": "锤基", "icon": "thunderstorm", "cpKey": "Thorki" },
+        { "name": "漫威其他", "icon": "auto_awesome", "cpKey": "MultiCP" }
+      ]
+    },
+    {
+      "id": "文豪",
+      "wordName": "文豪野犬",
+      "themeId": "禁忌之戀",
+      "themeName": "禁忌之戀",
+      "subtitle": "收錄文豪相關的小說與創作筆記",
+      "wordTitle": [
+        { "name": "太中", "icon": "local_fire_department", "cpKey": "Dachu" },
+        { "name": "芥敦", "icon": "psychiatry", "cpKey": "AkuAtsu" },
+        { "name": "福亂", "icon": "family_star", "cpKey": "FukuRan" },
+        { "name": "文豪其他", "icon": "ink_pen", "cpKey": "BungouCP" }
+      ]
+    },
+    {
+      "id": "新石紀",
+      "wordName": "新石紀",
+      "themeId": "禁忌之戀",
+      "themeName": "禁忌之戀",
+      "subtitle": "收錄新石紀相關的小說與創作筆記",
+      "wordTitle": [
+        { "name": "美國組", "icon": "star", "cpKey": "StanXeno" },
+        { "name": "千叉", "icon": "science", "cpKey": "SenXeno" },
+        { "name": "千幻", "icon": "magic_button", "cpKey": "SenGen" },
+        { "name": "龍羽", "icon": "raven", "cpKey": "RyuUkyou" },
+        { "name": "千琥", "icon": "diamond", "cpKey": "SenHaku" },
+        { "name": "司千", "icon": "swords", "cpKey": "TsuSen" },
+        { "name": "新石紀其他", "icon": "experiment", "cpKey": "DrStoneCP" }
+      ]
+    },
+    {
+      "id": "家教",
+      "wordName": "家庭教師",
+      "themeId": "禁忌之戀",
+      "themeName": "禁忌之戀",
+      "subtitle": "收錄家庭教師相關的小說與創作筆記",
+      "wordTitle": [
+        { "name": "貝弗", "icon": "pets" }
+      ]
+    },
+    {
+      "id": "雜食",
+      "wordName": "其他作品",
+      "themeId": "禁忌之戀",
+      "themeName": "禁忌之戀",
+      "subtitle": "收錄其他作品相關的小說與創作筆記",
+      "wordTitle": [
+        { "name": "太光", "icon": "flare", "cpKey": "TaiKou" },
+        { "name": "忍岳", "icon": "landscape", "cpKey": "OshiGaku" },
+        { "name": "我英", "icon": "bolt", "cpKey": "MyHero" },
+        { "name": "原創角色", "icon": "draw", "cpKey": "NyaMix" }
+      ]
+    },
+    {
+      "id": "文豪野犬",
+      "wordName": "文豪野犬",
+      "themeId": "輕小說",
+      "themeName": "輕小說",
+      "subtitle": "收錄文豪野犬相關的小小說與筆記",
+      "wordTitle": [
+        { "name": "輕小說", "icon": "auto_stories" }
+      ]
+    },
+    {
+      "id": "間諜教室",
+      "wordName": "間諜教室",
+      "themeId": "輕小說",
+      "themeName": "輕小說",
+      "subtitle": "收錄間諜教室相關的小小說與筆記",
+      "wordTitle": [
+        { "name": "輕小說", "icon": "auto_stories" }
+      ]
+    },
+    {
+      "id": "冰菓",
+      "wordName": "冰菓",
+      "themeId": "輕小說",
+      "themeName": "輕小說",
+      "subtitle": "收錄冰菓相關的小小說與筆記",
+      "wordTitle": [
+        { "name": "輕小說", "icon": "auto_stories" }
+      ]
+    },
+    {
+      "id": "古代",
+      "wordName": "古代愛情",
+      "themeId": "痴男怨女",
+      "themeName": "痴男怨女",
+      "subtitle": "收錄古代愛情故事",
+      "wordTitle": [
+        { "name": "帝后", "icon": "crown" },
+        { "name": "俠女", "icon": "swords" },
+        { "name": "王侯將相", "icon": "castle" }
+      ]
+    },
+    {
+      "id": "言情",
+      "wordName": "現代言情",
+      "themeId": "痴男怨女",
+      "themeName": "痴男怨女",
+      "subtitle": "收錄現代言情故事",
+      "wordTitle": [
+        { "name": "總裁x秘書", "icon": "business_center" },
+        { "name": "校草x學霸", "icon": "school" },
+        { "name": "明星x粉絲", "icon": "hotel_class" }
+      ]
+    },
+    {
+      "id": "現代",
+      "wordName": "都市現代",
+      "themeId": "痴男怨女",
+      "themeName": "痴男怨女",
+      "subtitle": "收錄都市現代故事",
+      "wordTitle": [
+        { "name": "同事戀", "icon": "badge" },
+        { "name": "網戀", "icon": "public" },
+        { "name": "鄰居戀", "icon": "home" }
+      ]
+    }
+  ]
+}
