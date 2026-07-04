@@ -1,77 +1,77 @@
 .glass-card {
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-border-glass-faint);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
   padding: 24px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-glass-card);
 }
 
 .glass-card--border {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  background: var(--color-glass-white-5);
+  border: 2px solid var(--color-border-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 
   border-radius: 20px;
   padding: 12px;
 
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4),
-    inset 0 0 25px rgba(255, 255, 255, 0.07);
+  box-shadow: var(--shadow-glass-panel),
+    inset 0 0 25px var(--color-glass-white-7);
 
   transition: all 0.25s ease;
 }
 
 .glass-card--nobackground {
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  background: var(--color-glass-white-8);
+  border: 2px solid var(--color-border-glass);
 
   border-radius: 20px;
   padding: 12px;
 
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4),
-    inset 0 0 25px rgba(255, 255, 255, 0.07);
+  box-shadow: var(--shadow-glass-panel),
+    inset 0 0 25px var(--color-glass-white-7);
 
   transition: all 0.25s ease;
 }
 
 .glass-card--small {
-  background: rgba(255, 255, 255, 0.099);
+  background: var(--color-glass-white-10);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(15px);
-  border: 2px solid rgba(255, 255, 255, 0.626);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.115),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 0 12px 12px rgba(255, 255, 255, 0.226);
+  border: 2px solid var(--color-border-glass-strong);
+  box-shadow: var(--shadow-glass-soft),
+    inset 0 1px 0 var(--color-glass-white-11),
+    inset 0 -1px 0 var(--color-glass-white-10),
+    inset 0 0 12px 12px var(--color-glass-white-23);
 }
 
 .glass-card--hover {
   position: relative;
   z-index: 1;
-  background: rgba(255, 255, 255, 0);
+  background: var(--color-glass-white-0);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(15px);
-  border: 2px solid rgba(255, 255, 255, 0.626);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.803),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.697),
-    inset 0 0 24px 24px rgba(255, 255, 255, 0.174);
+  border: 2px solid var(--color-border-glass-strong);
+  box-shadow: var(--shadow-glass-soft),
+    inset 0 1px 0 var(--color-glass-white-80),
+    inset 0 -1px 0 var(--color-glass-white-70),
+    inset 0 0 24px 24px var(--color-glass-white-17);
   overflow: hidden;
   padding: 16px;
   margin: 8px;
   border-radius: 8px;
   cursor: pointer;
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--color-glass-white-20);
     transform: translateY(-2px);
   }
 }
 
 .glass-btn-l {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--color-glass-white-12);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--color-border-glass);
   transition: 0.25s ease;
   border-radius: 12px;
   text-align: center;
@@ -82,16 +82,16 @@
 
   &:hover {
     transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.18);
+    background: var(--color-glass-white-18);
   }
 }
 
 .glass-btn-m {
-  background: #bacec1ba;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--color-surface-glass-green);
+  border: 1px solid var(--color-border-glass-soft);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-glass-button);
   border-radius: 12px;
   transition: all 0.3s ease;
   text-align: center;
@@ -100,15 +100,15 @@
   color: var(--off-white);
   cursor: pointer;
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--color-glass-white-20);
     transform: translateY(-3px);
   }
 }
 
 .glass-btn-s {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--color-glass-white-12);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--color-border-glass);
   transition: 0.25s ease;
   border-radius: 12px;
   text-align: center;
@@ -119,6 +119,6 @@
 
   &:hover {
     transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.18);
+    background: var(--color-glass-white-18);
   }
 }

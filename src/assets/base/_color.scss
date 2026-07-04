@@ -1,49 +1,184 @@
 :root {
-  --main-green: #1D3124;
-  --light-green: #BACEC1;
-  --dark-green: #113328;
-  
-  --main-orange: #E59560;
-  --light-orange: #CC8B65;
+  /* Brand palette */
+  --brand-green-950: #041d18;
+  --brand-green-925: #061612;
+  --brand-green-900: #061b17;
+  --brand-green-850: #08231d;
+  --brand-green-800: #0a211c;
+  --brand-green-760: #0a412b;
+  --brand-green-750: #093821;
+  --brand-green-700: #113328;
+  --brand-green-650: #123729;
+  --brand-green-600: #183d2d;
+  --brand-green-560: #1c4430;
+  --brand-green-520: #1d4732;
+  --brand-green-500: #1d3124;
+  --brand-green-420: #224e38;
+  --brand-green-200: #bacec1;
 
-  --gray-100: #707070;
-  --gray-300: #555;
-  --gray-500: #00000029;
-  
-  --black: #100C0D;
-  --white: #fff;
+  --brand-gold-700: #9f6e24;
+  --brand-gold-650: #a5762d;
+  --brand-gold-600: #d9a84e;
+  --brand-gold-500: #e4bd76;
+  --brand-gold-450: #e8c478;
+  --brand-gold-400: #e9c27b;
+  --brand-gold-300: #f2cc84;
+  --brand-gold-180: #f3dfad;
+  --brand-gold-150: #f4dfaa;
+  --brand-gold-120: #f5dfa8;
+  --brand-gold-100: #ffe5ad;
+  --brand-gold-90: #ffe7af;
+  --brand-gold-80: #fff1c5;
+  --brand-gold-60: #fff0c6;
 
-  --off-white: #F6F4E8;
-  --brown: #E3DCD2;
+  --brand-orange-500: #e59560;
+  --brand-orange-400: #cc8b65;
 
+  --neutral-black: #100c0d;
+  --neutral-white: #fff;
+  --neutral-cream: #f6f4e8;
+  --neutral-brown-100: #e3dcd2;
+  --neutral-gray-500: #707070;
+  --neutral-gray-700: #555;
 
-    /*主題層級顏色 */
-  --color-primary: var(--main-green);       /* 主色（網站識別色、按鈕主色） */
-  --color-secondary: var(--main-orange);   /* 輔助色（hover、標籤、強調） */
-  --color-accent: var(--light-green);       /* 柔和強調（邊框、icon、分隔） */
+  --state-error: #d54c4c;
 
-  /*中性色 */
-  --color-bg: var(--off-white);             /* 預設背景（整體頁面） */
-  --color-surface: var(--light-green);            /* 元件背景（卡片、框體） */
-  --color-border: var(--main-green);              /* 邊界線條 */
-  --color-shadow: var(--gray-300);       /* 投影陰影 */
+  /* Legacy aliases */
+  --main-green: var(--brand-green-500);
+  --light-green: var(--brand-green-200);
+  --dark-green: var(--brand-green-700);
+  --main-orange: var(--brand-orange-500);
+  --light-orange: var(--brand-orange-400);
+  --gray-100: var(--neutral-gray-500);
+  --gray-300: var(--neutral-gray-700);
+  --gray-500: rgb(0 0 0 / 16%);
+  --black: var(--neutral-black);
+  --white: var(--neutral-white);
+  --off-white: var(--neutral-cream);
+  --brown: var(--neutral-brown-100);
 
-  /*文字色 */
-  --color-text: var(--black);           /* 主文字（正文） */
-  --color-text-subtle: var(--main-orange);         /* 副文字（說明、meta） */
-  --color-text-invert: var(--off-white);        /* 反色文字（深底用） */
+  /* Semantic palette */
+  --color-primary: var(--brand-green-500);
+  --color-secondary: var(--brand-orange-500);
+  --color-accent: var(--brand-green-200);
+  --color-error: var(--state-error);
 
-  /*狀態色 */
-  --color-success: var(--light-green);
-  --color-warning: var(--light-orange);
-  --color-error: #D54C4C;
+  --color-bg: var(--neutral-cream);
+  --color-bg-page-dark: var(--brand-green-950);
+  --color-bg-page-deep: var(--brand-green-925);
+  --color-bg-header: var(--brand-green-900);
+  --color-bg-surface: var(--brand-green-560);
+  --color-bg-surface-strong: var(--brand-green-600);
+  --color-bg-control: var(--brand-green-850);
+  --color-bg-card: rgb(28 68 48 / 72%);
+  --color-bg-card-strong: rgb(25 63 45 / 74%);
+  --color-bg-card-hover: rgb(34 78 56 / 78%);
+  --color-bg-overlay-soft: rgb(4 29 24 / 48%);
+  --color-bg-overlay-balanced: rgb(4 29 24 / 50%);
+  --color-bg-overlay-medium: rgb(4 29 24 / 66%);
+  --color-bg-overlay-strong: rgb(4 29 24 / 68%);
+  --color-bg-pill-active: rgb(165 118 45 / 38%);
+  --color-bg-pill-active-soft: rgb(165 118 45 / 34%);
+  --color-bg-control-hover: rgb(28 68 48 / 78%);
+  --color-bg-home-quick: rgb(20 55 43 / 72%);
+  --color-bg-tag: rgb(29 71 50 / 86%);
+  --color-bg-filter: rgb(17 48 37 / 68%);
+  --color-bg-filter-control: rgb(24 61 45 / 74%);
+  --color-bg-search: rgb(8 35 29 / 72%);
 
+  --color-text: var(--neutral-black);
+  --color-text-primary: var(--brand-gold-120);
+  --color-text-heading: var(--brand-gold-150);
+  --color-text-title: var(--brand-gold-90);
+  --color-text-accent: var(--brand-gold-400);
+  --color-text-accent-strong: var(--brand-gold-450);
+  --color-text-accent-muted: rgb(233 194 123 / 78%);
+  --color-text-muted: rgb(245 223 168 / 78%);
+  --color-text-subtle: var(--brand-orange-500);
+  --color-text-invert: var(--neutral-cream);
+  --color-text-button-dark: #2d2110;
+  --color-text-tag: #efe1b7;
+  --color-text-placeholder: rgb(245 223 168 / 58%);
+  --color-text-faint: rgb(245 223 168 / 72%);
+  --color-text-footer: rgb(244 223 170 / 72%);
 
+  --color-border: var(--brand-green-500);
+  --color-border-accent: rgb(233 194 123 / 58%);
+  --color-border-accent-soft: rgb(233 194 123 / 46%);
+  --color-border-accent-medium: rgb(233 194 123 / 62%);
+  --color-border-accent-strong: rgb(233 194 123 / 72%);
+  --color-border-accent-bright: rgb(255 218 145 / 95%);
+  --color-border-home: rgb(232 196 120 / 72%);
+  --color-border-home-soft: rgb(232 196 120 / 34%);
+  --color-border-home-medium: rgb(232 196 120 / 50%);
+  --color-border-home-strong: rgb(232 196 120 / 86%);
+  --color-border-home-faint: rgb(232 196 120 / 28%);
+  --color-border-home-light: rgb(232 196 120 / 36%);
+  --color-border-button: rgb(159 110 36 / 72%);
+  --color-border-glass: rgb(255 255 255 / 25%);
+  --color-border-glass-faint: rgb(255 255 255 / 15%);
+  --color-border-glass-soft: rgb(255 255 255 / 30%);
+  --color-border-glass-strong: rgb(255 255 255 / 63%);
+  --color-border-footer: rgb(232 196 120 / 35%);
+  --color-border-filter: rgb(233 194 123 / 54%);
+  --color-border-tag: rgb(233 194 123 / 34%);
+  --color-border-hover: rgb(255 225 166 / 92%);
 
-  --color-bg-theme: var(--off-white);        /* 主題頁背景 */
-  --color-surface-theme: var(--light-green);       /* 主題卡底色 */
-  --color-text-theme: var(--color-primary);     /* 主題標題文字 */
-  --color-accent-theme: var(--color-secondary); /* 主題 hover 高亮 */
+  --color-shadow: var(--neutral-gray-700);
+  --shadow-page-soft: 0 16px 34px rgb(0 0 0 / 18%);
+  --shadow-card: 0 18px 34px rgb(0 0 0 / 26%);
+  --shadow-card-soft: 0 16px 28px rgb(0 0 0 / 16%);
+  --shadow-button: 0 7px 14px rgb(4 15 12 / 32%);
+  --shadow-button-hover: 0 10px 20px rgb(4 15 12 / 38%);
+  --shadow-text-strong: 0 4px 18px rgb(0 0 0 / 70%);
+  --shadow-text-soft: 0 4px 18px rgb(0 0 0 / 50%);
+  --shadow-glow-gold: 0 0 20px rgb(232 196 120 / 8%);
+  --shadow-glass-card: 0 8px 20px rgb(0 0 0 / 15%);
+  --shadow-glass-panel: 0 2px 12px rgb(0 0 0 / 40%);
+  --shadow-glass-soft: 0 8px 32px rgb(0 0 0 / 10%);
+  --shadow-glass-button: 0 4px 10px rgb(0 0 0 / 10%);
+  --color-shadow-badge: rgb(0 0 0 / 34%);
+  --color-shadow-mark: rgb(0 0 0 / 30%);
 
-  
+  --color-glow-gold-strong: rgb(248 207 98 / 90%);
+  --color-glow-gold: rgb(248 207 98 / 55%);
+  --color-glow-gold-line: rgb(232 196 120 / 10%);
+  --color-glow-gold-line-faint: rgb(232 196 120 / 6%);
+  --color-glow-page-medium: rgb(233 194 123 / 14%);
+  --color-glow-page-drop: rgb(233 194 123 / 42%);
+  --color-glow-filter-active: rgb(255 229 173 / 12%);
+  --color-glow-control: rgb(233 194 123 / 5%);
+  --color-glow-home-icon: rgb(232 196 120 / 55%);
+  --color-glow-home: rgb(232 196 120 / 18%);
+  --color-glow-home-soft: rgb(232 196 120 / 12%);
+  --color-glow-page: rgb(233 194 123 / 16%);
+  --color-glow-page-soft: rgb(233 194 123 / 12%);
+  --color-highlight-soft: rgb(255 232 174 / 11%);
+  --color-highlight-hover: rgb(255 232 174 / 14%);
+  --color-inset-glow: rgb(255 235 180 / 5%);
+  --color-white-glow: rgb(255 255 255 / 55%);
+  --color-white-glow-strong: rgb(255 255 255 / 66%);
+  --color-glass-white-0: rgb(255 255 255 / 0%);
+  --color-glass-white-5: rgb(255 255 255 / 5%);
+  --color-glass-white-7: rgb(255 255 255 / 7%);
+  --color-glass-white-8: rgb(255 255 255 / 8%);
+  --color-glass-white-10: rgb(255 255 255 / 10%);
+  --color-glass-white-11: rgb(255 255 255 / 11%);
+  --color-glass-white-12: rgb(255 255 255 / 12%);
+  --color-glass-white-17: rgb(255 255 255 / 17%);
+  --color-glass-white-18: rgb(255 255 255 / 18%);
+  --color-glass-white-20: rgb(255 255 255 / 20%);
+  --color-glass-white-23: rgb(255 255 255 / 23%);
+  --color-glass-white-70: rgb(255 255 255 / 70%);
+  --color-glass-white-80: rgb(255 255 255 / 80%);
+  --color-surface-glass-green: rgb(186 206 193 / 73%);
+
+  /* Theme compatibility */
+  --color-surface: var(--brand-green-200);
+  --color-success: var(--brand-green-200);
+  --color-warning: var(--brand-orange-400);
+  --color-bg-theme: var(--neutral-cream);
+  --color-surface-theme: var(--brand-green-200);
+  --color-text-theme: var(--color-primary);
+  --color-accent-theme: var(--color-secondary);
 }

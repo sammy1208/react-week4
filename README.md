@@ -1,3 +1,171 @@
+# Nyarchive 開發日誌
+
+更新日期：2026-07-04
+
+## 本次開發重點
+
+這次主要把專案從「頁面各自寫死資料與樣式」整理成比較可維護的結構：
+
+- 首頁、分類頁、文章列表頁改成統一的美術 UI 風格。
+- Header、Nav 抽成共用元件。
+- 顏色、字級、字體集中管理。
+- `themes.json`、`word.json` 擴充成資料集，讓頁面結構和資料邏輯分離。
+- 修正 RWD 與圖片顯示細節。
+
+## UI 與切版
+
+### HomePage
+
+- 依照美術圖重切首頁版面。
+- 加入主視覺 banner、貓貓書庫標題、分類卡片。
+- 使用 `banner02.jpg`、`background01`、`card-frame`、`card-frame-sm` 等視覺素材。
+- 將分類卡片 icon 改成資料控制：
+  - `book-icon01.png`
+  - `book-icon02.png`
+  - `book-icon03.png`
+- 將右側小書本 icon 改成 `book-icon.png`。
+- 調整桌機與手機版 hero 高度，讓貓貓主圖顯示更完整。
+- 修正手機版 `card-frame-sm` 顯示與卡片內容排版。
+
+### WordPage
+
+- 依照美術圖重切分類列表頁。
+- 加入 breadcrumb、頁面標題、搜尋框、排序按鈕、分類列表卡片。
+- 背景統一使用 `background03.png`。
+- 調整背景亮度、breadcrumb 字級、標題字體。
+- 將列表 icon 從頁面硬編碼整理到 `word.json`。
+
+### CompanionPage
+
+- 依照美術圖重切文章列表頁。
+- 加入 breadcrumb、標題區、標籤篩選列、文章列表卡片。
+- 移除文章卡片中的時間與「閱讀標籤」資訊。
+- `cp-article-card__description` 改成最多顯示兩行。
+- 背景改成與 `WordPage` 完全相同。
+
+## 共用元件
+
+### Header
+
+- 確認 `Header.tsx` 透過 `FrontLayout.tsx` 共用在所有頁面。
+- 移除首頁專屬 `header--home` 樣式，讓 HomePage、WordPage、CompanionPage 使用同一套 Header 外觀。
+- Header 樣式統一由 `src/assets/layout/header.scss` 控制。
+
+### Nav
+
+- 將 HomePage、WordPage、CompanionPage 的 nav/breadcrumb 整理進 `src/components/Nav.tsx`。
+- 支援兩種使用場景：
+  - `variant="home"`：首頁快速入口。
+  - `variant="word"` / `variant="cp"`：麵包屑導覽。
+- 將 breadcrumb 樣式統一成 `.ny-breadcrumb`，避免 WordPage 和 CompanionPage 吃不同 CSS。
+
+## 樣式系統整理
+
+### 色票系統
+
+- 重整 `src/assets/base/_color.scss`。
+- 建立品牌色與語意色 token：
+  - brand green
+  - brand gold
+  - text
+  - background
+  - border
+  - shadow
+  - glow
+  - glass effect
+- 將 `home.scss`、`wordPage.scss`、`companionPage.scss`、`header.scss`、`footer.scss`、`_glass-effect.scss` 裡的硬編碼顏色改成 CSS variables。
+
+### 字級系統
+
+- 新增 `src/assets/base/_fontsize.scss`。
+- 集中管理：
+  - font family
+  - font size
+  - icon size
+  - font weight
+  - line height
+- 將 HomePage、WordPage、CompanionPage、Header、共用 Nav 的字體與字級改成使用 token。
+- 在 `src/assets/all.scss` 匯入 `_fontsize.scss`。
+
+## 資料結構整理
+
+### themes.json
+
+將首頁原本寫在 `HomePage.tsx` 裡的資料移到 `public/data/themes.json`：
+
+- `quickLinks`
+- `themes`
+- 每個 theme 包含：
+  - `id`
+  - `themeName`
+  - `description`
+  - `icon`
+  - `markIcon`
+  - `themeTitle`
+
+### word.json
+
+將分類頁與 CP 頁原本寫死在 TS 裡的資料移到 `public/data/word.json`：
+
+- `tagOrder`
+- `words`
+- 每個 word 包含：
+  - `id`
+  - `wordName`
+  - `themeId`
+  - `themeName`
+  - `subtitle`
+  - `wordTitle`
+- 每個 `wordTitle` 改成物件：
+  - `name`
+  - `icon`
+  - `cpKey`
+
+移除頁面內的硬編碼資料：
+
+- `themeMeta`
+- `wordGroupMap`
+- `itemIconMap`
+- `CP_KEY_MAP`
+- `CP_GROUP_MAP`
+- `TAG_ORDER`
+
+### TypeScript 型別
+
+更新 `src/types/theme.ts`：
+
+- `ThemeData`
+- `ThemeDataset`
+- `QuickLinkData`
+- `WordData`
+- `WordDataset`
+- `WordTitleData`
+- `NovelsData`
+
+## 驗證紀錄
+
+已執行並通過：
+
+```bash
+npm.cmd run lint
+npm.cmd run build
+```
+
+Build 仍有原本的提醒：
+
+- `/img/background01.jpg` runtime 解析提醒。
+- bundle chunk 偏大提醒。
+
+這些不是本次整理造成的錯誤。
+
+## 待辦建議
+
+- 將 `BookPage` 也接上新的資料導覽結構，讓 `/CP/:cpKey/:bookId` 和中文 CP 名稱的路由關係更一致。
+- 檢查 `public/img/background01.jpg` 已刪除但 CSS 仍有引用的狀況，決定要改成 `.png` 或補回 `.jpg`。
+- 將 README 內舊的亂碼筆記重新整理成正式資料格式規範。
+
+---
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

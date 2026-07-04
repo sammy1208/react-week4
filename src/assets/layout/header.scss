@@ -1,17 +1,61 @@
 .header {
-  padding: 12px;
-  font-size: 20px;
   display: flex;
-  color: var(--dark-green);
-  font-weight: 700;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px clamp(16px, 4vw, 40px);
+  color: var(--color-text-heading);
+  border-bottom: 1px solid var(--color-border-home-medium);
+  background: var(--color-bg-header);
+  box-shadow: var(--shadow-page-soft);
+  font-weight: var(--font-weight-bold);
 }
 
 .logo {
-  font-size: 24px;
-  padding-right: 4px;
+  color: var(--color-text-accent-strong);
+  font-size: var(--font-size-brand);
 }
+
 .navLink {
   display: flex;
-  font-family: "Gabriela";
   align-items: center;
+  gap: 8px;
+  color: var(--color-text-heading);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-brand);
+  line-height: var(--line-height-tight);
+}
+
+.navLink p {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.header__menu {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  color: var(--color-text-heading);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.header__menu .material-symbols-outlined {
+  font-size: var(--font-size-icon-header-menu);
+}
+
+@media (max-width: 620px) {
+  .header {
+    padding: 10px 16px;
+  }
+
+  .header__menu {
+    width: 44px;
+    height: 44px;
+  }
+
+  .header__menu .material-symbols-outlined {
+    font-size: var(--font-size-icon-header-menu-mobile);
+  }
 }

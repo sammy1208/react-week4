@@ -1,327 +1,221 @@
-import { useEffect, useState } from "react";
-import { NovelsData } from "../types/theme";
+import { useEffect, useMemo, useState } from "react";
+import { NovelsData, WordData, WordDataset, WordTitleData } from "../types/theme";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
-import GlassCard from "../components/GlassCard";
-import Nav from "../components/Nav";
 import CP_MAP from "../data_encrypted";
+import Nav from "../components/Nav";
+
+type CompanionMeta = {
+  themeName: string;
+  wordId: string;
+  wordName: string;
+  item: WordTitleData;
+};
+
+const allTagLabel = "全部";
+
+function findCompanionMeta(words: WordData[], cpName: string): CompanionMeta | null {
+  for (const word of words) {
+    const item = word.wordTitle.find((title) => title.name === cpName);
+    if (!item) continue;
+
+    return {
+      themeName: word.themeName,
+      wordId: word.id,
+      wordName: word.wordName,
+      item,
+    };
+  }
+
+  return null;
+}
 
 export default function CompanionPage() {
-  const Navigate = useNavigate();
-  const [novelsData, setNovelsData] = useState<NovelsData[]>([]);
+  const navigate = useNavigate();
   const { cpId } = useParams<{ cpId: string }>();
   const decodeId = decodeURIComponent(cpId || "");
-  const [cpData, setCpData] = useState("");
-  const [openSidebar, setOpenSidebar] = useState(false);
-  const [filterData, setFilterData] = useState<NovelsData[]>([]);
-  // const [selectTag, setSelectTag] = useState("");
-  const TAG_ORDER = [
-    "珍藏",
-    "超好",
-    "不錯",
-    "不好不壞",
-    "嗯…",
-    "PWP",
-    "圖",
-    "待看",
-  ];
-  const [tagList, setTagList] = useState(() => {
-    const initTagList = localStorage.getItem("tagList")
-      ? JSON.parse(localStorage.getItem("tagList") || "{}")
-      : {};
-    return initTagList;
-  });
+  const [novelsData, setNovelsData] = useState<NovelsData[]>([]);
+  const [wordData, setWordData] = useState<WordData[]>([]);
+  const [tagOrder, setTagOrder] = useState<string[]>([]);
+  const [activeTag, setActiveTag] = useState(allTagLabel);
 
-  const toggleTagList = (selectTag: string) => {
-    const newTagList = Object.fromEntries(
-      Object.keys(tagList).map((tag) => [tag, false])
-    );
-
-    newTagList[selectTag] = true;
-
-    localStorage.setItem("tagList", JSON.stringify(newTagList));
-    setTagList(newTagList);
-  };
-
-  const handleBook = (id: string) => {
-    Navigate(`/CP/${cpData}/${id}`);
-  };
-
-  function getCp(cpIdName: string) {
-    switch (cpIdName) {
-      case "佐久侑":
-        setCpData("SakuAtsu");
-        break;
-      case "治角名":
-        setCpData("OsaSuna");
-        break;
-      case "兔赤":
-        setCpData("BokuAka");
-        break;
-      case "黑研":
-        setCpData("KuroKen");
-        break;
-      case "灰夜久":
-        setCpData("HaiYaku");
-        break;
-      case "排球其他":
-        setCpData("HaikyuuCP");
-        break;
-      case "太光":
-        setCpData("TaiKou");
-        break;
-      case "忍岳":
-        setCpData("OshiGaku");
-        break;
-      case "我英":
-        setCpData("MyHero");
-        break;
-      case "原創角色":
-        setCpData("NyaMix");
-        break;
-      case "鐵蟲":
-        setCpData("IronSpider");
-        break;
-      case "盾冬":
-        setCpData("Stucky");
-        break;
-      case "锤基":
-        setCpData("Thorki");
-        break;
-      case "漫威其他":
-        setCpData("MultiCP");
-        break;
-      case "太中":
-        setCpData("Dachu");
-        break;
-      case "芥敦":
-        setCpData("AkuAtsu");
-        break;
-      case "福亂":
-        setCpData("FukuRan");
-        break;
-      case "文豪其他":
-        setCpData("BungouCP");
-        break;
-      case "千叉":
-        setCpData("SenXeno");
-        break;
-      case "美國組":
-        setCpData("StanXeno");
-        break;
-      case "千幻":
-        setCpData("SenGen");
-        break;
-      case "龍羽":
-        setCpData("RyuUkyou");
-        break;
-      case "千琥":
-        setCpData("SenHaku");
-        break;
-      case "司千":
-        setCpData("TsuSen");
-        break;
-      case "新石紀其他":
-        setCpData("DrStoneCP");
-        break;
-
-      default:
-        console.warn("沒有對應的 CP ID:", cpIdName);
-    }
-  }
-
-  async function getNovels() {
-    if (!cpData) return;
-    try {
-      const list = CP_MAP[cpData]; // ⬅ 就這句！
-
-      if (!list) return;
-
-      const safeList = list.map((novel: NovelsData) => ({
-        id: novel.id,
-        title: novel.title,
-        author: novel.author,
-        tags: novel.tags,
-        description: novel.description,
-        rating: novel.rating,
-      }));
-
-      setNovelsData(safeList);
-    } catch (error) {
-      console.error("抓取資料錯誤:", error);
-    }
-  }
+  const companionMeta = useMemo(
+    () => findCompanionMeta(wordData, decodeId),
+    [decodeId, wordData]
+  );
+  const cpKey = companionMeta?.item.cpKey ?? "";
 
   useEffect(() => {
-    getNovels();
-  }, [cpData]);
+    loadWordDataset();
+  }, []);
 
-  useEffect(() => {
-    if (decodeId) {
-      getCp(decodeId);
-    } else {
-      console.log("找不到id");
-    }
-  }, [decodeId]);
+  async function loadWordDataset() {
+    const res = await fetch("./data/word.json");
+    const data: WordDataset | WordData[] = await res.json();
 
-  useEffect(() => {
-    if (openSidebar) {
-      document.body.style.overflow = "hidden"; // 禁止滑動
-      document.body.style.pointerEvents = "none"; // 禁止點擊主頁
-    } else {
-      document.body.style.overflow = "auto"; // 恢復
-      document.body.style.pointerEvents = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-      document.body.style.pointerEvents = "auto";
-    };
-  }, [openSidebar]);
-
-  useEffect(() => {
-    if (novelsData.length === 0) return;
-    const activeTag = Object.keys(tagList).find((tag) => tagList[tag]);
-
-    if (activeTag) {
-      handleTag(activeTag); // 自動篩選
-    }
-  }, [novelsData]);
-
-  function handleTag(item: string) {
-    const res = novelsData.filter((novel) => novel.tags?.includes(item));
-
-    if (item === "全部") {
-      setFilterData([]);
-      setOpenSidebar(false);
-      toggleTagList("全部");
+    if (Array.isArray(data)) {
+      setWordData(data);
+      setTagOrder([]);
       return;
     }
-    setFilterData(res);
-    window.scrollTo({ top: 0, behavior: "smooth" });
 
-    setOpenSidebar(false);
-    toggleTagList(item);
+    setWordData(data.words);
+    setTagOrder(data.tagOrder);
   }
 
-  const rawTags = [...new Set(novelsData.flatMap((item) => item.tags))];
+  useEffect(() => {
+    if (!companionMeta) {
+      if (wordData.length > 0) {
+        console.warn("找不到 CP 資料:", decodeId);
+      }
+      setNovelsData([]);
+      return;
+    }
 
-  const tags = rawTags.sort((a, b) => {
-    const indexA = TAG_ORDER.indexOf(a);
-    const indexB = TAG_ORDER.indexOf(b);
+    if (!cpKey) {
+      console.warn("此 CP 尚未設定 cpKey:", decodeId);
+      setNovelsData([]);
+      return;
+    }
 
-    if (indexA === -1) return 1;
-    if (indexB === -1) return -1;
+    const list = CP_MAP[cpKey];
+    if (!list) {
+      setNovelsData([]);
+      return;
+    }
 
-    return indexA - indexB;
-  });
+    const safeList = list.map((novel: NovelsData) => ({
+      id: novel.id,
+      title: novel.title,
+      author: novel.author,
+      tags: novel.tags,
+      description: novel.description,
+      rating: novel.rating,
+      contentEnc: novel.contentEnc,
+    }));
+
+    setNovelsData(safeList);
+    setActiveTag(allTagLabel);
+  }, [companionMeta, cpKey, decodeId, wordData.length]);
+
+  const tags = useMemo(() => {
+    const rawTags = [...new Set(novelsData.flatMap((item) => item.tags ?? []))];
+
+    return rawTags.sort((a, b) => {
+      const indexA = tagOrder.indexOf(a);
+      const indexB = tagOrder.indexOf(b);
+
+      if (indexA === -1 && indexB === -1) return a.localeCompare(b, "zh-Hant");
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+
+      return indexA - indexB;
+    });
+  }, [novelsData, tagOrder]);
+
+  const visibleNovels = useMemo(() => {
+    if (activeTag === allTagLabel) return novelsData;
+    return novelsData.filter((novel) => novel.tags?.includes(activeTag));
+  }, [activeTag, novelsData]);
+
+  const handleBook = (id: string) => {
+    if (!cpKey) return;
+    navigate(`/CP/${cpKey}/${id}`);
+  };
 
   return (
-    <>
-      <div className="cp-section">
-        <div className="container">
-          <div className="nav-item">
-            {/* <Nav /> */}
-            <button
-              className="tag-toggle-btn glass-btn-s"
-              onClick={() => setOpenSidebar(true)}
-            >
-              <span className="material-symbols-outlined">menu</span>
-            </button>
-          </div>
-          <div
-            className={`sidebar glass-card--border scrollbar ${
-              openSidebar ? "open" : ""
-            }`}
-          >
-            <button
-              className="sidebar-close"
-              onClick={() => setOpenSidebar(false)}
-            >
-              ✕
-            </button>
+    <main className="cp-page">
+      <Nav
+        variant="cp"
+        items={[
+          { label: companionMeta?.themeName ?? "全部分類", icon: "home", to: "/" },
+          {
+            label: companionMeta?.wordName ?? "分類",
+            to: companionMeta ? `/word/${companionMeta.wordId}` : "/",
+          },
+          { label: decodeId, current: true },
+        ]}
+      />
 
-            <h3 className="cp-tag__title">{`${
-              (filterData.length > 0 ? filterData : novelsData).length
-            }篇文章`}</h3>
+      <section className="cp-hero" aria-labelledby="cp-page-title">
+        <h1 className="cp-hero__title" id="cp-page-title">
+          {decodeId}
+        </h1>
+        <div className="cp-hero__divider" aria-hidden="true">
+          <span />
+          <span className="material-symbols-outlined">pets</span>
+          <span />
+        </div>
+        <p className="cp-hero__subtitle">收錄{decodeId}相關文章</p>
+      </section>
 
-            <div className="sidebar-tags">
-              <p
-                className={`cp-tag__list glass-btn-m ${
-                  tagList["全部"] ? "select_tag" : ""
-                }`}
-                onClick={() => handleTag("全部")}
+      <section className="cp-list-panel" aria-label={`${decodeId}文章列表`}>
+        <div className="cp-filter-bar">
+          <div className="cp-filter-tabs" aria-label="文章標籤篩選">
+            <button
+              className={`cp-filter-tab ${activeTag === allTagLabel ? "is-active" : ""}`}
+              type="button"
+              onClick={() => setActiveTag(allTagLabel)}
+            >
+              {allTagLabel}
+            </button>
+            {tags.map((tag) => (
+              <button
+                className={`cp-filter-tab ${activeTag === tag ? "is-active" : ""}`}
+                type="button"
+                key={tag}
+                onClick={() => setActiveTag(tag)}
               >
-                全部
-              </p>
-              {tags.map((item) => (
-                <p
-                  key={item}
-                  className={`cp-tag__list glass-btn-m ${
-                    tagList[item] ? "select_tag" : ""
-                  }`}
-                  onClick={() => handleTag(item)}
-                >
-                  {item}
-                </p>
-              ))}
-            </div>
+                {tag}
+              </button>
+            ))}
           </div>
 
-          <div className="cp-card">
-            <div className="cp-card__box1">
-              <GlassCard title={decodeId}>
-                {(filterData.length > 0 ? filterData : novelsData).map(
-                  (item) => (
-                    <div
-                      className="glass-card--hover"
-                      key={item.id}
-                      onClick={() => handleBook(item.id)}
-                    >
-                      <h5 className="cp-card__title">{item.title}</h5>
-                      <div className="cp-card__tag">
-                        {item.tags?.map((item, index) => (
-                          <p key={index} className="tag">
-                            {item}
-                          </p>
-                        ))}
-                      </div>
-                      <p className="cp-description">{item.description}</p>
-                    </div>
-                  )
-                )}
-              </GlassCard>
-            </div>
-            <div className="cp-card__box2">
-              <GlassCard title={""}>
-                <h3 className="cp-tag__title">{`${
-                  (filterData.length > 0 ? filterData : novelsData).length
-                }篇文章`}</h3>
-                <p
-                  className={`cp-tag__list glass-btn-m ${
-                    tagList["全部"] ? "select_tag" : ""
-                  }`}
-                  onClick={() => handleTag("全部")}
-                >
-                  全部
-                </p>
-                {tags.map((item, index) => (
-                  <p
-                    className={`cp-tag__list glass-btn-s ${
-                      tagList[item] ? "select_tag" : ""
-                    }`}
-                    key={index}
-                    onClick={() => handleTag(item)}
-                  >
-                    {item}
-                  </p>
-                ))}
-              </GlassCard>
-            </div>
+          <div className="cp-count-pill" aria-label={`${visibleNovels.length} 篇文章`}>
+            <span className="material-symbols-outlined">article</span>
+            <span>{visibleNovels.length} 篇文章</span>
           </div>
         </div>
-      </div>
-      {openSidebar && <div className="page-mask open"></div>}
-    </>
+
+        <ul className="cp-article-list">
+          {visibleNovels.map((item) => (
+            <li className="cp-article-card" key={item.id}>
+              <span className="cp-article-card__spark" aria-hidden="true">
+                ✦
+              </span>
+
+              <div className="cp-article-card__body">
+                <h2 className="cp-article-card__title">{item.title}</h2>
+
+                <div className="cp-article-card__tags">
+                  {(item.tags?.length ? item.tags : ["未分類"]).map((tag) => (
+                    <span className="cp-article-card__tag" key={tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="cp-article-card__description">
+                  {item.description || "尚未填寫文章描述。"}
+                </p>
+              </div>
+
+              <button
+                className="cp-article-card__read"
+                type="button"
+                onClick={() => handleBook(item.id)}
+              >
+                <span>閱讀</span>
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        {visibleNovels.length === 0 && (
+          <p className="cp-empty">目前沒有符合條件的文章。</p>
+        )}
+      </section>
+    </main>
   );
 }

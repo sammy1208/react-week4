@@ -1,0 +1,56 @@
+:root {
+  /* Font families */
+  --font-family-base: "Noto Serif TC", "Quicksand", "Noto Sans TC", sans-serif;
+  --font-family-serif: "Noto Serif TC", "Noto Sans TC", serif;
+  --font-family-display: "Gabriela", "Noto Serif TC", serif;
+
+  /* Font sizes */
+  --font-size-body: 16px;
+  --font-size-caption: 17px;
+  --font-size-body-lg: 18px;
+  --font-size-control: clamp(17px, 2vw, 22px);
+  --font-size-button: clamp(17px, 2.4vw, 22px);
+  --font-size-nav: 18px;
+  --font-size-nav-lg: clamp(24px, 2.6vw, 32px);
+  --font-size-nav-mobile: clamp(18px, 5.2vw, 24px);
+  --font-size-brand: clamp(28px, 4vw, 38px);
+  --font-size-hero-title: clamp(52px, 7vw, 76px);
+  --font-size-hero-subtitle: clamp(18px, 2.3vw, 26px);
+  --font-size-hero-slogan: clamp(16px, 3vw, 24px);
+  --font-size-card-title: clamp(28px, 3vw, 36px);
+  --font-size-theme-title: clamp(34px, 5vw, 48px);
+  --font-size-card-description: clamp(18px, 2.8vw, 24px);
+  --font-size-empty: 20px;
+  --font-size-tag: 17px;
+
+  /* Icon sizes */
+  --font-size-icon-sm: 26px;
+  --font-size-icon-md: 28px;
+  --font-size-icon-lg: 32px;
+  --font-size-icon-xl: 36px;
+  --font-size-icon-card: 50px;
+  --font-size-icon-card-mobile: 40px;
+  --font-size-icon-arrow: 40px;
+  --font-size-icon-arrow-mobile: 32px;
+  --font-size-icon-header-menu: 46px;
+  --font-size-icon-header-menu-mobile: 38px;
+
+  /* Font weights */
+  --font-weight-body: 450;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+
+  /* Line heights */
+  --line-height-body: 1.8;
+  --line-height-tight: 1;
+  --line-height-heading: 1.1;
+  --line-height-heading-relaxed: 1.12;
+  --line-height-card-title: 1.18;
+  --line-height-article-title: 1.22;
+  --line-height-tag: 1.35;
+  --line-height-slogan: 1.45;
+  --line-height-description: 1.6;
+}
