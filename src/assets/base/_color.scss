@@ -107,6 +107,11 @@
   --color-text-placeholder: rgb(245 223 168 / 58%);
   --color-text-faint: rgb(245 223 168 / 72%);
   --color-text-footer: rgb(244 223 170 / 72%);
+  --color-text-book-body: rgb(232 214 176 / 84%);
+  --color-text-book-heading: rgb(232 196 129 / 86%);
+  --color-text-book-meta: rgb(224 200 160 / 70%);
+  --color-text-book-muted: rgb(220 198 160 / 64%);
+  --color-text-book-accent: rgb(226 181 103 / 78%);
 
   --color-border: var(--brand-green-500);
   --color-border-accent: rgb(233 194 123 / 58%);
@@ -131,6 +136,8 @@
   --color-border-hover: rgb(255 225 166 / 92%);
   --color-border-card: var(--color-border-accent-soft);
   --color-border-card-strong: var(--color-border-accent-strong);
+  --color-border-book: rgb(218 176 102 / 34%);
+  --color-border-book-strong: rgb(218 176 102 / 50%);
   --color-transparent: transparent;
 
   --color-shadow: var(--neutral-gray-700);
@@ -141,6 +148,7 @@
   --shadow-button-hover: 0 10px 20px rgb(4 15 12 / 38%);
   --shadow-text-strong: 0 4px 18px rgb(0 0 0 / 70%);
   --shadow-text-soft: 0 4px 18px rgb(0 0 0 / 50%);
+  --shadow-text-book-soft: 0 2px 10px rgb(0 0 0 / 34%);
   --shadow-glow-gold: 0 0 20px rgb(232 196 120 / 8%);
   --shadow-glass-card: 0 8px 20px rgb(0 0 0 / 15%);
   --shadow-glass-panel: 0 2px 12px rgb(0 0 0 / 40%);

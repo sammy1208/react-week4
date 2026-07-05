@@ -3,9 +3,12 @@
   min-height: 100vh;
   overflow: hidden;
   padding: 28px clamp(18px, 5vw, 76px) 92px;
-  color: var(--color-text-primary);
+  color: var(--color-text-book-body);
   background:
-    linear-gradient(var(--color-bg-overlay-soft), var(--color-bg-overlay-medium)),
+    linear-gradient(
+      var(--color-bg-overlay-soft),
+      var(--color-bg-overlay-medium)
+    ),
     url("/img/background03.png") center bottom / cover no-repeat fixed;
   font-family: var(--font-family-serif);
 }
@@ -18,10 +21,11 @@
 
 .book-reader {
   width: min(1080px, calc(100% - 160px));
+  // width: min(860px, calc(100% - 96px));
   min-height: 72vh;
   margin: 28px auto 0;
-  padding: clamp(28px, 4vw, 56px) clamp(24px, 5vw, 72px) 72px;
-  border: 1px solid var(--color-border-card-strong);
+  padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 48px) 72px;
+  border: 1px solid var(--color-border-book-strong);
   border-radius: 8px 8px 0 0;
   background: var(--color-bg-book-reader);
   box-shadow:
@@ -43,9 +47,9 @@
   min-height: 42px;
   padding: 0 16px;
   gap: 8px;
-  border: 1px solid var(--color-border-card-strong);
+  border: 1px solid var(--color-border-book-strong);
   border-radius: 6px;
-  color: var(--color-text-primary);
+  color: var(--color-text-book-body);
   background: var(--color-bg-book-tool);
   font-family: var(--font-family-serif);
   font-size: 17px;
@@ -74,11 +78,11 @@
 
 .book-title {
   margin: 0;
-  color: var(--color-text-heading);
+  color: var(--color-text-book-heading);
   font-size: clamp(32px, 4vw, 48px);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-heading-relaxed);
-  text-shadow: var(--shadow-text-soft);
+  text-shadow: var(--shadow-text-book-soft);
 }
 
 .book-author {
@@ -87,7 +91,7 @@
   justify-content: center;
   gap: 16px;
   margin-top: 14px;
-  color: var(--color-text-primary);
+  color: var(--color-text-book-meta);
   font-size: 24px;
 }
 
@@ -108,20 +112,19 @@
 .book-author__ornament::before {
   inset-inline: 0;
   height: 1px;
-  background:
-    linear-gradient(
-      90deg,
-      var(--color-transparent),
-      var(--color-border-card-strong),
-      var(--color-transparent)
-    );
+  background: linear-gradient(
+    90deg,
+    var(--color-transparent),
+    var(--color-border-book-strong),
+    var(--color-transparent)
+  );
 }
 
 .book-author__ornament::after {
   left: 50%;
   width: 7px;
   height: 7px;
-  border: 1px solid var(--color-border-card-strong);
+  border: 1px solid var(--color-border-book-strong);
   background: var(--color-bg-book-reader);
   transform: translate(-50%, -50%) rotate(45deg);
 }
@@ -132,7 +135,7 @@
   justify-content: center;
   gap: 0;
   margin: 24px 0 0;
-  color: var(--color-text-primary);
+  color: var(--color-text-book-meta);
   font-size: 17px;
 }
 
@@ -141,7 +144,7 @@
   align-items: center;
   gap: 8px;
   padding: 0 22px;
-  border-right: 1px solid var(--color-border-card);
+  border-right: 1px solid var(--color-border-book);
 }
 
 .book-meta-row__item:last-child {
@@ -160,14 +163,14 @@
 }
 
 .book-meta-row .material-symbols-outlined {
-  color: var(--color-text-accent);
+  color: var(--color-text-book-accent);
   font-size: 22px;
 }
 
 .book-summary {
   margin-top: 30px;
   padding: 22px clamp(18px, 4vw, 48px);
-  border: 1px solid var(--color-border-card);
+  border: 1px solid var(--color-border-book);
   border-radius: 8px;
   background: var(--color-bg-book-summary);
   text-align: left;
@@ -178,7 +181,7 @@
   align-items: center;
   gap: 12px;
   margin: 0 0 12px;
-  color: var(--color-text-heading);
+  color: var(--color-text-book-heading);
   font-size: 24px;
   line-height: var(--line-height-heading);
 }
@@ -193,10 +196,10 @@
 }
 
 .book-article {
-  width: min(780px, 100%);
+  width: min(980px, 100%);
   margin: 34px auto 0;
   text-align: left;
-  color: var(--color-text-primary);
+  color: var(--color-text-book-body);
   font-size: calc(22px * var(--book-reader-scale, 1));
   line-height: 2.05;
 }
@@ -204,9 +207,9 @@
 .book-article h1,
 .book-article h2,
 .book-article h3 {
-  color: var(--color-text-heading);
+  color: var(--color-text-book-heading);
   text-align: center;
-  text-shadow: var(--shadow-text-soft);
+  text-shadow: var(--shadow-text-book-soft);
 }
 
 .book-article h3 {
@@ -221,7 +224,7 @@
   height: 1px;
   margin: 14px auto 0;
   content: "";
-  background: var(--color-border-card-strong);
+  background: var(--color-border-book-strong);
 }
 
 .book-article p {
@@ -237,11 +240,10 @@
   height: 32px;
   margin: 42px auto;
   border: 0;
-  background:
-    linear-gradient(
+  background: linear-gradient(
       90deg,
       var(--color-transparent),
-      var(--color-border-card-strong),
+      var(--color-border-book-strong),
       var(--color-transparent)
     )
     center / 100% 1px no-repeat;
@@ -255,9 +257,9 @@
   justify-content: center;
   width: 52px;
   height: 52px;
-  border: 1px solid var(--color-border-card-strong);
+  border: 1px solid var(--color-border-book-strong);
   border-radius: 50%;
-  color: var(--color-text-heading);
+  color: var(--color-text-book-heading);
   background: var(--color-bg-book-toc);
   box-shadow: var(--shadow-book-toc);
   cursor: pointer;
@@ -291,7 +293,7 @@
   max-height: 68vh;
   padding: 18px;
   overflow-y: auto;
-  border: 1px solid var(--color-border-card-strong);
+  border: 1px solid var(--color-border-book-strong);
   border-radius: 8px;
   background: var(--color-bg-book-toc);
   box-shadow: var(--shadow-book-toc);
@@ -304,7 +306,7 @@
 
 .book-toc__title {
   margin: 0 0 14px;
-  color: var(--color-text-heading);
+  color: var(--color-text-book-heading);
   font-size: 22px;
   text-align: center;
 }
@@ -320,9 +322,9 @@
 .book-toc__link {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid var(--color-border-card);
+  border: 1px solid var(--color-border-book);
   border-radius: 6px;
-  color: var(--color-text-primary);
+  color: var(--color-text-book-body);
   background: var(--color-bg-book-toc-link);
   font-family: var(--font-family-serif);
   font-size: 16px;
@@ -334,7 +336,6 @@
   .book-reader {
     width: min(100%, 900px);
   }
-
 }
 
 @media (max-width: 720px) {
