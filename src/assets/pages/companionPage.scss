@@ -3,8 +3,6 @@
   padding: 28px clamp(20px, 5vw, 76px) 80px;
   color: var(--color-text-primary);
   background:
-    radial-gradient(circle at 12% 26%, var(--color-glow-page), transparent 18%),
-    radial-gradient(circle at 86% 18%, var(--color-glow-page-medium), transparent 20%),
     linear-gradient(var(--color-bg-overlay-soft), var(--color-bg-overlay-medium)),
     url("/img/background03.png") center bottom / cover no-repeat fixed;
   font-family: var(--font-family-serif);

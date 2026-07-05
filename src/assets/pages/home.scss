@@ -2,8 +2,6 @@
   min-height: 100vh;
   overflow: hidden;
   background:
-    radial-gradient(circle at 12% 26%, var(--color-glow-page), transparent 18%),
-    radial-gradient(circle at 86% 18%, var(--color-glow-page-medium), transparent 20%),
     linear-gradient(var(--color-bg-overlay-soft), var(--color-bg-overlay-medium)),
     url("/img/background01.png") center bottom / cover no-repeat fixed;
   color: var(--color-text-heading);
