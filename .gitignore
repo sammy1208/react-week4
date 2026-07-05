@@ -25,6 +25,8 @@ dist-ssr/
 
 # 不要上傳你的原始小說
 src/novels/
+src/novels-down/
+docs/
 
 # 不要上傳未加密 JSON（裡面含 file: xxx）
 src/data/

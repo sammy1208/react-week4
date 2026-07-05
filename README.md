@@ -1,6 +1,86 @@
 # Nyarchive 開發日誌
 
-更新日期：2026-07-04
+最後更新日期：2026-07-05
+
+## 2026-07-05 開發日誌
+
+今天主要處理小說翻譯資料、AO3 匯出檔格式化，以及 Git 上傳前的整理。
+
+### AO3 翻譯與格式整理
+
+依據 `docs/haikyuu-reference.md` 的角色譯名與用語，並依照 `docs/修改手冊.md` 的格式規則，整理多篇 AO3 匯出檔：
+
+- `Dont_hold_me_back.html`
+- `just_like_this_so_good.html`
+- `Let_me_have_this.html`
+- `Like_you_own_me.html`
+
+處理內容：
+
+- 將 AO3 HTML 外殼移除，包括 `DOCTYPE`、`html/head/body`、`style`、`preface`、`afterword` 與留言提示。
+- 將作品資訊轉成 frontmatter：
+  - `title`
+  - `author`
+  - `summary`
+- 多章作品整理成 `### Chapter N` 搭配 `<!--chapter content-->` 區塊。
+- 單章作品整理成 `docs/修改手冊.md` 指定的單章容器格式。
+- 保留正文需要的 HTML 結構，例如 `<div>`、`<p>`、`align`。
+- 依照排球少年參考資料統一角色名稱：
+  - 宮侑
+  - 佐久早聖臣
+  - 宮治
+  - 角名倫太郎
+  - 木兔光太郎
+  - 日向
+  - 古森元也
+  - 其他相關角色與隊伍名稱
+- 針對機翻常見錯字與殘留英文做後處理。
+- 驗證每份檔案沒有殘留 AO3 外殼與 `[待補翻譯]` 標記。
+
+### Git 上傳前整理
+
+- 停止本機正在執行的 `npm run dev` / Vite dev server。
+- 在 `.gitignore` 新增 `docs/`，避免翻譯原始檔與工作文件被上傳。
+- 使用 `git rm -r --cached docs` 將已被 Git 追蹤的 `docs/` 從索引移除，但保留本機檔案。
+- 確認 `docs/` 已被 ignore，未來執行 `git add .` 不會再被重新加入。
+
+### 後續資料整理
+
+- 批次翻譯 `docs/待翻譯` 內 6 篇 AO3 匯出檔，輸出到 `docs/待確認`：
+  - `Obedience_tastes_like.md`
+  - `Sakusa_Kiyoomis_Routine.md`
+  - `Submission_smells_like.md`
+  - `the_world_still_is_the.md`
+  - `thrill_of_the_hunt.md`
+  - `Yer_my_Lifeline.md`
+- 新增 `docs/abo-omegaverse-reference.md`，整理歐美同人圈 ABO / Omegaverse 常見設定與翻譯用語。
+- 補充 `docs/haikyuu-reference.md` 的佐久侑暱稱規則：
+  - `Omi` → `臣`
+  - `OmiOmi` / `Omi-Omi` → `臣臣`
+- 更新 `docs/修改手冊.md`，新增小說清單 JSON 建立規則：
+  - `id` 使用去掉 `【CP】` 後的作品名。
+  - `author` 優先填真實作者，找不到才填 `未知`。
+  - `tags` 依 `public/data/word.json` 的 `cpKey`。
+  - `file` 使用真實存在的 markdown 檔名。
+  - `description` 取 frontmatter 的 `summary`。
+  - `rating` 固定為 `null`。
+- 依最新規則重建 `docs/待確認/list.json`，並確認 6 筆資料都有真實作者、`SakuAtsu` 標籤、真實檔案路徑與摘要描述。
+- 修正 `Obedience_tastes_like.md` 摘要翻譯，並同步更新 `list.json` 的 `description`。
+
+### 注意事項
+
+- `docs/` 目前只作為本機工作資料夾，不會上傳到 Git。
+- 翻譯檔是機翻後經角色名與格式清理的初稿，若要正式放入站內小說資料，仍建議逐章人工潤稿。
+- 下一步上傳前建議再執行：
+
+```bash
+npm run build
+git status
+```
+
+---
+
+## 2026-07-04 開發日誌
 
 ## 本次開發重點
 

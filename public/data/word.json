@@ -1,5 +1,15 @@
 {
-  "tagOrder": ["珍藏", "超好", "不錯", "不好不壞", "嗯…", "PWP", "圖", "待看"],
+  "tagOrder": [
+    "珍藏",
+    "超好",
+    "不錯",
+    "不好不壞",
+    "嗯…",
+    "PWP",
+    "圖",
+    "待看",
+    "英翻"
+  ],
   "words": [
     {
       "id": "排球",
@@ -13,7 +23,11 @@
         { "name": "兔赤", "icon": "favorite", "cpKey": "BokuAka" },
         { "name": "黑研", "icon": "eyeglasses", "cpKey": "KuroKen" },
         { "name": "灰夜久", "icon": "dark_mode", "cpKey": "HaiYaku" },
-        { "name": "排球其他", "icon": "sports_volleyball", "cpKey": "HaikyuuCP" }
+        {
+          "name": "排球其他",
+          "icon": "sports_volleyball",
+          "cpKey": "HaikyuuCP"
+        }
       ]
     },
     {
@@ -64,9 +78,7 @@
       "themeId": "禁忌之戀",
       "themeName": "禁忌之戀",
       "subtitle": "收錄家庭教師相關的小說與創作筆記",
-      "wordTitle": [
-        { "name": "貝弗", "icon": "pets" }
-      ]
+      "wordTitle": [{ "name": "貝弗", "icon": "pets" }]
     },
     {
       "id": "雜食",
@@ -87,9 +99,7 @@
       "themeId": "輕小說",
       "themeName": "輕小說",
       "subtitle": "收錄文豪野犬相關的小小說與筆記",
-      "wordTitle": [
-        { "name": "輕小說", "icon": "auto_stories" }
-      ]
+      "wordTitle": [{ "name": "輕小說", "icon": "auto_stories" }]
     },
     {
       "id": "間諜教室",
@@ -97,9 +107,7 @@
       "themeId": "輕小說",
       "themeName": "輕小說",
       "subtitle": "收錄間諜教室相關的小小說與筆記",
-      "wordTitle": [
-        { "name": "輕小說", "icon": "auto_stories" }
-      ]
+      "wordTitle": [{ "name": "輕小說", "icon": "auto_stories" }]
     },
     {
       "id": "冰菓",
@@ -107,9 +115,7 @@
       "themeId": "輕小說",
       "themeName": "輕小說",
       "subtitle": "收錄冰菓相關的小小說與筆記",
-      "wordTitle": [
-        { "name": "輕小說", "icon": "auto_stories" }
-      ]
+      "wordTitle": [{ "name": "輕小說", "icon": "auto_stories" }]
     },
     {
       "id": "古代",
