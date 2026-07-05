@@ -85,6 +85,12 @@
   --color-bg-filter: rgb(17 48 37 / 68%);
   --color-bg-filter-control: rgb(24 61 45 / 74%);
   --color-bg-search: rgb(8 35 29 / 72%);
+  --color-bg-book-reader: rgb(9 45 36 / 70%);
+  --color-bg-book-tool: rgb(5 31 26 / 48%);
+  --color-bg-book-tool-hover: rgb(23 59 45 / 68%);
+  --color-bg-book-summary: rgb(6 38 31 / 36%);
+  --color-bg-book-toc: rgb(8 39 33 / 90%);
+  --color-bg-book-toc-link: rgb(16 54 42 / 70%);
 
   --color-text: var(--neutral-black);
   --color-text-primary: var(--brand-gold-120);
@@ -123,6 +129,9 @@
   --color-border-filter: rgb(233 194 123 / 54%);
   --color-border-tag: rgb(233 194 123 / 34%);
   --color-border-hover: rgb(255 225 166 / 92%);
+  --color-border-card: var(--color-border-accent-soft);
+  --color-border-card-strong: var(--color-border-accent-strong);
+  --color-transparent: transparent;
 
   --color-shadow: var(--neutral-gray-700);
   --shadow-page-soft: 0 16px 34px rgb(0 0 0 / 18%);
@@ -137,6 +146,8 @@
   --shadow-glass-panel: 0 2px 12px rgb(0 0 0 / 40%);
   --shadow-glass-soft: 0 8px 32px rgb(0 0 0 / 10%);
   --shadow-glass-button: 0 4px 10px rgb(0 0 0 / 10%);
+  --shadow-book-reader: 0 18px 50px rgb(0 0 0 / 22%);
+  --shadow-book-toc: 0 18px 48px rgb(0 0 0 / 30%);
   --color-shadow-badge: rgb(0 0 0 / 34%);
   --color-shadow-mark: rgb(0 0 0 / 30%);
 
@@ -172,6 +183,7 @@
   --color-glass-white-70: rgb(255 255 255 / 70%);
   --color-glass-white-80: rgb(255 255 255 / 80%);
   --color-surface-glass-green: rgb(186 206 193 / 73%);
+  --filter-book-side-art: sepia(1) saturate(0.8) hue-rotate(345deg);
 
   /* Theme compatibility */
   --color-surface: var(--brand-green-200);

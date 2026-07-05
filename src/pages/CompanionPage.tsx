@@ -179,34 +179,31 @@ export default function CompanionPage() {
 
         <ul className="cp-article-list">
           {visibleNovels.map((item) => (
-            <li className="cp-article-card" key={item.id}>
-              <span className="cp-article-card__spark" aria-hidden="true">
-                ✦
-              </span>
-
-              <div className="cp-article-card__body">
-                <h2 className="cp-article-card__title">{item.title}</h2>
-
-                <div className="cp-article-card__tags">
-                  {(item.tags?.length ? item.tags : ["未分類"]).map((tag) => (
-                    <span className="cp-article-card__tag" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <p className="cp-article-card__description">
-                  {item.description || "尚未填寫文章描述。"}
-                </p>
-              </div>
-
+            <li key={item.id}>
               <button
-                className="cp-article-card__read"
+                className="cp-article-card"
                 type="button"
                 onClick={() => handleBook(item.id)}
               >
-                <span>閱讀</span>
-                <span className="material-symbols-outlined">chevron_right</span>
+                <span className="cp-article-card__spark" aria-hidden="true">
+                  ✦
+                </span>
+
+                <div className="cp-article-card__body">
+                  <h2 className="cp-article-card__title">{item.title}</h2>
+
+                  <div className="cp-article-card__tags">
+                    {(item.tags?.length ? item.tags : ["未分類"]).map((tag) => (
+                      <span className="cp-article-card__tag" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="cp-article-card__description">
+                    {item.description || "尚未填寫文章描述。"}
+                  </p>
+                </div>
               </button>
             </li>
           ))}
