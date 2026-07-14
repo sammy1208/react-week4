@@ -1,0 +1,57 @@
+[
+  {
+    "id": "Abcdefu",
+    "title": "【盾冬】Abcdefu",
+    "author": "未知",
+    "tags": [
+      "不好不壞"
+    ],
+    "description": "",
+    "rating": 4.7,
+    "contentPath": "novels/encrypted/Stucky/Abcdefu.json"
+  },
+  {
+    "id": "Bloody_Dark_Hours",
+    "title": "【盾冬】Bloody Dark Hours",
+    "author": "未知",
+    "tags": [
+      "不好不壞"
+    ],
+    "description": "Bloody Dark Hours 前篇\n但我也沒有後篇...",
+    "rating": 4.6,
+    "contentPath": "novels/encrypted/Stucky/Bloody_Dark_Hours.json"
+  },
+  {
+    "id": "Collector",
+    "title": "【盾冬】Collector 收藏家",
+    "author": "未知",
+    "tags": [
+      "不錯"
+    ],
+    "description": "“为了得到金苹果，三位女神都要开出价码。”\n“你想要得到我的藏品，就要付出代价。”\n“不如公平一点，一物换一物。金苹果归你，你归我。”\n我看尽世间珍宝，但你却是我最渴望的收藏。",
+    "rating": 4.6,
+    "contentPath": "novels/encrypted/Stucky/Collector.json"
+  },
+  {
+    "id": "最强卧底",
+    "title": "【盾冬】最强卧底",
+    "author": "未知",
+    "tags": [
+      "不錯"
+    ],
+    "description": "世界上最强的卧底，是能够藏在敌人心里的。",
+    "rating": 4.7,
+    "contentPath": "novels/encrypted/Stucky/%E6%9C%80%E5%BC%BA%E5%8D%A7%E5%BA%95.json"
+  },
+  {
+    "id": "请远离发情室友",
+    "title": "【盾冬】请远离发情室友",
+    "author": "未知",
+    "tags": [
+      "不好不壞"
+    ],
+    "description": "霜冬室友设定，ABO世界观，有锤基提及",
+    "rating": 4.8,
+    "contentPath": "novels/encrypted/Stucky/%E8%AF%B7%E8%BF%9C%E7%A6%BB%E5%8F%91%E6%83%85%E5%AE%A4%E5%8F%8B.json"
+  }
+]

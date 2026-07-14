@@ -25,6 +25,7 @@ export interface NovelsData {
   description: string;
   rating: number | null;
   contentEnc?: string;
+  contentPath?: string;
 }
 
 export interface Meta {

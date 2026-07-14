@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { NovelsData, WordData, WordDataset, WordTitleData } from "../types/theme";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
-import CP_MAP from "../data_encrypted";
 import Nav from "../components/Nav";
+import { fetchNovelList } from "../api/novels";
 
 type CompanionMeta = {
   themeName: string;
@@ -13,10 +13,11 @@ type CompanionMeta = {
 };
 
 const allTagLabel = "全部";
+const pageSize = 12;
 
-function findCompanionMeta(words: WordData[], cpName: string): CompanionMeta | null {
+function findCompanionMeta(words: WordData[], cpId: string): CompanionMeta | null {
   for (const word of words) {
-    const item = word.wordTitle.find((title) => title.name === cpName);
+    const item = word.wordTitle.find((title) => title.name === cpId || title.cpKey === cpId);
     if (!item) continue;
 
     return {
@@ -38,12 +39,16 @@ export default function CompanionPage() {
   const [wordData, setWordData] = useState<WordData[]>([]);
   const [tagOrder, setTagOrder] = useState<string[]>([]);
   const [activeTag, setActiveTag] = useState(allTagLabel);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState("");
+  const [visibleCount, setVisibleCount] = useState(pageSize);
 
   const companionMeta = useMemo(
     () => findCompanionMeta(wordData, decodeId),
     [decodeId, wordData]
   );
-  const cpKey = companionMeta?.item.cpKey ?? "";
+  const cpKey = companionMeta?.item.cpKey ?? decodeId;
+  const displayName = companionMeta?.item.name ?? decodeId;
 
   useEffect(() => {
     loadWordDataset();
@@ -69,33 +74,43 @@ export default function CompanionPage() {
         console.warn("找不到 CP 資料:", decodeId);
       }
       setNovelsData([]);
+      setIsLoading(false);
       return;
     }
 
     if (!cpKey) {
       console.warn("此 CP 尚未設定 cpKey:", decodeId);
       setNovelsData([]);
+      setIsLoading(false);
+      setLoadError("此分類尚未設定資料來源。");
       return;
     }
 
-    const list = CP_MAP[cpKey];
-    if (!list) {
-      setNovelsData([]);
-      return;
-    }
+    let ignore = false;
+    setIsLoading(true);
+    setLoadError("");
 
-    const safeList = list.map((novel: NovelsData) => ({
-      id: novel.id,
-      title: novel.title,
-      author: novel.author,
-      tags: novel.tags,
-      description: novel.description,
-      rating: novel.rating,
-      contentEnc: novel.contentEnc,
-    }));
+    fetchNovelList(cpKey)
+      .then((list) => {
+        if (ignore) return;
+        setNovelsData(list);
+        setActiveTag(allTagLabel);
+        setVisibleCount(pageSize);
+      })
+      .catch((error) => {
+        if (ignore) return;
+        console.error("小說清單載入失敗:", error);
+        setLoadError("小說清單載入失敗，請確認加密資料已重新產生。");
+        setNovelsData([]);
+      })
+      .finally(() => {
+        if (ignore) return;
+        setIsLoading(false);
+      });
 
-    setNovelsData(safeList);
-    setActiveTag(allTagLabel);
+    return () => {
+      ignore = true;
+    };
   }, [companionMeta, cpKey, decodeId, wordData.length]);
 
   const tags = useMemo(() => {
@@ -117,6 +132,17 @@ export default function CompanionPage() {
     if (activeTag === allTagLabel) return novelsData;
     return novelsData.filter((novel) => novel.tags?.includes(activeTag));
   }, [activeTag, novelsData]);
+  const displayedNovels = visibleNovels.slice(0, visibleCount);
+  const hasMoreNovels = visibleCount < visibleNovels.length;
+
+  function handleTag(tag: string) {
+    setActiveTag(tag);
+    setVisibleCount(pageSize);
+  }
+
+  function handleLoadMore() {
+    setVisibleCount((current) => Math.min(current + pageSize, visibleNovels.length));
+  }
 
   const handleBook = (id: string) => {
     if (!cpKey) return;
@@ -133,29 +159,29 @@ export default function CompanionPage() {
             label: companionMeta?.wordName ?? "分類",
             to: companionMeta ? `/word/${companionMeta.wordId}` : "/",
           },
-          { label: decodeId, current: true },
+          { label: displayName, current: true },
         ]}
       />
 
       <section className="cp-hero" aria-labelledby="cp-page-title">
         <h1 className="cp-hero__title" id="cp-page-title">
-          {decodeId}
+          {displayName}
         </h1>
         <div className="cp-hero__divider" aria-hidden="true">
           <span />
           <span className="material-symbols-outlined">pets</span>
           <span />
         </div>
-        <p className="cp-hero__subtitle">收錄{decodeId}相關文章</p>
+        <p className="cp-hero__subtitle">收錄{displayName}相關文章</p>
       </section>
 
-      <section className="cp-list-panel" aria-label={`${decodeId}文章列表`}>
+      <section className="cp-list-panel" aria-label={`${displayName}文章列表`}>
         <div className="cp-filter-bar">
           <div className="cp-filter-tabs" aria-label="文章標籤篩選">
             <button
               className={`cp-filter-tab ${activeTag === allTagLabel ? "is-active" : ""}`}
               type="button"
-              onClick={() => setActiveTag(allTagLabel)}
+              onClick={() => handleTag(allTagLabel)}
             >
               {allTagLabel}
             </button>
@@ -164,7 +190,7 @@ export default function CompanionPage() {
                 className={`cp-filter-tab ${activeTag === tag ? "is-active" : ""}`}
                 type="button"
                 key={tag}
-                onClick={() => setActiveTag(tag)}
+                onClick={() => handleTag(tag)}
               >
                 {tag}
               </button>
@@ -177,39 +203,55 @@ export default function CompanionPage() {
           </div>
         </div>
 
-        <ul className="cp-article-list">
-          {visibleNovels.map((item) => (
-            <li key={item.id}>
-              <button
-                className="cp-article-card"
-                type="button"
-                onClick={() => handleBook(item.id)}
-              >
-                <span className="cp-article-card__spark" aria-hidden="true">
-                  ✦
-                </span>
+        {isLoading && <p className="cp-status">小說清單載入中...</p>}
+        {loadError && <p className="cp-status cp-status--error">{loadError}</p>}
 
-                <div className="cp-article-card__body">
-                  <h2 className="cp-article-card__title">{item.title}</h2>
+        {!isLoading && !loadError && (
+          <ul className="cp-article-list">
+            {displayedNovels.map((item) => (
+              <li key={item.id}>
+                <button
+                  className="cp-article-card"
+                  type="button"
+                  onClick={() => handleBook(item.id)}
+                >
+                  <span className="cp-article-card__spark" aria-hidden="true">
+                    ✦
+                  </span>
 
-                  <div className="cp-article-card__tags">
-                    {(item.tags?.length ? item.tags : ["未分類"]).map((tag) => (
-                      <span className="cp-article-card__tag" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="cp-article-card__body">
+                    <h2 className="cp-article-card__title">{item.title}</h2>
+
+                    <div className="cp-article-card__tags">
+                      {(item.tags?.length ? item.tags : ["未分類"]).map((tag) => (
+                        <span className="cp-article-card__tag" key={tag}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <p className="cp-article-card__description">
+                      {item.description || "尚未填寫文章描述。"}
+                    </p>
                   </div>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
 
-                  <p className="cp-article-card__description">
-                    {item.description || "尚未填寫文章描述。"}
-                  </p>
-                </div>
-              </button>
-            </li>
-          ))}
-        </ul>
+        {!isLoading && !loadError && hasMoreNovels && (
+          <div className="cp-load-more">
+            <button className="cp-load-more__button" type="button" onClick={handleLoadMore}>
+              載入更多
+            </button>
+            <p className="cp-load-more__count">
+              已顯示 {displayedNovels.length} / {visibleNovels.length} 篇
+            </p>
+          </div>
+        )}
 
-        {visibleNovels.length === 0 && (
+        {!isLoading && !loadError && visibleNovels.length === 0 && (
           <p className="cp-empty">目前沒有符合條件的文章。</p>
         )}
       </section>

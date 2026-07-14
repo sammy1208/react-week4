@@ -4,11 +4,11 @@ import rehypeRaw from "rehype-raw";
 import fm from "front-matter";
 import { NovelsData, Meta, WordData, WordDataset, WordTitleData } from "../types/theme";
 import { useParams } from "react-router";
-import CP_MAP from "../data_encrypted";
 import MarkdownRenderer from "../components/MarkdownRenderer";
 import { generateId } from "../utils/generateId";
 import { decryptContent } from "../utils/decrypt";
 import Nav from "../components/Nav";
+import { fetchEncryptedNovel, fetchNovelList } from "../api/novels";
 
 type BookMeta = {
   themeName: string;
@@ -60,6 +60,8 @@ export default function BookPage() {
   const [novelData, setNovelData] = useState<NovelsData | null>(null);
   const [wordData, setWordData] = useState<WordData[]>([]);
   const [wordCount, setWordCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState("");
   const [meta, setMeta] = useState<Meta>({
     title: "",
     author: "",
@@ -89,23 +91,25 @@ export default function BookPage() {
   async function loadBook(cpId: string, bookId: string) {
     if (!decodeCpId || !decodeBookId) return;
 
-    const list = CP_MAP[decodeCpId]; // ⬅ 直接取得該 CP 的加密小說列表
-
-    if (!list) {
-      console.warn("找不到 CP:", decodeCpId);
-      return;
-    }
-
-    const novel = list.find((n: NovelsData) => n.id === bookId);
-
-    if (!novel) {
-      console.log("找不到指定小說:", decodeBookId);
-      return;
-    }
+    setIsLoading(true);
+    setLoadError("");
+    setContent("");
+    setNovelData(null);
+    setWordCount(0);
+    setToc([]);
+    setMeta({ title: "", author: "", summary: "" });
 
     try {
-      // 1️⃣ 解密 markdown 內容
-      const decrypted = await decryptContent(novel.contentEnc);
+      const list = await fetchNovelList(decodeURIComponent(cpId));
+      const novel = list.find((n: NovelsData) => n.id === bookId);
+
+      if (!novel) {
+        setLoadError("找不到指定小說，請確認書單資料是否已更新。");
+        return;
+      }
+
+      const contentEnc = await fetchEncryptedNovel(novel);
+      const decrypted = await decryptContent(contentEnc);
 
       // 2️⃣ 解析 front-matter
       const { attributes, body } = fm<Meta>(decrypted);
@@ -119,6 +123,9 @@ export default function BookPage() {
       setToc(tocData);
     } catch (error) {
       console.error("解密或解析小說內容失敗:", error);
+      setLoadError("小說載入失敗，請確認加密檔案已產生並重新部署。");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -178,7 +185,7 @@ export default function BookPage() {
           </div>
 
           <header className="book-reader__header">
-            <h1 className="book-title">{meta.title}</h1>
+            <h1 className="book-title">{meta.title || displayTitle}</h1>
             <div className="book-author">
               <span className="book-author__ornament" aria-hidden="true" />
               <strong>{meta.author || novelData?.author || "未知"}</strong>
@@ -208,7 +215,10 @@ export default function BookPage() {
             </dl>
           </header>
 
-          {meta.summary && (
+          {isLoading && <p className="book-status">小說載入中...</p>}
+          {loadError && <p className="book-status book-status--error">{loadError}</p>}
+
+          {!isLoading && !loadError && meta.summary && (
             <section className="book-summary" aria-label="Summary">
               <h2 className="book-summary__title">
                 <span aria-hidden="true">✦</span>
@@ -222,9 +232,11 @@ export default function BookPage() {
             </section>
           )}
 
-          <div className="book-article">
-            <MarkdownRenderer content={content} />
-          </div>
+          {!isLoading && !loadError && (
+            <div className="book-article">
+              <MarkdownRenderer content={content} />
+            </div>
+          )}
         </article>
       </main>
 
@@ -278,51 +290,3 @@ export default function BookPage() {
   );
 }
 
-// import { useEffect, useState } from "react";
-// import matter from "gray-matter";
-// import ReactMarkdown from "react-markdown";
-// import remarkGfm from "remark-gfm";
-
-// function NovelReader() {
-//   const [meta, setMeta] = useState({});
-//   const [content, setContent] = useState("");
-
-//   useEffect(() => {
-//     fetch("/novels/moon_meet.md")
-//       .then((res) => res.text())
-//       .then((text) => {
-//         const { data, content } = matter(text);
-//         setMeta(data);
-//         setContent(content);
-//       });
-//   }, []);
-
-//   return (
-//     <div className="min-h-screen bg-[#7A8FA2] text-[#EAE8E1] px-8 py-10">
-//       {/* 可選：顯示書籍資料 */}
-//       <h1 className="text-3xl font-serif mb-2">{meta.title}</h1>
-//       {meta.author && <p className="text-sm mb-6">作者：{meta.author}</p>}
-
-//       {/* ✅ 只渲染內容部分 */}
-//       <article className="prose prose-invert max-w-none">
-//         <ReactMarkdown remarkPlugins={[remarkGfm]}>
-//           {content}
-//         </ReactMarkdown>
-//       </article>
-//     </div>
-//   );
-// }
-
-// export default NovelReader;
-
-// import CP_MAP from "../data_encrypted";
-// import { decryptContent } from "../utils/decrypt";
-
-// async function loadBook() {
-//   const list = CP_MAP[cpData];
-//   const novel = list.find(n => n.id === bookId);
-
-//   const decrypted = await decryptContent(novel.contentEnc);
-
-//   setContent(decrypted);
-// }

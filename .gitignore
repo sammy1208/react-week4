@@ -9,6 +9,9 @@ lerna-debug.log*
 
 node_modules
 dist/
+
+# Generated encrypted novel payloads. Run `npm run encrypt:novels` before build/deploy.
+public/novels/encrypted/
 dist-ssr/
 *.local
 
