@@ -1,4 +1,18 @@
 {
   "id": "短漫",
-  "contentEnc": "adfb0baf5b567915d39a8a6ab1f8d539:de260491061142e768b0d4d7d4cdbaa8f7d4aaa81de963d509df4ba538e7a02ae93e8b953d99a9da6d423d42460554f9e070b936a3862f6ae1b1910a55dbc11f97ae51b5d6d3032d78126a75bbabcb4518a2c7bc7e58fde50815abbac216f667cfd5ea66e5d10d8cb342863ea66efa7d825a4d9c1f88905a970c6308b7595efc6b37fcbd27ece84f40a8c383eae5ff4e4a33763bbb280cf9423306a7dde524a4b621386c15608a7c9d746ef913f8132c2efb1276218a6fa7b3ed251d70b6e764a53b0c137b6f204014881ace8d7a7c1b"
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "QWyZ1+Ho66JVS4z9i5CI8A==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "UnWmb2JBs6alWt7W",
+    "ciphertext": "jzHWGnqMIdYJWvNIVLJXD59IOrJ/bJ7awwAjM4Rtdd/Bw+iTsOIwuhlsn9RJXqEJX8GKDzQwvAbVtehWe2HdFOaWPJO3iPrDSfdVzCnF1bh+sEkqqOqFZ13qI734853Y4czk8lLPA8FEHMjHCMnUg9lbYKxHnZjFofBAPtj7u7UWGiRyUYe/WSsl+BuYSVQQayb2Gf9uESQ9UccAnrLxueeE5YEmuHNWGrX9GzE1UnhqnucftXkiMo6h1Y5YqWR64II=",
+    "authTag": "eieQKxlqEMr026zAwMER1w=="
+  }
 }

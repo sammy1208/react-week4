@@ -1,4 +1,18 @@
 {
   "id": "短漫01",
-  "contentEnc": "10098b19bd7db8cd36806aeaf39e113b:3c51518e52c04d21a658148dd7e4429674ea6654d43c22695498fdc116d924b51e4512a6cb094ef6699f5c76dc1c17863c8a972d59b4e4391c810d99c8b5ef402c2ada170bbf606b0f09aa2f61a3202c178d51c27b79a616f5d9870dbcf3883d481bdf8a6be4da8973dafff42bb8948346ee26e1463d2c87034b916f2ce8e1433449ce42fd470ca881c81001ed51ba26ffede211d61f3b20c934d55be1c3c49ea6ed8c4c78b4c0449a3c9f3549a8dcafe247f8db0cbb5cf48443b4714bd0cf0fceec172d28b1bd726fc19a0180d972cf62f181756dca8b0885006616ae67507d5eee3f11f4a5fa85a70a4822eb53d36404e92abe048e4844ed6dd9fcd2b0a1b3135524c3a535f31f9e6c2c1c4d5b3a292d9bb8e91e96559c20a9c0924bc3e0071ac29c3a5a4bed212fb4c6f1304ad6c2399cfe00ed67a2618994b04633b1153696c40b967f17ba5e11fe74a3ab5410f465866039629e4148691f8eb510808dc3"
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "FFZTAbtENTI4yug67Cjs+A==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "P8Y7TO4YlLP9PJZI",
+    "ciphertext": "NQ5dv0oJ0DV3J9Yo+ZrGCmXjmlgxoMZuup4eZuNgK2o9R1ek0sae5R4OU2jAIriW5r1640nTGCI3Z+n9Usb+bt8FxAD8IoG8zRqqjCw0imWqhgpqVSCJx5ivPttbHKtjwOq5Nin1lo/hjyKnjg4bRL4LJCuuzQEizFlJfRwZ606yNHWM1NIV+C7QqA0RTlAeV5JtW2h3/R4CVR6P254fk5n4SnQPXaHawxycBaIh1tNlIseN+JTZsjLLmYvTlvx1qPcJvTXgVb6rmm6T13wtmSo02n+2vI2EEoefSpZRl2ieSts/PeX775XfIBuItm6VHOAoq4Y7NRNogfz6mVkVgq8883ccwtMB40CGtq44lWpB1AfCfxRU8BVsxIg4OclbBzsy70ZX7nOb8RD21bQzpat4h+Ya8g0GXGouYMDQH12jK93ujpTUUTVqjrlDu9ZsqLp43NZmrNdXbA==",
+    "authTag": "JOndZSces9pdnm5sqO6+Yw=="
+  }
 }

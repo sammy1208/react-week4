@@ -1,0 +1,18 @@
+{
+  "id": "novel-reader-access",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "dlkbz48lSlkapPfI0CIOxw==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "5Lp2ea2VZpithbim",
+    "ciphertext": "fzD70oCmPZA6TPgvvLFy2mgz8sC0jQ==",
+    "authTag": "dCdrSVafXcCo/G0RT4Huwg=="
+  }
+}
