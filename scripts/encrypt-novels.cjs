@@ -8,6 +8,14 @@ const sourceDataDir = path.join(rootDir, "src", "data");
 const sourceNovelsDir = path.join(rootDir, "src", "novels");
 const publicDataDir = path.join(rootDir, "public", "data", "novels");
 const publicEncryptedDir = path.join(rootDir, "public", "novels", "encrypted");
+const accessVerifierPath = path.join(
+  rootDir,
+  "public",
+  "security",
+  "novel-access.json",
+);
+const ACCESS_VERIFIER_ID = "novel-reader-access";
+const ACCESS_SENTINEL = "novel-reader-access-v1";
 
 const password = process.env.NOVEL_ENCRYPTION_PASSWORD;
 
@@ -149,6 +157,7 @@ function main() {
     encrypted: 0,
     metadata: 0,
     missing: 0,
+    accessVerifier: "unchanged",
   };
 
   const cpFiles = fs
@@ -206,6 +215,21 @@ function main() {
     }
   }
 
+  if (
+    !canReuseEncryptedFile(
+      accessVerifierPath,
+      ACCESS_VERIFIER_ID,
+      ACCESS_SENTINEL,
+    )
+  ) {
+    const verifier = buildEncryptedNovel(
+      { id: ACCESS_VERIFIER_ID },
+      ACCESS_SENTINEL,
+    );
+    writeTextIfChanged(accessVerifierPath, serializeJson(verifier));
+    counters.accessVerifier = "updated";
+  }
+
   console.log(
     [
       "加密完成。",
@@ -213,6 +237,7 @@ function main() {
       `內容未變：${counters.unchanged}`,
       `目錄更新：${counters.metadata}`,
       `缺少原文：${counters.missing}`,
+      `入口驗證：${counters.accessVerifier}`,
     ].join(" "),
   );
 }

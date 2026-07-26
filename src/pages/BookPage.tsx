@@ -9,6 +9,10 @@ import { generateId } from "../utils/generateId";
 import { decryptContent, NovelDecryptionError } from "../utils/decrypt";
 import Nav from "../components/Nav";
 import { fetchEncryptedNovel, fetchNovelList } from "../api/novels";
+import {
+  clearStoredPassword,
+  getStoredPassword,
+} from "../security/passwordSession";
 
 type BookMeta = {
   themeName: string;
@@ -17,28 +21,6 @@ type BookMeta = {
   cpName: string;
   item: WordTitleData;
 };
-
-const PASSWORD_STORAGE_KEY = "novel-reader-password";
-
-function getStoredPassword() {
-  try {
-    return sessionStorage.getItem(PASSWORD_STORAGE_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
-
-function storePassword(password: string) {
-  try {
-    if (password) {
-      sessionStorage.setItem(PASSWORD_STORAGE_KEY, password);
-    } else {
-      sessionStorage.removeItem(PASSWORD_STORAGE_KEY);
-    }
-  } catch {
-    // 部分瀏覽器停用儲存空間時，仍可在本次頁面生命週期內閱讀。
-  }
-}
 
 function findBookMeta(words: WordData[], cpKey: string): BookMeta | null {
   for (const word of words) {
@@ -84,12 +66,6 @@ export default function BookPage() {
   const [wordCount, setWordCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [loadError, setLoadError] = useState("");
-  const [unlockPassword, setUnlockPassword] = useState(getStoredPassword);
-  const [passwordInput, setPasswordInput] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [requiresPassword, setRequiresPassword] = useState(
-    () => !getStoredPassword(),
-  );
   const [meta, setMeta] = useState<Meta>({
     title: "",
     author: "",
@@ -107,8 +83,8 @@ export default function BookPage() {
 
   useEffect(() => {
     if (!decodeCpId || !decodeBookId) return;
-    loadBook(decodeCpId, decodeBookId, unlockPassword);
-  }, [decodeCpId, decodeBookId, unlockPassword]);
+    loadBook(decodeCpId, decodeBookId, getStoredPassword());
+  }, [decodeCpId, decodeBookId]);
 
   async function loadWordDataset() {
     const res = await fetch("./data/word.json");
@@ -124,7 +100,6 @@ export default function BookPage() {
     setWordCount(0);
     setToc([]);
     setMeta({ title: "", author: "", summary: "" });
-    if (password) setPasswordError("");
 
     try {
       const list = await fetchNovelList(cpKey);
@@ -138,7 +113,7 @@ export default function BookPage() {
       setNovelData(novel);
 
       if (!password) {
-        setRequiresPassword(true);
+        clearStoredPassword();
         return;
       }
 
@@ -150,20 +125,13 @@ export default function BookPage() {
       setMeta(attributes as Meta);
       setContent(body);
       setWordCount(getWordCount(body));
-      setRequiresPassword(false);
-      setPasswordError("");
-      setPasswordInput("");
-      storePassword(password);
 
       // 3️⃣ 產生 TOC
       const tocData = extractToc(body);
       setToc(tocData);
     } catch (error) {
       if (error instanceof NovelDecryptionError) {
-        storePassword("");
-        setUnlockPassword("");
-        setRequiresPassword(true);
-        setPasswordError("密碼不正確，或文章的加密資料已損毀。");
+        clearStoredPassword();
         return;
       }
 
@@ -191,28 +159,8 @@ export default function BookPage() {
     setReaderScale((current) => (current >= 1.12 ? 0.94 : current + 0.06));
   }
 
-  function handleUnlock(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    if (!passwordInput) {
-      setPasswordError("請輸入閱讀密碼。");
-      return;
-    }
-
-    setPasswordError("");
-    setUnlockPassword(passwordInput);
-  }
-
   function handleLock() {
-    storePassword("");
-    setUnlockPassword("");
-    setPasswordInput("");
-    setPasswordError("");
-    setContent("");
-    setMeta({ title: "", author: "", summary: "" });
-    setWordCount(0);
-    setToc([]);
-    setRequiresPassword(true);
+    clearStoredPassword();
   }
 
   function handleToc() {
@@ -251,7 +199,7 @@ export default function BookPage() {
               <span className="book-tool-btn__aa">AA</span>
               <span>字級 {getReaderScaleLabel(readerScale)}</span>
             </button>
-            {!requiresPassword && content ? (
+            {content ? (
               <button className="book-tool-btn" type="button" onClick={handleLock}>
                 <span className="material-symbols-outlined">lock</span>
                 <span>鎖定</span>
@@ -293,41 +241,7 @@ export default function BookPage() {
           {isLoading && <p className="book-status">小說載入中...</p>}
           {loadError && <p className="book-status book-status--error">{loadError}</p>}
 
-          {!isLoading && !loadError && requiresPassword ? (
-            <section className="book-unlock" aria-labelledby="book-unlock-title">
-              <span className="material-symbols-outlined book-unlock__icon" aria-hidden="true">
-                encrypted
-              </span>
-              <h2 id="book-unlock-title">輸入閱讀密碼</h2>
-              <p>文章已加密保護。密碼只會保留到目前的瀏覽器分頁關閉。</p>
-              <form className="book-unlock__form" onSubmit={handleUnlock}>
-                <label htmlFor="novel-password">閱讀密碼</label>
-                <div className="book-unlock__controls">
-                  <input
-                    id="novel-password"
-                    type="password"
-                    value={passwordInput}
-                    onChange={(event) => setPasswordInput(event.target.value)}
-                    autoComplete="current-password"
-                    autoFocus
-                    aria-describedby={passwordError ? "novel-password-error" : undefined}
-                  />
-                  <button type="submit">解鎖文章</button>
-                </div>
-                {passwordError ? (
-                  <p
-                    id="novel-password-error"
-                    className="book-unlock__error"
-                    role="alert"
-                  >
-                    {passwordError}
-                  </p>
-                ) : null}
-              </form>
-            </section>
-          ) : null}
-
-          {!isLoading && !loadError && !requiresPassword && meta.summary && (
+          {!isLoading && !loadError && meta.summary && (
             <section className="book-summary" aria-label="Summary">
               <h2 className="book-summary__title">
                 <span aria-hidden="true">✦</span>
@@ -341,7 +255,7 @@ export default function BookPage() {
             </section>
           )}
 
-          {!isLoading && !loadError && !requiresPassword && (
+          {!isLoading && !loadError && (
             <div className="book-article">
               <MarkdownRenderer content={content} />
             </div>

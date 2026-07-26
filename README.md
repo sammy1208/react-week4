@@ -86,7 +86,9 @@
   - `public/novels/encrypted/**/*.json`
 - 加密腳本會先驗證既有輸出；Markdown 沒有變更時會保留原檔，避免所有密文每次都出現 Git 變更。
 - 舊版 AES-CBC 輸出會在第一次執行時遷移成 AES-256-GCM，因此首次升級會有大量加密檔異動。
-- 閱讀密碼不再打包進前端；讀者開啟文章時輸入，成功後只保留於目前瀏覽器分頁。
+- 閱讀密碼不再打包進前端；開啟網站時會先顯示全站密碼閘門，驗證成功後才載入網站內容。
+- 密碼成功驗證後只保留於目前瀏覽器分頁的 `sessionStorage`，關閉分頁後即清除。
+- `public/security/novel-access.json` 是使用相同密碼加密的入口驗證資料。
 - 直接修改 `public/data/novels/*.json` 會在下一次加密時被覆蓋。
 - 新增小說時應先改 `src/data/SakuAtsu.json` 與 `src/novels/Haikyuu/SakuAtsu/*.md`。
 
