@@ -6,11 +6,7 @@ const sourceDir = path.join(rootDir, "docs", "待翻譯", "10000");
 const outputDir = path.join(rootDir, "docs", "down", "10000");
 
 const files = [
-  "the_earth.html",
-  "The_Edge_of_a_Knife.html",
-  "The_games_you_play.html",
-  "undesirable.html",
-  "Wingman.html",
+  "Not_so_bright.html",
 ];
 
 const titleMap = {

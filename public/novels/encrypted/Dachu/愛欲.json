@@ -5,14 +5,14 @@
     "algorithm": "AES-256-GCM",
     "kdf": {
       "name": "scrypt",
-      "salt": "xT4qGNT2Lpc9E+YCGYsF3A==",
+      "salt": "ehNIpOgR5KKPJg/MCVooxA==",
       "N": 16384,
       "r": 8,
       "p": 1,
       "keyLength": 32
     },
-    "iv": "wLjBTqsqe7C01y55",
-    "ciphertext": "xULjMMydWMhciJMDQL1xp0Vp78Jnjfhi6xk3xyV2vnypcEYC5Cp0Do5qBZXdjMejryGKTWVWKAyhHQrJLC/cNTrzMjDGS2wRv6LmXt2tLd615lOLtz1MGcRjNG6xMEr9H6XkErf+TaGe31UPln7nv4JjT+lfC411HdlWG5CIfJyN6YemJotplolHdSg=",
-    "authTag": "l/jLEm7pUlh6rE+9uQl3ig=="
+    "iv": "u3UImBIf8/n7BCcF",
+    "ciphertext": "t3o9gJ/5SZPDysQB+g+G76tjQTb4JEmbzNyRIbAJ2ByortwqdBVd4Bh1pTqaUv9TTmHd/dw1s46fY806rXqbFyj4XPiELqsXFwvj+I+4qXri3ccXJn1Lr4KpeInTF4wegD1lnph5V4YUasY0a7F2Z2U+l/0y9H5ahxRN9qes30i/grT6L0lLqmWKypg=",
+    "authTag": "ycTXaFLuG6ESMInPvcY47g=="
   }
 }

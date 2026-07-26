@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 
 const rootDir = path.resolve(__dirname, "..");
 const sourceDataDir = path.join(rootDir, "src", "data");
@@ -14,8 +14,14 @@ const accessVerifierPath = path.join(
   "security",
   "novel-access.json",
 );
+const encryptionCachePath = path.join(
+  rootDir,
+  ".cache",
+  "novel-encryption-manifest.json",
+);
 const ACCESS_VERIFIER_ID = "novel-reader-access";
 const ACCESS_SENTINEL = "novel-reader-access-v1";
+const ENCRYPTION_CACHE_VERSION = 1;
 
 const password = process.env.NOVEL_ENCRYPTION_PASSWORD;
 
@@ -39,6 +45,62 @@ function readJson(filePath) {
 
 function serializeJson(data) {
   return `${JSON.stringify(data, null, 2)}\n`;
+}
+
+function sha256(content) {
+  return crypto.createHash("sha256").update(content).digest("hex");
+}
+
+function readEncryptionCache() {
+  if (!fs.existsSync(encryptionCachePath)) {
+    return { version: ENCRYPTION_CACHE_VERSION, entries: {} };
+  }
+
+  try {
+    const cache = readJson(encryptionCachePath);
+    if (
+      cache.version === ENCRYPTION_CACHE_VERSION &&
+      cache.entries &&
+      typeof cache.entries === "object" &&
+      !Array.isArray(cache.entries)
+    ) {
+      return cache;
+    }
+  } catch {
+    // A missing or invalid cache is safe: existing ciphertext is verified below.
+  }
+
+  return { version: ENCRYPTION_CACHE_VERSION, entries: {} };
+}
+
+function cacheKeyFor(filePath) {
+  return path.relative(rootDir, filePath).split(path.sep).join("/");
+}
+
+function canReuseFromHashCache(
+  cacheEntry,
+  encryptedPath,
+  novelId,
+  sourceHash,
+) {
+  if (
+    !cacheEntry ||
+    cacheEntry.novelId !== novelId ||
+    cacheEntry.sourceHash !== sourceHash ||
+    !fs.existsSync(encryptedPath)
+  ) {
+    return false;
+  }
+
+  return cacheEntry.outputHash === sha256(fs.readFileSync(encryptedPath));
+}
+
+function buildCacheEntry(encryptedPath, novelId, sourceHash) {
+  return {
+    novelId,
+    sourceHash,
+    outputHash: sha256(fs.readFileSync(encryptedPath)),
+  };
 }
 
 function writeTextIfChanged(filePath, content) {
@@ -154,11 +216,26 @@ function buildEncryptedNovel(novel, plaintext) {
 function main() {
   const counters = {
     unchanged: 0,
+    hashMatched: 0,
+    verified: 0,
     encrypted: 0,
     metadata: 0,
     missing: 0,
     accessVerifier: "unchanged",
   };
+  const encryptionCache = readEncryptionCache();
+  const nextCacheEntries = {};
+  const accessVerifierIsValid = canReuseEncryptedFile(
+    accessVerifierPath,
+    ACCESS_VERIFIER_ID,
+    ACCESS_SENTINEL,
+  );
+
+  if (!accessVerifierIsValid && fs.existsSync(accessVerifierPath)) {
+    console.warn(
+      "目前密碼無法解開入口驗證；視為密碼已更換，將重新加密全部文章。",
+    );
+  }
 
   const cpFiles = fs
     .readdirSync(sourceDataDir)
@@ -187,16 +264,40 @@ function main() {
       }
 
       const markdown = fs.readFileSync(markdownPath, "utf8");
+      const sourceHash = sha256(markdown);
       const fileName = `${safeFileName(novel.id)}.json`;
       const encryptedPath = path.join(publicEncryptedDir, cpKey, fileName);
+      const cacheKey = cacheKeyFor(encryptedPath);
+      const cacheEntry = encryptionCache.entries[cacheKey];
 
-      if (canReuseEncryptedFile(encryptedPath, novel.id, markdown)) {
+      if (
+        accessVerifierIsValid &&
+        canReuseFromHashCache(
+          cacheEntry,
+          encryptedPath,
+          novel.id,
+          sourceHash,
+        )
+      ) {
         counters.unchanged += 1;
+        counters.hashMatched += 1;
+      } else if (
+        accessVerifierIsValid &&
+        canReuseEncryptedFile(encryptedPath, novel.id, markdown)
+      ) {
+        counters.unchanged += 1;
+        counters.verified += 1;
       } else {
         const output = serializeJson(buildEncryptedNovel(novel, markdown));
         writeTextIfChanged(encryptedPath, output);
         counters.encrypted += 1;
       }
+
+      nextCacheEntries[cacheKey] = buildCacheEntry(
+        encryptedPath,
+        novel.id,
+        sourceHash,
+      );
 
       metadataList.push({
         id: novel.id,
@@ -215,13 +316,7 @@ function main() {
     }
   }
 
-  if (
-    !canReuseEncryptedFile(
-      accessVerifierPath,
-      ACCESS_VERIFIER_ID,
-      ACCESS_SENTINEL,
-    )
-  ) {
+  if (!accessVerifierIsValid) {
     const verifier = buildEncryptedNovel(
       { id: ACCESS_VERIFIER_ID },
       ACCESS_SENTINEL,
@@ -230,11 +325,21 @@ function main() {
     counters.accessVerifier = "updated";
   }
 
+  writeTextIfChanged(
+    encryptionCachePath,
+    serializeJson({
+      version: ENCRYPTION_CACHE_VERSION,
+      entries: nextCacheEntries,
+    }),
+  );
+
   console.log(
     [
       "加密完成。",
       `新增或更新：${counters.encrypted}`,
       `內容未變：${counters.unchanged}`,
+      `雜湊命中：${counters.hashMatched}`,
+      `解密驗證：${counters.verified}`,
       `目錄更新：${counters.metadata}`,
       `缺少原文：${counters.missing}`,
       `入口驗證：${counters.accessVerifier}`,

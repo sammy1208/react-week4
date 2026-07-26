@@ -9,6 +9,8 @@ lerna-debug.log*
 
 node_modules
 dist/
+.cache/
+NYARCHIVE_DEVLOG.local.md
 
 # Generated encrypted novel payloads. Run `npm run encrypt:novels` before build/deploy.
 # public/novels/encrypted/

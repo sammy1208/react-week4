@@ -5,14 +5,14 @@
     "algorithm": "AES-256-GCM",
     "kdf": {
       "name": "scrypt",
-      "salt": "PVJNAyKDQ8I2NpIbLNSJLQ==",
+      "salt": "dlkbz48lSlkapPfI0CIOxw==",
       "N": 16384,
       "r": 8,
       "p": 1,
       "keyLength": 32
     },
-    "iv": "9cYS3TbApHpEQi+5",
-    "ciphertext": "6dhmD09ODSXLDBpudu/NNsnOJ48Nww==",
-    "authTag": "2lZkzKyX+8fg04mutYamcg=="
+    "iv": "5Lp2ea2VZpithbim",
+    "ciphertext": "fzD70oCmPZA6TPgvvLFy2mgz8sC0jQ==",
+    "authTag": "dCdrSVafXcCo/G0RT4Huwg=="
   }
 }

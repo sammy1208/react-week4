@@ -6,14 +6,36 @@ const sourceDir = path.join(rootDir, "docs", "待翻譯", "10000up");
 const outputDir = path.join(rootDir, "docs", "down", "10000up");
 const force = process.argv.includes("--force");
 const requestedFiles = process.argv.slice(2).filter((arg) => arg !== "--force");
-const files = requestedFiles.length > 0 ? requestedFiles : ["An_Elevated_Situation.html"];
+const pendingFiles = [];
+const files = requestedFiles.length > 0 ? requestedFiles : pendingFiles;
 
 const titleMap = {
   "An Elevated Situation": "【佐久侑】電梯困局",
+  Catcalled: "被搭訕",
+  "Coal to Diamond, Sold to Fools": "煤成鑽石，售予愚人",
+  "Coffee Talk": "咖啡閒談",
+  "Devil’s Advocate": "魔鬼代言人",
+  "Dynamics of the Heart": "心之動力學",
+  "I (Don't) Want to Keep Secrets Just to Keep You":
+    "我（不）願為了留住你而保守祕密",
+  "If It Feels Like Love...": "如果這感覺像愛……",
+  "The Ask and the Answer": "提問與回答",
 };
 
 const sourceNamePairs = [
   ["SakuAtsu", "佐久侑"],
+  ["Ojiro Aran", "尾白阿蘭"],
+  ["Kita Shinsuke", "北信介"],
+  ["Hinata Shouyou", "日向翔陽"],
+  ["Ushijima Wakatoshi", "牛島若利"],
+  ["Tendou Satori", "天童覺"],
+  ["Akaashi Keiji", "赤葦京治"],
+  ["Bokuto Koutarou", "木兔光太郎"],
+  ["Kageyama Tobio", "影山飛雄"],
+  ["Meian Shugo", "明暗修吾"],
+  ["Inunaki Shion", "犬鳴志音"],
+  ["Iwaizumi Hajime", "岩泉一"],
+  ["Oikawa Tooru", "及川徹"],
   ["Sakusa Kiyoomi", "佐久早聖臣"],
   ["Kiyoomis", "聖臣的"],
   ["Miya Atsumu", "宮侑"],
@@ -33,9 +55,31 @@ const sourceNamePairs = [
   ["Samu", "阿治"],
   ["Suna", "角名"],
   ["Rintarou", "倫太郎"],
+  ["Rintaro", "倫太郎"],
   ["Rin", "倫"],
   ["Motoya", "元也"],
   ["Toya", "元也"],
+  ["Ojiro", "尾白"],
+  ["Shinsuke", "信介"],
+  ["Hinata", "日向"],
+  ["Shouyou", "翔陽"],
+  ["Shoyo", "翔陽"],
+  ["Ushijima", "牛島"],
+  ["Wakatoshi", "若利"],
+  ["Tendou", "天童"],
+  ["Satori", "覺"],
+  ["Akaashi", "赤葦"],
+  ["Koutarou", "光太郎"],
+  ["Kageyama", "影山"],
+  ["Tobio", "飛雄"],
+  ["Meian", "明暗"],
+  ["Shugo", "修吾"],
+  ["Inunaki", "犬鳴"],
+  ["Shion", "志音"],
+  ["Iwaizumi", "岩泉"],
+  ["Hajime", "一"],
+  ["Oikawa", "及川"],
+  ["Tooru", "徹"],
   ["OmiOmi", "臣臣"],
   ["Omi-Omi", "臣臣"],
   ["Omi", "臣"],
@@ -50,6 +94,12 @@ const sourceNamePairs = [
 ];
 
 const sourceTermPairs = [
+  ["omega kittens", "Omega 貓咪"],
+  ["alpha kittens", "Alpha 貓咪"],
+  ["beta kittens", "Beta 貓咪"],
+  ["catnapping", "綁架貓咪"],
+  ["kittens", "貓咪"],
+  ["kitten", "貓咪"],
   ["claiming bite", "標記咬痕"],
   ["mating bite", "伴侶咬痕"],
   ["scent blockers", "氣味阻隔劑"],
@@ -68,6 +118,9 @@ const sourceTermPairs = [
   ["nest", "巢"],
   ["pheromones", "費洛蒙"],
   ["pheromone", "費洛蒙"],
+  ["Alphas", "Alpha"],
+  ["Betas", "Beta"],
+  ["Omegas", "Omega"],
   ["Alpha", "Alpha"],
   ["Beta", "Beta"],
   ["Omega", "Omega"],
@@ -89,7 +142,6 @@ const translatedCleanupPairs = [
   ["小見", "臣"],
   ["近江", "臣"],
   ["奧薩姆", "治"],
-  ["大阪", "治"],
   ["蘇納", "角名"],
   ["阿斯圖姆", "侑"],
   ["幾奌", "幾點"],
@@ -110,6 +162,7 @@ const translatedCleanupPairs = [
   ["给", "給"],
   ["阿爾法", "Alpha"],
   ["歐米伽", "Omega"],
+  ["歐米茄", "Omega"],
   ["貝塔", "Beta"],
 ];
 
@@ -310,6 +363,31 @@ function extractChapters(source) {
   const contentPattern =
     /<!--chapter content-->\s*<div class="userstuff">([\s\S]*?)<\/div>\s*<!--\/chapter content-->/g;
   const matches = [...source.matchAll(contentPattern)];
+
+  if (matches.length === 0) {
+    const singleChapter = source.match(
+      /<div id="chapters" class="userstuff">\s*<h2 class="toc-heading">([\s\S]*?)<\/h2>\s*<div class="userstuff">([\s\S]*?)<\/div>\s*<\/div>\s*<div id="afterword">/,
+    );
+
+    if (!singleChapter) {
+      return [];
+    }
+
+    const endNotes = (
+      source.match(
+        /<div id="endnotes">[\s\S]*?<blockquote class="userstuff">([\s\S]*?)<\/blockquote>/,
+      ) || []
+    )[1] || "";
+
+    return [
+      {
+        heading: stripTags(singleChapter[1]),
+        notes: "",
+        content: singleChapter[2],
+        endNotes,
+      },
+    ];
+  }
 
   return matches.map((match, index) => {
     const previousEnd = index === 0 ? 0 : matches[index - 1].index + matches[index - 1][0].length;
