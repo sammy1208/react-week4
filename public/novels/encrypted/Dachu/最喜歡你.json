@@ -1,4 +1,18 @@
 {
   "id": "最喜歡你",
-  "contentEnc": "fe3b117335d37fbffa61df231aa274fa:260b22c6f74b9e194ee0603b28d273e0fc44346675fd8b1e26fc15ac324892bc3d3e932118fc1244396df3a543fcdbd5696c61dc7b5a3c4b874fea8da0613604c148850b86730bd59bed5de0a9d61e334aea2faa1bec2d0e45838a11f44d31ff851716daa59be5f3a279f1c3318bf1c5efbb8fdcaf2ae9afd141477ba23cc5e6240cd8a952e4f9e4bd813e14a55cadb854e023ffd1a545923fe95f955cdf0ecc"
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "2RTB3s5/xfQX0KKTLp7mMQ==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "W8y9dzOUvscEKMSr",
+    "ciphertext": "3EvsYwCp9ySqH9Ya1JOnNuZFhdy3U4EhieQbu54mpGt1MkZwMUregVdn4HeAMrKzHD80KcjnIPuh1OfLL8B6reymAVZKYGpDuMoNwl++on5Sn/9UiVBMnYRkvNm7RwmXO4Wix00UH4wDH/1lyH/M30gdxMD6d0K9wx0D6w7X6waLKKFJG7zIio2o4NavyIo6ZBU=",
+    "authTag": "FmkZQOt6C5q+1Vf8f0y8uQ=="
+  }
 }

@@ -1,4 +1,18 @@
 {
   "id": "愛欲",
-  "contentEnc": "9f406a55794e8ba9ad4a3741cdfb846b:112f2ebaf86068e56d9b298903d93543a39f5891418ded9038731eff003069ba74f23228d7272cd59503404405645ff39e6a0a4662555e4584531793172ef8ad012b2907a8c25d724e15674d1672d7c05816454da18514bf060fb79ac5530615aad493c6e45eb619309dcf9cf9fa41f73820981bb850d95848cef90b383400ed96d24e8864a93b6f31cc73de00acefcd"
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "xT4qGNT2Lpc9E+YCGYsF3A==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "wLjBTqsqe7C01y55",
+    "ciphertext": "xULjMMydWMhciJMDQL1xp0Vp78Jnjfhi6xk3xyV2vnypcEYC5Cp0Do5qBZXdjMejryGKTWVWKAyhHQrJLC/cNTrzMjDGS2wRv6LmXt2tLd615lOLtz1MGcRjNG6xMEr9H6XkErf+TaGe31UPln7nv4JjT+lfC411HdlWG5CIfJyN6YemJotplolHdSg=",
+    "authTag": "l/jLEm7pUlh6rE+9uQl3ig=="
+  }
 }

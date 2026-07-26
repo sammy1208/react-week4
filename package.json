@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist --dotfiles",
-    "encrypt:novels": "node encryption.cjs",
+    "encrypt:novels": "node scripts/encrypt-novels.cjs",
     "check:novels": "node scripts/check-novels.cjs"
   },
   "dependencies": {

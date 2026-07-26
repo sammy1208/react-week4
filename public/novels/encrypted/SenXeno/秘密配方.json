@@ -1,4 +1,18 @@
 {
   "id": "秘密配方",
-  "contentEnc": "95550bdefb74a49138b7406a612ec1ca:2d877b40ee26c0687aba80d89f100e4120721411a633993e0912a2cce1f7c0026e7c9827c8111199b9e036171ab075c5d9563a8c4285be3e7283c2761cdcbc31eb47f71811514e4dcc8e86a91a563bb5c242e8de67d4f5ecb4a9fd64f5041becd24ef55cf192ecaa39e2e6f2e99efdd2d7fc45091e753652dabffb9c3011246f9ca4c90f86475df6bd49183c9b7817484946b054dacfdbd5afc26e0f46d09100"
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "I5YVDrPw7J0JLWTaavhEzg==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "P2ZA4J/0j/NGrjKg",
+    "ciphertext": "JRR7IWF/QNciTENBfxItUEINHOIXnLwH3n2M5KBgHH9jWYO/mNvwMNYINpSB60ZptWyjHxTlKZm33pxLany0wQxCNefZU1+RGzpKvfmBjxDlozpYmWtIU4X03zQzwMIyNJeAVvKR3uedrUOsuahXYTEEKL/OSvCoWPXAn1xKHSn0htqMjpVc96PjMW6ZyiKg5Q==",
+    "authTag": "imOSvsW8XU29UY+7/q8KEA=="
+  }
 }

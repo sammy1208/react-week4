@@ -24,9 +24,27 @@ export interface NovelsData {
   tags: string[];
   description: string;
   rating: number | null;
-  contentEnc?: string;
+  contentEnc?: EncryptedContent;
   contentPath?: string;
 }
+
+export interface EncryptedContentV2 {
+  version: 2;
+  algorithm: "AES-256-GCM";
+  kdf: {
+    name: "scrypt";
+    salt: string;
+    N: number;
+    r: number;
+    p: number;
+    keyLength: number;
+  };
+  iv: string;
+  ciphertext: string;
+  authTag: string;
+}
+
+export type EncryptedContent = string | EncryptedContentV2;
 
 export interface Meta {
   title: string;

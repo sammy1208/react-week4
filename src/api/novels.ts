@@ -1,4 +1,4 @@
-import { NovelsData } from "../types/theme";
+import { EncryptedContent, NovelsData } from "../types/theme";
 
 const BASE_URL = import.meta.env.BASE_URL;
 
@@ -28,7 +28,10 @@ export async function fetchEncryptedNovel(novel: NovelsData) {
     throw new Error(`Novel content not found: ${novel.contentPath}`);
   }
 
-  const data = (await res.json()) as Pick<NovelsData, "id" | "contentEnc">;
+  const data = (await res.json()) as {
+    id: string;
+    contentEnc?: EncryptedContent;
+  };
 
   if (!data.contentEnc) {
     throw new Error(`Novel encrypted content missing: ${novel.id}`);

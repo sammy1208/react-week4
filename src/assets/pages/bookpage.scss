@@ -206,6 +206,91 @@
   color: var(--color-error);
 }
 
+.book-unlock {
+  width: min(560px, 100%);
+  margin: 42px auto 0;
+  padding: clamp(24px, 4vw, 38px);
+  border: 1px solid var(--color-border-book-strong);
+  border-radius: 10px;
+  background: var(--color-bg-book-summary);
+  text-align: center;
+  box-shadow: inset 0 0 24px var(--color-inset-glow);
+}
+
+.book-unlock__icon {
+  color: var(--color-text-book-accent);
+  font-size: 42px;
+}
+
+.book-unlock h2 {
+  margin: 8px 0 10px;
+  color: var(--color-text-book-heading);
+  font-size: 28px;
+}
+
+.book-unlock > p {
+  margin: 0;
+  color: var(--color-text-book-muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.book-unlock__form {
+  margin-top: 24px;
+  text-align: left;
+}
+
+.book-unlock__form label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--color-text-book-heading);
+  font-size: 17px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.book-unlock__controls {
+  display: flex;
+  gap: 10px;
+}
+
+.book-unlock__controls input {
+  min-width: 0;
+  flex: 1;
+  padding: 11px 13px;
+  border: 1px solid var(--color-border-book-strong);
+  border-radius: 6px;
+  color: var(--color-text-book-body);
+  background: var(--color-bg-book-reader);
+  font: inherit;
+}
+
+.book-unlock__controls input:focus-visible {
+  outline: 2px solid var(--color-text-book-accent);
+  outline-offset: 2px;
+}
+
+.book-unlock__controls button {
+  padding: 11px 18px;
+  border: 1px solid var(--color-border-book-strong);
+  border-radius: 6px;
+  color: var(--color-text-book-heading);
+  background: var(--color-bg-book-tool);
+  font-family: var(--font-family-serif);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.book-unlock__controls button:hover,
+.book-unlock__controls button:focus-visible {
+  background: var(--color-bg-book-tool-hover);
+}
+
+.book-unlock__error {
+  margin: 10px 0 0;
+  color: var(--color-error);
+  font-size: 15px;
+}
+
 .book-article {
   width: min(980px, 100%);
   margin: 34px auto 0;
@@ -400,6 +485,14 @@
 
   .book-summary {
     padding: 18px;
+  }
+
+  .book-unlock {
+    padding: 22px 16px;
+  }
+
+  .book-unlock__controls {
+    display: grid;
   }
 
   .book-article {

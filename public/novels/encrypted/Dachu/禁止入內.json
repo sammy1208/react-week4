@@ -1,4 +1,18 @@
 {
   "id": "禁止入內",
-  "contentEnc": "3831680e33df2d8d9bb9843eb47fdae0:ab256c79c67f07fb6311ade38e5f8e1dd9199f1c055d99fe1281ab9336eb78b0581e93d5ee56187b0e27db01015c36b5f03db5d7ff9614c19bef1763bb647415d5465a838b1b72d8c4eb9d48fa407ea38eb9d26da7c201c6e3af43947afd7b90a095480fee8bd07e4164ff6c484d15f2f481e3ccdae59aff32c21994afe0291e287e1e2bfe8445bb564f2057455487faff62e277a05125ecfb89a75f76cf96b53b3394fed73aa189816b858273949b56842d024f03e7312850c774f32e6925e51f20d611be72098080765984fac85169b52e33472d028020f160a9701f350fa5d28adb9e47cf05e0327e6e2b3ae58a76457805317f5e039774f161246aaf612355045733849afdc6f840b808234049e8dcb6f065fe6185e0ee28f7a55d40e52c"
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "EgBXyAElPpfFl9/HcN7vKA==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "shMlcnuET+bnbzNK",
+    "ciphertext": "Hdn3t6hrJtUgisFFbvHDyfxUj4UycHbWc1JVzt/rhYIj5A9TO1L4gghiMFxgG1s04NffpcE/F/chXpQgYEXzj8wsYL+fpi5liOFq5G0MjYqUr63aWP1BHzSJfrvkZQppolJMaLFlJb2u+WI+gW3Tk1UlAo5J9SrtwwZeel9WQP1ouQEMB/7zLNbUQwIqHp+V8ny6xnYMmUMPmL86F7Ra09zEzIBY4gutKDENTnspj6EktfIu07dIJ+C0mDewoKCDFoHxeDO5cSa6xPsVguDoGdwwTPnujR5sk9uptC5m+2q4ISkgfedxFH08LwC7NL6ZHxScD+dvayYjstwAQZQkvzc2CrFFvMVA997Q/6SDK0W+VYxXMw01YUgP5Fs=",
+    "authTag": "lCs4ui3nJNOUO9++a6MzKQ=="
+  }
 }

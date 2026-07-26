@@ -1,4 +1,18 @@
 {
   "id": "合宿",
-  "contentEnc": "83797ff696851ebd87b56d6f33be322d:fc8deabb447d35e13a7a3ae856df088579c6827ab64af8f3f054ac857e79e243f078faf90f29f6184f7522399ad0bbe2ae2bbaaa907bf046f3ec0b6468a70a31f43c9b64bf0b06910343cdfbd420ab875dcf1e8257ba4dabed0d1d8921ac3e6e914f2c27b3dd4a88a9473cf5954d532baefe6eb1a563fe597477f737d8418271272138699fb894c372dd1906ca248e2a637baf3ee6858f4f1b3b5428f3d0e4e61a7b6fa5595b9d6a7478c68ed0262f9f8e111eb6cc5b36813f1fa0383923f1aff1c36add611d77ea4e810076c4205d94f610607beeb6dd7fb59e25d70d4291a36d7c6c84f58e6eb551537d684b8fed9ffae94391a117c31fa0aae844e25b279b"
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "kMj77swjY+4YBpFxUdyXXA==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "j2lS/9mot/8Lj8vl",
+    "ciphertext": "yipqog7D5Vb4MIUBy0VvxpoRhOP1Jc6X1+HuPkHvEzn2a0+2r3AbteGqVNCiWzsDt6H4emVoXMUg4yl5WwIMxETRMHY8AlPaURPeESgdK8GsxpIWXV+ewdbKV4mkrQ7QNugQDjkhDdqGZkNB0B0CkEZqqY+JQbq4nzVUWfgD37u69maVsrYmBG/R/TLBqvpmn5h0gGgGLDeR8AXP2u+jRDcxhxPYna38YrgGCTkPRSrZ52ixvNdGHMsEWI+F+kHt9tcPF1LlXbe8IcAktBET2nErdBYVWaVAb77aWkK/TfcYtEYTptbsrJJBDo2zBJvKbS6ojm73rA==",
+    "authTag": "uofic9/0XMy39BmWbCecOQ=="
+  }
 }

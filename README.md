@@ -80,11 +80,28 @@
 
 - `src/data/*.json` 是小說清單來源。
 - `src/novels/` 是 Markdown 原文來源。
-- `npm run encrypt:novels` 會根據來源重新產生：
+- `.env` 需設定僅供建置端使用的 `NOVEL_ENCRYPTION_PASSWORD`。
+- `npm run encrypt:novels` 會使用 AES-256-GCM 根據來源產生：
   - `public/data/novels/*.json`
   - `public/novels/encrypted/**/*.json`
+- 加密腳本會先驗證既有輸出；Markdown 沒有變更時會保留原檔，避免所有密文每次都出現 Git 變更。
+- 舊版 AES-CBC 輸出會在第一次執行時遷移成 AES-256-GCM，因此首次升級會有大量加密檔異動。
+- 閱讀密碼不再打包進前端；讀者開啟文章時輸入，成功後只保留於目前瀏覽器分頁。
 - 直接修改 `public/data/novels/*.json` 會在下一次加密時被覆蓋。
 - 新增小說時應先改 `src/data/SakuAtsu.json` 與 `src/novels/Haikyuu/SakuAtsu/*.md`。
+
+本機 `.env` 範例：
+
+```dotenv
+NOVEL_ENCRYPTION_PASSWORD=請替換成足夠長且不重複使用的密碼
+```
+
+產生資料與驗證建置：
+
+```powershell
+npm run encrypt:novels
+npm run build
+```
 
 同時建立小說完整性檢查腳本，用來確認：
 
@@ -366,7 +383,7 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refre
 
-加密:node encryption.cjs
+加密：`npm run encrypt:novels`
 
 統一規則（已套用在所有資料）
 
