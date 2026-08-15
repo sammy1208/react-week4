@@ -1,0 +1,18 @@
+{
+  "id": "懲罰措施",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "1YvofB6YcU3CU0guGRlmYw==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "LHzkKOvJeUCmrG/H",
+    "ciphertext": "X1doas6hHp6ycA3cwloPZQQW7oEL10YfmQnAH3D4h/TuGx6aH8ZmqmUdrA/Xhht+qc0gPixSPyVBGR35vcq/9IlqePSe6oOkb6Qer1W6ZXygGbZLpq9WeIus2Ti069FCoWPtOaVx2DoGtccRCo3tSLdkYZ8Nmc81myBmnJuZwmbimBM/w+hysZQ/8Qan9eTQbb7ThPM5T1KE1UViKWQEe5RQxBQDzIkZOOjio/toAq+kVMBoGJ138NEh3P/0iTKYfuM+F/ujaHxLmUBBVX+V3D647bi0dTXfXbP6lS8gdrNPvHp9cusXKtUXf6VoUBaBWJrCceVfAeq+H/4/GUV8MQ8OY45P/SL3Lvb+DdsmJDYBwHb3pMflg7Grb5c=",
+    "authTag": "3rhZauH+0U9N1/8tZHSOYA=="
+  }
+}

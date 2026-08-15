@@ -1,0 +1,18 @@
+{
+  "id": "理性衝動",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "20G2Z/GfDRhMekDFu9LA3Q==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "4RfhhpdRZC7+KPTQ",
+    "ciphertext": "tx1OTg+2WLFnaMfGAhvPDZxffGRfpOX0LpGfO4kDk7eqqbyjS7D2FPp+lt9y1Q6m+aELcvodvU0GDJQ7QGIT2hqXH990ZDzVclN6AI7/kdsU5b+CIttHuW8ssXDLZPHUfyP08Ay92kk4cIEapb47rMWQPf0dFO830NGqZTr9GCFTggTn7+bswT0/m7eMfZHUqW8MfgnbxWa4eDRrbWLf2JbsGtrHz4U5nlMdSeDz3yN+ZNgxzkWqvXOw4Rfd8A1sLSZU83BaxEXp2SaxvhuUunR28SUbM1TSH7/wBKxhEmZJeHLvB3rbhsP/QRyMvPb7Pjev5MZlF6TyeAZVzNgA/w==",
+    "authTag": "4dpm00aOlCA3dq2wgX9Okw=="
+  }
+}

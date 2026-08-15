@@ -1,0 +1,18 @@
+{
+  "id": "戀愛備忘錄",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "DC2Uahj/u+3Y2cV/DlyCAQ==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "csXmJs2+QhjUkRia",
+    "ciphertext": "drS1qFeiiuCW983ZfTr4zdFwr4R//dnRGwWDCYtNObKAaizcNvYv+rISb3CpE1yXLmdjwikFM2omkIv4oXa8udx9XzLwbFZCehLqvPvxw1TH0Kl9eTNHpV+4rvm2C0QuUkhZy6y8LBTUu1CwxcX9y8yXjUxQCEmh7PB75CuPembJJ4WZL3BUYD2txpSD0N2NTKS6hoAII62Cp7WkejVR4tk+mWql0q4WjMcg8hZjE9QswJmUd8aAeC/5A2vr/4LmpxKGjjIwKNdeIpSgyQNuIujCQ2kWYoV5MNYc+vXpeqPfsaYl454ygEZ5U4OXMhR5hUCpG35OlN2zu36JTn/P1XUslm7yGAkjxgDRfLXRO54qWQLwjJNqp59FLWzMXKKR",
+    "authTag": "B1SDFiYNZnbm6gBUaLL9Gw=="
+  }
+}

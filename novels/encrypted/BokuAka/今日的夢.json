@@ -1,0 +1,18 @@
+{
+  "id": "今日的夢",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "zK0iTDx74HDX5gif+SPFcg==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "gGUasRp+CJ6AgX1u",
+    "ciphertext": "hrwO9+lv9gI6Te2U/SOUi/fn7gQTa47VuMq7bw8oSSG2R9kRhbWHt8cEk8S03tgBmK2Iv/ovIilipYxl0AagYTpg84KSPYJahPpUKKwK9rJl7aahM3eepMmUXD9VI3PS7UzrP+dONOhuh2Ebrzgfox3/iPuUpGvMDTVpliflVgpdBWLluo5OZVOD6iw+UXGH7ThMYba766rSPJTazDTV5BvdX5yJ/sEJsVm+gQx04rdWGYmqf022LOcDGlQ9vt8eKqRoM5P2hCoqqFxGFSq5jGHbbCcjV6Mgz+UnnKi6GlGjsroBWsonKfs=",
+    "authTag": "CXKQPCzh7OBnyhupVktcWQ=="
+  }
+}

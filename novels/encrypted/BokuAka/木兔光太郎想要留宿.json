@@ -1,0 +1,18 @@
+{
+  "id": "木兔光太郎想要留宿",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "gaz6lnIiNj+k9SUen+4IKw==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "qd1xjqQzN4A2faGg",
+    "ciphertext": "IW/U4d33KcQs9P21D4Qo+ndkTd/4BDF6CFe1E4KTs3H45HR17jD2h1GyMqIt/5rsOFZn/bb/e38x/vhb2h4sGyBIlKYUzjrD61cb2+Yvd/8Bj1DcDrWQw30sQnv0J7Tr17FoW5kpxqRFlqRioGPY5/1o+mFQmFOgwKZ8hbwgiqC77rDMwsFJ6JYMxBrmYP31eBXVzWWFWgaI0TWZAWDt0q4RrowfstSfybUYgVdemtVET6xCTKe3Aq5YAkey9MmuJr5DXhFe3OE/lKmvpU1UsmMRyKTA2OWHoWjigGHqY4VvkcpIuMVNZJKUug93/X3YxQ2DGRzL1mXKMMpcOG5sGcbL9DwdzNQOHTkG7mpPdsrM2H1wz9Sa41FawoG3iL1zxV0o5pDa6qXlRF8JKe3zkXOZhiagUWSxz+Pl/lgbh55xpW+lxg+VWalKJ832rx+puG3PsiHDu28jY0p6",
+    "authTag": "z9GzSNx5/5MYhEhMCR5uxw=="
+  }
+}

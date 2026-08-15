@@ -1,0 +1,18 @@
+{
+  "id": "痕跡",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "sxMRUoQaoYCTviCdxFCJMg==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "PUpW/D6vbEBpOR7+",
+    "ciphertext": "oX/aYfkFvAIUObBvJsKw/Bif+at4gHG9nbaNFZwGi+6B9nis1d2546vjmJUIA1vRR+njt8cC/2T8Q/kdM4+nFDFXFQUvtbW4WmnVveqD8iKnpOdPCIpSsm+g9Dw2M7NaD8mi1l9Iowp/8W/4Z0g+Kr7//rfNhRSA4i6q3/g0dpFpef7+VzajjZnFOdNx9aEfoRQDMRviYXH2aRHrZ/yGUF+gNkohJlq06lwxfBLYTPlG7EWxYds79mwOSbzYbaMMPzh7ONwog8ddjsJqJyVzywSYcrvnnFBoIq9DNeBYyMDao/V8qaiK/85xold8k8X1fjLO",
+    "authTag": "+8X/QUvk6H5JaEU/9urU5g=="
+  }
+}

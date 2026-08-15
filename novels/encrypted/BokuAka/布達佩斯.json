@@ -1,0 +1,18 @@
+{
+  "id": "布達佩斯",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "YuHSbXfmIuLh+I7dFgaInw==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "P33pLhB8qJHzr6GU",
+    "ciphertext": "X0ki6mQAzx/nV7rNYFNsYLOoG/rImcah0d94I8vVkdEpmgatWDybYuEFvXUpoc6hN7R4eRzURt7OsTY2kdzQ+fqp0/bmPMPH00+KE+WyWuv3VMHgrSc5GM6P3DwjLI9Mmc9JskmIPLSh3VqofmZ4Qh3SeQYPMi8Z7vzCXVpixPwURjMWxyoztr5fR61gCrjPH9or6SkC0jMcffp3NLMNOBCse3N+T4j2YYxHWZmAtqdVViphjhhA8W461S/jTZLL77WeGYoz3FXQRGt2V/wy/ZCzxSLIkhwXi0qft1LL4AxK9xIYvpZ5dlf3jb+wCxpMCFw3F5JuW/s6ZzcHLOrecjrM9bBjD7etD5zZjeFKShj7Rr1SWX4/I1QJ1Z5ZLQ/gjMqPY+ESAHaMvcDsBqXpqOz0XRQv5MA7DZ4qu7997WSerOFmqrh6GIXNinTWswGqbJcehO4cp+vKUv0dL3T0g7Wwgg6c/Jwglmzojyn8qKgEA6cyFug=",
+    "authTag": "MJ7wYqR7kvbPbmwl3l9aVQ=="
+  }
+}

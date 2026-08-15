@@ -1,0 +1,18 @@
+{
+  "id": "ABO強制",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "TZOaGVc3q1maHFVyLKvTXw==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "5tjgs2ETtFYw4dZn",
+    "ciphertext": "z4Gf/g6fPh5AO8vcg10ZrUVM0dZfUPyIiInJYKmlNgFoI0gfWgb8pbThi2Z6X7kjUFPe5EhTQV9sMPyvJD4reAU34x52QDbVDUYkf5kemj/6SZ9lU7Qkyk70xYm8czTRcBbSLhfAJ+FNamPmLQhog1u3MYprC8cQ7TakePuubcrQkLjIBQIYuUOsjkD2/vxt7jPqQfWTJ+Ar4FZ06fTBNxl83tUtXv8ILNE2kSxTSrHbOEsm0wo+6qLoufSA52zcCOhA2USL4BTyPji0zb0J+H00viPmXrw6XHxh8DbSpZtKy0sU+tGIPEbOMzlMhUT5J9vpu2HI2D4GML8OmvZAP7V6ODHPi3OGzbSsLjyuAKLZZneXxl6JCixvEP0pbeQLPBgiArQmpDZzR9+wiH1yop25ywO0nx+WdMs6HtyZ/RtzLJrvMiWLspLVWQdC59q89x1DW1ocHjs8Ti/wzACHBwIMifZvj8o/iQPFfITCzebAHkmdGQ/Bo/QTd1FP3Fbv5gYbYNRS3TSUwk93YkY2O59xF5dk0hqLlWF1RHUyQEYq0JI761nN6DNaqJ4u6gxVBZZE3TLuwFmAqxVknT1yPiFKRw9iwA==",
+    "authTag": "Hx0x5EeZ10m5M5M9WbSPQQ=="
+  }
+}
