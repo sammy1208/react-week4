@@ -1,0 +1,18 @@
+{
+  "id": "藏在暗光里",
+  "contentEnc": {
+    "version": 2,
+    "algorithm": "AES-256-GCM",
+    "kdf": {
+      "name": "scrypt",
+      "salt": "BkSET2ziePv/LNNV0XQeBg==",
+      "N": 16384,
+      "r": 8,
+      "p": 1,
+      "keyLength": 32
+    },
+    "iv": "SzFr27nQCJtd/TjJ",
+    "ciphertext": "Q4ReJdEJ0uGNTbToLwr5lGkl7anRD6zLaZ0O2g3jVO5H+oF+pF3n5rMUqz0uj3FmMo1fpGDTgf1nQQW5+WmAEqm+FvQpulQ4sUnulWj7kYdY8miKbma9XQwY1uEH1tCiknqBHUx+lM3rQz0shbAIx2EVYjsIn+xRo9KeZKSUzrRqqSP4JiwZK8pufwKXhdSzFl9NFKlWOSD5AU7Vu0pFrogKvD/ZkbsykLdE52j+VDHVvc/iRBi+l1HiJDeAKkvHBiYmfTu2ABfubb/MoaC52TYL11SKV/SxEh7jo5jG4zGAHJFAJUAcoeoWQ6YopM/ENrs4jmzy0Lhwmo3aRV+CSlDNM407D8merG5VP8qM8GAELS1qgoggvFivvYsRaY+bUFxWcOVqApMOQeoHwHp/h7LZktbE2QGLNlnDjV0Smhmgp7OuOafwZ6kEb60YMr72Ue6WdhP9GoqBmVDqp06TQMhDNUaT+lxIizln2K97OdzSA/yNjbDYPsd+h5Hgk1Pb+mHO2UrS0mODPj/mnuk9zDFxSRXIKvI3SHyP6cbdLscbhX2Q3PWeqUw8up8HoUKrXB6l83C7U+W4JK6NTlgyCgn3WlC7rE8nvKRcTcRVZSMlZBBLPaP4Vn9x0cEVAbYeJBPJBjKzGye/rSSEYeCzKicI0ym0HHed4YzbK/DVdw8=",
+    "authTag": "0CSMI/XOUIO6m45h4iOfuQ=="
+  }
+}

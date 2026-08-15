@@ -5,9 +5,12 @@ const rootDir = path.resolve(__dirname, "..");
 const sourceDir = path.join(rootDir, "docs", "待翻譯", "10000");
 const outputDir = path.join(rootDir, "docs", "down", "10000");
 
-const files = [
-  "Not_so_bright.html",
-];
+const files = process.argv.slice(2);
+
+if (files.length === 0) {
+  console.error("請指定要翻譯的 HTML 檔名。");
+  process.exit(1);
+}
 
 const titleMap = {
   "Devotion": "奉獻",
@@ -69,6 +72,7 @@ function normalizeChinese(text) {
   }
 
   const extraPairs = [
+    ["\u4ffa", "我"],
     ["宮敦", "宮侑"],
     ["宮淳", "宮侑"],
     ["敦", "侑"],
@@ -238,6 +242,8 @@ async function translateFile(fileName) {
     "summary: |",
     blockquote(translatedSummary) || "  > ",
     "---",
+    "",
+    "<!-- translation-stage: draft -->",
     "",
     translatedNotes
       ? `> Notes / 註記\n${blockquote(translatedNotes).replace(/^  /gm, "")}\n`

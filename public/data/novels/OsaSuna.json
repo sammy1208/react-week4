@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "id": "Flame_火焰",
+    "title": "【治角名】Flame 火焰",
+    "author": "internetpistol",
+    "tags": [
+      "待看"
+    ],
+    "description": "宫治和角名伦太郎在一起十年后分手了。他们起初觉得这没什么大不了的，直到他们开始不这么觉得。",
+    "rating": null,
+    "contentPath": "novels/encrypted/OsaSuna/Flame_%E7%81%AB%E7%84%B0.json"
+  },
+  {
+    "id": "後會無期",
+    "title": "【治角名】後會無期",
+    "author": "zoe103019",
+    "tags": [
+      "待看"
+    ],
+    "description": "記一趟火車旅行。",
+    "rating": null,
+    "contentPath": "novels/encrypted/OsaSuna/%E5%BE%8C%E6%9C%83%E7%84%A1%E6%9C%9F.json"
+  },
+  {
+    "id": "潮汐",
+    "title": "【治角名】潮汐",
+    "author": "未知",
+    "tags": [
+      "待看"
+    ],
+    "description": "奇幻设定，幼稚且粗糙，含 bug 之处请勿深究。",
+    "rating": null,
+    "contentPath": "novels/encrypted/OsaSuna/%E6%BD%AE%E6%B1%90.json"
+  },
+  {
+    "id": "加急快递",
+    "title": "【角名治】加急快递",
+    "author": "未知",
+    "tags": [
+      "待看"
+    ],
+    "description": "你把大伙叫来就为这事？",
+    "rating": null,
+    "contentPath": "novels/encrypted/OsaSuna/%E5%8A%A0%E6%80%A5%E5%BF%AB%E9%80%92.json"
+  }
+]

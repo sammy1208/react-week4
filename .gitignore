@@ -12,6 +12,9 @@ dist/
 .cache/
 NYARCHIVE_DEVLOG.local.md
 
+# Local novel intake workspace. Its contents must never be committed.
+/待歸類小說/
+
 # Generated encrypted novel payloads. Run `npm run encrypt:novels` before build/deploy.
 # public/novels/encrypted/
 dist-ssr/

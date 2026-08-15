@@ -2,15 +2,56 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
-const sourceDir = path.join(rootDir, "docs", "待翻譯", "10000up");
-const outputDir = path.join(rootDir, "docs", "down", "10000up");
+const short = process.argv.includes("--short");
+const normalizeExisting = process.argv.includes("--normalize-existing");
+const repairResiduals = process.argv.includes("--repair-residuals");
+const chapterOption = process.argv.find((arg) => arg.startsWith("--chapters="));
+const selectedChapterNumbers = chapterOption
+  ? new Set(
+      chapterOption
+        .slice("--chapters=".length)
+        .split(",")
+        .map((value) => Number(value.trim()))
+        .filter((value) => Number.isInteger(value) && value > 0),
+    )
+  : null;
+const sourceBucket = short ? "10000" : "10000up";
+const sourceDir = path.join(rootDir, "docs", "待翻譯", sourceBucket);
+const outputDir = path.join(rootDir, "docs", "down", sourceBucket);
 const force = process.argv.includes("--force");
-const requestedFiles = process.argv.slice(2).filter((arg) => arg !== "--force");
+const requestedFiles = process.argv
+  .slice(2)
+  .filter(
+    (arg) =>
+      arg !== "--force" &&
+      arg !== "--short" &&
+      arg !== "--normalize-existing" &&
+      arg !== "--repair-residuals" &&
+      !arg.startsWith("--chapters="),
+  );
 const pendingFiles = [];
 const files = requestedFiles.length > 0 ? requestedFiles : pendingFiles;
 
 const titleMap = {
   "An Elevated Situation": "【佐久侑】電梯困局",
+  "can't fight love": "抗拒不了愛",
+  "Chant My Name Like A Spell": "像咒語般呼喚我的名字",
+  "Cookies & Cream": "餅乾與奶油",
+  "Élan": "昂揚",
+  "Elephant Gun": "獵象槍",
+  "For Duty, For Desire": "為了責任，為了慾望",
+  "Just one bite, Alpha.": "咬一口就好，Alpha",
+  "Lay Me Down": "讓我躺下",
+  "Miya Atsumu's Guide to: What NOT to Do in the Workplace":
+    "宮侑指南：職場上絕對不要做的事",
+  "My Shy Blond": "我害羞的金髮男孩",
+  "on thin ice": "如履薄冰",
+  "Sakusa's Secret Admirer": "佐久早的神祕愛慕者",
+  "Same Roaches, Different Walls": "相同的蟑螂，不同的牆",
+  "Searching for Eternity": "尋找永恆",
+  "Secrets We Hunt": "我們所追獵的祕密",
+  "shootin' stars & satellites": "流星與衛星",
+  "Sonnet of Survival": "生存十四行詩",
   Catcalled: "被搭訕",
   "Coal to Diamond, Sold to Fools": "煤成鑽石，售予愚人",
   "Coffee Talk": "咖啡閒談",
@@ -19,7 +60,20 @@ const titleMap = {
   "I (Don't) Want to Keep Secrets Just to Keep You":
     "我（不）願為了留住你而保守祕密",
   "If It Feels Like Love...": "如果這感覺像愛……",
+  "I want to feel you in my soul.": "我想在靈魂深處感受你",
+  "if fences could talk": "圍籬若能說話",
+  mitsuketa: "找到你了",
+  "Not so bright": "沒那麼聰明",
+  Queen: "女王",
+  "the hunt": "狩獵",
+  Treasure: "珍寶",
+  "Unwrap Me": "拆開我",
+  'You Can\'t Spell "Sakusa Kiyoomi" Without "Miya Atsumu"':
+    "『佐久早聖臣』少不了『宮侑』",
   "The Ask and the Answer": "提問與回答",
+  "The Butterfly Effect": "蝴蝶效應",
+  "The Tyrant’s Husband: Royal Heir": "暴君的丈夫：王室繼承人",
+  "To Be Yours": "只願屬於你",
 };
 
 const sourceNamePairs = [
@@ -36,6 +90,13 @@ const sourceNamePairs = [
   ["Inunaki Shion", "犬鳴志音"],
   ["Iwaizumi Hajime", "岩泉一"],
   ["Oikawa Tooru", "及川徹"],
+  ["Akagi Michinari", "赤木路成"],
+  ["Ginjima Hitoshi", "銀島結"],
+  ["Yachi Hitoka", "谷地仁花"],
+  ["Hoshiumi Kourai", "星海光來"],
+  ["Yaku Morisuke", "夜久衛輔"],
+  ["Kuroo Tetsurou", "黑尾鐵朗"],
+  ["Shirofuku Yukie", "白福雪繪"],
   ["Sakusa Kiyoomi", "佐久早聖臣"],
   ["Kiyoomis", "聖臣的"],
   ["Miya Atsumu", "宮侑"],
@@ -80,6 +141,22 @@ const sourceNamePairs = [
   ["Hajime", "一"],
   ["Oikawa", "及川"],
   ["Tooru", "徹"],
+  ["Michinari", "路成"],
+  ["Hitoshi", "結"],
+  ["Hitoka", "仁花"],
+  ["Kourai", "光來"],
+  ["Hoshiumi", "星海"],
+  ["Yaku", "夜久"],
+  ["Morisuke", "衛輔"],
+  ["Kuroo", "黑尾"],
+  ["Tetsurou", "鐵朗"],
+  ["Shirofuku", "白福"],
+  ["Primus Pilus", "首席百夫長"],
+  ["Centurion", "百夫長"],
+  ["Cathradge", "迦太基"],
+  ["Atsunu", "侑"],
+  ["Yukie", "雪繪"],
+  ["OmiOmiOmi", "臣臣臣"],
   ["OmiOmi", "臣臣"],
   ["Omi-Omi", "臣臣"],
   ["Omi", "臣"],
@@ -91,6 +168,8 @@ const sourceNamePairs = [
   ["Keiji", "京治"],
   ["Kita", "北"],
   ["Aran", "阿蘭"],
+  ["Akemi", "明美"],
+  ["Hiroto", "弘人"],
 ];
 
 const sourceTermPairs = [
@@ -129,7 +208,42 @@ const sourceTermPairs = [
 const protectedPairs = [...sourceTermPairs, ...sourceNamePairs];
 
 const translatedCleanupPairs = [
+  ["\u4ffa", "我"],
+  ["Akemi", "明美"],
+  ["Hiroto", "弘人"],
+  ["Schweiden Adlers", "施懷登阿德勒"],
+  ["Schweiden Adler", "施懷登阿德勒"],
+  ["Aoba Johsai", "青葉城西"],
+  ["Shiratorizawa", "白鳥澤"],
+  ["Inarizaki", "稻荷崎"],
+  ["Chibi-chan", "小不點"],
+  ["Kumichōs", "組長"],
+  ["Kumichō", "組長"],
+  ["Johzenji", "條善寺"],
+  ["Seijoh", "青城"],
+  ["Sejoh", "青城"],
+  ["Nohebi", "戶美"],
+  ["Nekoma", "音駒"],
+  ["Makki", "花卷"],
+  ["Mattsun", "松川"],
+  ["Tendō", "天童"],
+  ["Hirugami", "晝神"],
+  ["Shirabu", "白布"],
+  ["Semi", "瀨見"],
+  ["Daichi", "大地"],
+  ["Daishō", "大將"],
+  ["夜久za", "黑道"],
+  ["板立山", "井闥山"],
+  ["板山", "井闥山"],
+  ["稻成崎", "稻荷崎"],
   ["宮敦", "宮侑"],
+  ["SakuAstu", "佐久侑"],
+  ["Saksua", "佐久早"],
+  ["Atsumus", "侑的"],
+  ["OmiOmiOmi", "臣臣臣"],
+  ["Hoshiumi", "星海"],
+  ["Yaku", "夜久"],
+  ["Miya", "宮"],
   ["宮淳", "宮侑"],
   ["阿津姆", "侑"],
   ["阿茲穆", "侑"],
@@ -144,12 +258,145 @@ const translatedCleanupPairs = [
   ["奧薩姆", "治"],
   ["蘇納", "角名"],
   ["阿斯圖姆", "侑"],
+  ["Astumu", "侑"],
+  ["Kitashi", "Katashi"],
+  ["卡塔什", "Katashi"],
+  ["卡塔西", "Katashi"],
+  ["卡西", "Katashi"],
+  ["Michinari", "路成"],
+  ["Hitoshi", "結"],
+  ["Hitoka", "仁花"],
+  ["Kourai", "光來"],
+  ["Black Jackals", "黑狼"],
+  ["Tsum-Tsum", "侑侑"],
+  ["Kuroo", "黑尾"],
+  ["Kuro", "黑尾"],
+  ["庫魯", "黑尾"],
+  ["Shirofuku", "白福"],
+  ["Primus Pilus", "首席百夫長"],
+  ["Centurion", "百夫長"],
+  ["Cathradge", "迦太基"],
+  ["Atsunu", "侑"],
+  ["金發女郎", "金髮青年"],
+  ["金髮女郎", "金髮青年"],
+  ["拉維內特", "黑髮青年"],
+  ["拉维内特", "黑髮青年"],
+  ["野猪", "野豬"],
+  ["金发", "金髮"],
+  ["头发", "頭髮"],
+  ["每周", "每週"],
+  ["一周", "一週"],
+  ["干净", "乾淨"],
+  ["轻松", "輕鬆"],
+  ["尽管", "儘管"],
+  ["仿佛", "彷彿"],
+  ["回复", "回覆"],
+  ["准备", "準備"],
+  ["喜欢", "喜歡"],
+  ["紋身", "刺青"],
+  ["丝带", "絲帶"],
   ["幾奌", "幾點"],
   ["海軍", "肚臍"],
   ["小臣-臣", "聖臣。臣"],
   ["面罩", "口罩"],
   ["麵具", "口罩"],
   ["我会", "我會"],
+  ["这", "這"],
+  ["么", "麼"],
+  ["认", "認"],
+  ["触", "觸"],
+  ["会", "會"],
+  ["并", "並"],
+  ["领", "領"],
+  ["证", "證"],
+  ["获", "獲"],
+  ["运", "運"],
+  ["哝", "噥"],
+  ["赞", "讚"],
+  ["脑", "腦"],
+  ["响", "響"],
+  ["远", "遠"],
+  ["内", "內"],
+  ["条", "條"],
+  ["满", "滿"],
+  ["轻", "輕"],
+  ["摆", "擺"],
+  ["脱", "脫"],
+  ["错", "錯"],
+  ["车", "車"],
+  ["观", "觀"],
+  ["静", "靜"],
+  ["尽", "儘"],
+  ["闭", "閉"],
+  ["类", "類"],
+  ["连", "連"],
+  ["着", "著"],
+  ["断", "斷"],
+  ["扬", "揚"],
+  ["缠", "纏"],
+  ["华", "華"],
+  ["丽", "麗"],
+  ["丝", "絲"],
+  ["带", "帶"],
+  ["几", "幾"],
+  ["须", "須"],
+  ["树", "樹"],
+  ["卖", "賣"],
+  ["饭", "飯"],
+  ["电", "電"],
+  ["务", "務"],
+  ["长", "長"],
+  ["约", "約"],
+  ["对", "對"],
+  ["来", "來"],
+  ["个", "個"],
+  ["确", "確"],
+  ["办", "辦"],
+  ["发", "發"],
+  ["现", "現"],
+  ["当", "當"],
+  ["体", "體"],
+  ["时", "時"],
+  ["头", "頭"],
+  ["为", "為"],
+  ["们", "們"],
+  ["儿", "兒"],
+  ["过", "過"],
+  ["开", "開"],
+  ["关", "關"],
+  ["门", "門"],
+  ["见", "見"],
+  ["实", "實"],
+  ["应", "應"],
+  ["经", "經"],
+  ["样", "樣"],
+  ["让", "讓"],
+  ["气", "氣"],
+  ["点", "點"],
+  ["与", "與"],
+  ["学", "學"],
+  ["国", "國"],
+  ["动", "動"],
+  ["种", "種"],
+  ["进", "進"],
+  ["将", "將"],
+  ["两", "兩"],
+  ["问", "問"],
+  ["间", "間"],
+  ["虽", "雖"],
+  ["却", "卻"],
+  ["变", "變"],
+  ["该", "該"],
+  ["还", "還"],
+  ["无", "無"],
+  ["爱", "愛"],
+  ["读", "讀"],
+  ["写", "寫"],
+  ["话", "話"],
+  ["脸", "臉"],
+  ["觉", "覺"],
+  ["猪", "豬"],
+  ["猫", "貓"],
   ["从", "從"],
   ["里", "裡"],
   ["标", "標"],
@@ -190,7 +437,7 @@ function prepareSourceText(text) {
     const [from] = protectedPairs[index];
     result = result.replace(
       new RegExp(`\\b${from}\\b`, "gi"),
-      `NYAKEEP${String(index).padStart(3, "0")}X`,
+      `888${String(index).padStart(3, "0")}888`,
     );
   }
   return result;
@@ -200,6 +447,10 @@ function normalizeChinese(text) {
   let result = text;
   for (let index = 0; index < protectedPairs.length; index += 1) {
     const [, replacement] = protectedPairs[index];
+    result = result.replace(
+      new RegExp(`888\\s*${String(index).padStart(3, "0")}\\s*888`, "g"),
+      replacement,
+    );
     result = result.replace(
       new RegExp(`NYAKEEP\\s*${String(index).padStart(3, "0")}\\s*X`, "gi"),
       replacement,
@@ -227,7 +478,47 @@ function normalizeChinese(text) {
     .trim();
 }
 
-async function translateRaw(text, retries = 3) {
+function normalizeExistingMarkdown(text) {
+  let result = text.replace(/^(title: .*?)(author: )/m, "$1\n$2");
+
+  result = result.replace(
+    /(summary: \|\r?\n)([\s\S]*)(---\r?\n\r?\n<!-- translation-stage: draft -->)/,
+    (_, start, summary, end) => `${start}${summary.trimEnd()}\n${end}`,
+  );
+  result = result.replace(
+    /^> Notes \/\s*註記>(?=\S)/gm,
+    "> Notes / 註記\n>",
+  );
+  result = result.replace(
+    /^> Chapter Notes \/\s*章節註記>(?=\S)/gm,
+    "> Chapter Notes / 章節註記\n>",
+  );
+  result = result.replace(
+    /^> Chapter End Notes \/\s*章末註記>(?=\S)/gm,
+    "> Chapter End Notes / 章末註記\n>",
+  );
+  result = result.replace(
+    /^(\s*>.*)>[ \t]+$/gm,
+    (_, line) => `${line}\n${(line.match(/^\s*/) || [""])[0]}>`,
+  );
+  result = result.replace(/^(\s*)>(?=\S)/gm, "$1> ");
+
+  for (const [from, to] of translatedCleanupPairs) {
+    result = result.replace(new RegExp(from, "g"), to);
+  }
+
+  return result
+    .replace(/\balpha\b/gi, "Alpha")
+    .replace(/\bbeta\b/gi, "Beta")
+    .replace(/\bomega\b/gi, "Omega")
+    .replace(/“/g, "「")
+    .replace(/”/g, "」")
+    .replace(/‘/g, "『")
+    .replace(/’/g, "』")
+    .trim();
+}
+
+async function translateRaw(text, retries = 5) {
   if (!text.trim()) return "";
 
   const params = new URLSearchParams({
@@ -248,7 +539,7 @@ async function translateRaw(text, retries = 3) {
       return json[0].map((item) => item[0]).join("");
     } catch (error) {
       if (attempt === retries) throw error;
-      await new Promise((resolve) => setTimeout(resolve, attempt * 600));
+      await new Promise((resolve) => setTimeout(resolve, attempt * 1200));
     }
   }
 
@@ -272,11 +563,11 @@ async function translateTextNodes(textNodes) {
     if (batch.length === 0) return;
 
     const payload = batch
-      .map((text, index) => `<<<NYA_SEG_${index}>>>\n${text}`)
+      .map((text, index) => `${String(index).padStart(6, "0")}|||${text}`)
       .join("\n");
     const result = await translateRaw(payload);
     const pieces = result
-      .split(/<<<NYA_SEG_(\d+)>>>\s*/)
+      .split(/(\d{6})\s*\|\s*\|\s*\|\s*/)
       .filter((piece) => piece !== "");
     const translatedMap = new Map();
 
@@ -305,7 +596,7 @@ async function translateTextNodes(textNodes) {
     const prepared = prepareSourceText(textNodes[index]);
     if (!prepared) continue;
 
-    if (batchLength + prepared.length > 1800) await flush();
+    if (batchLength + prepared.length > 1200) await flush();
     batchIndexes.push(index);
     batch.push(prepared);
     batchLength += prepared.length;
@@ -356,7 +647,8 @@ function extractMeta(source) {
     )[1] || "未知",
   );
   const summary = extractBlockquoteAfterLabel(source, "Summary");
-  return { title, author, summary };
+  const notes = extractBlockquoteAfterLabel(source, "Notes");
+  return { title, author, summary, notes };
 }
 
 function extractChapters(source) {
@@ -450,7 +742,15 @@ async function translateFile(fileName) {
   if (!fs.existsSync(sourcePath)) {
     throw new Error(`Source file does not exist: ${sourcePath}`);
   }
-  if (fs.existsSync(outputPath) && !force) {
+  if ((selectedChapterNumbers || repairResiduals) && !fs.existsSync(outputPath)) {
+    throw new Error(`Output does not exist for chapter repair: ${outputPath}`);
+  }
+  if (
+    fs.existsSync(outputPath) &&
+    !force &&
+    !selectedChapterNumbers &&
+    !repairResiduals
+  ) {
     throw new Error(`Output already exists: ${outputPath}`);
   }
 
@@ -464,9 +764,158 @@ async function translateFile(fileName) {
 
   console.log(`Translating ${fileName}: ${chapters.length} chapters`);
 
-  const translatedTitle =
+  if (repairResiduals) {
+    let existing = fs.readFileSync(outputPath, "utf8");
+    const paragraphPattern = /<p(?:\s[^>]*)?>[\s\S]*?<\/p>/g;
+    const visibleText = (value) =>
+      value
+        .replace(/<\/?[A-Za-z][^>]*>/g, " ")
+        .replace(/&nbsp;|&#160;|\u00a0/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    const isBroken = (value) => {
+      const text = visibleText(value);
+      return (
+        (text.match(/[A-Za-z]/g) || []).length >= 18 ||
+        /KEEP|ZXQ|8{2,3}\d{3,5}8{2,3}|8\d{4,}|\d{4,}8|8[\u3400-\u9fff]{1,4}\d{3}|[\u3400-\u9fff]8[\s\S]{0,80}[\u3400-\u9fff]8{2}|NYA|EP\d|\dX|WKEE|[\uE000-\uF8FF]|\d+[]|\d{6}\s*\|\s*\|\s*\|/.test(text)
+      );
+    };
+
+    for (let index = 0; index < chapters.length; index += 1) {
+      const chapterNumber = index + 1;
+      const bodyPattern = new RegExp(
+        `(### Chapter ${chapterNumber}\\r?\\n\\r?\\n[\\s\\S]*?<!--chapter content-->\\s*<div>)([\\s\\S]*?)(<\\/div>\\s*<!--\\/chapter content-->)`,
+      );
+      const outputMatch = existing.match(bodyPattern);
+      if (!outputMatch) {
+        throw new Error(`Chapter ${chapterNumber} body not found in ${outputPath}`);
+      }
+
+      const sourceParagraphs = (
+        chapters[index].content.match(paragraphPattern) || []
+      ).filter((value) => visibleText(value));
+      const outputParagraphs = (outputMatch[2].match(paragraphPattern) || []).filter(
+        (value) => visibleText(value),
+      );
+      if (sourceParagraphs.length !== outputParagraphs.length) {
+        console.log(
+          `  skipping chapter ${chapterNumber}: paragraph mismatch ${sourceParagraphs.length}/${outputParagraphs.length}`,
+        );
+        continue;
+      }
+
+      const brokenIndexes = [];
+      for (let paragraphIndex = 0; paragraphIndex < outputParagraphs.length; paragraphIndex += 1) {
+        if (isBroken(outputParagraphs[paragraphIndex])) {
+          brokenIndexes.push(paragraphIndex);
+        }
+      }
+      if (brokenIndexes.length === 0) continue;
+
+      console.log(
+        `  repairing ${brokenIndexes.length} residual paragraphs in chapter ${chapterNumber}`,
+      );
+      const sourceSubset = brokenIndexes
+        .map((paragraphIndex) => sourceParagraphs[paragraphIndex])
+        .join("\n");
+      const translatedSubset = await translateHtmlFragment(sourceSubset);
+      const translatedParagraphs = translatedSubset.match(paragraphPattern) || [];
+      if (translatedParagraphs.length !== brokenIndexes.length) {
+        throw new Error(
+          `Residual translation mismatch in chapter ${chapterNumber}: ${brokenIndexes.length}/${translatedParagraphs.length}`,
+        );
+      }
+
+      const replacements = new Map();
+      brokenIndexes.forEach((paragraphIndex, replacementIndex) => {
+        replacements.set(paragraphIndex, translatedParagraphs[replacementIndex]);
+      });
+      let visibleIndex = 0;
+      const repairedBody = outputMatch[2].replace(paragraphPattern, (paragraph) => {
+        if (!visibleText(paragraph)) return paragraph;
+        const replacement = replacements.get(visibleIndex);
+        visibleIndex += 1;
+        return replacement || paragraph;
+      });
+      existing = existing.replace(
+        bodyPattern,
+        (_, before, _body, after) => `${before}${repairedBody}${after}`,
+      );
+    }
+
+    fs.writeFileSync(outputPath, `${existing.trimEnd()}\n`, "utf8");
+    console.log(`Repaired residuals in ${path.relative(rootDir, outputPath)}`);
+    return;
+  }
+
+  if (selectedChapterNumbers) {
+    let existing = fs.readFileSync(outputPath, "utf8");
+
+    for (let index = 0; index < chapters.length; index += 1) {
+      const chapterNumber = index + 1;
+      if (!selectedChapterNumbers.has(chapterNumber)) continue;
+
+      const chapter = chapters[index];
+      console.log(`  repairing chapter ${chapterNumber}/${chapters.length}`);
+      const translatedChapter = {
+        notes: chapter.notes
+          ? await translateHtmlFragment(chapter.notes)
+          : "",
+        content: await translateHtmlFragment(chapter.content),
+        endNotes: chapter.endNotes
+          ? await translateHtmlFragment(chapter.endNotes)
+          : "",
+      };
+      const block = [`### Chapter ${chapterNumber}`, ""];
+
+      if (translatedChapter.notes) {
+        block.push(
+          "> Chapter Notes / 章節註記",
+          blockquoteFromHtml(translatedChapter.notes),
+          "",
+        );
+      }
+
+      block.push(
+        "<!--chapter content-->",
+        "<div>",
+        formatBody(translatedChapter.content),
+        "</div>",
+        "<!--/chapter content-->",
+        "",
+      );
+
+      if (translatedChapter.endNotes) {
+        block.push(
+          "> Chapter End Notes / 章末註記",
+          blockquoteFromHtml(translatedChapter.endNotes),
+          "",
+        );
+      }
+
+      const chapterPattern = new RegExp(
+        `### Chapter ${chapterNumber}\\r?\\n\\r?\\n[\\s\\S]*?(?=\\r?\\n### Chapter \\d+\\r?\\n\\r?\\n|$)`,
+      );
+      if (!chapterPattern.test(existing)) {
+        throw new Error(`Chapter ${chapterNumber} block not found in ${outputPath}`);
+      }
+      existing = existing.replace(chapterPattern, () => block.join("\n").trimEnd());
+    }
+
+    fs.writeFileSync(outputPath, `${existing.trimEnd()}\n`, "utf8");
+    console.log(`Repaired ${path.relative(rootDir, outputPath)}`);
+    return;
+  }
+
+  let translatedTitle =
     titleMap[meta.title] || normalizeChinese(await translateRaw(meta.title));
+  if (!translatedTitle.startsWith("【")) {
+    translatedTitle = `【佐久侑】${translatedTitle}`;
+  }
   const translatedSummary = await translateHtmlFragment(meta.summary);
+  const translatedNotes = meta.notes
+    ? await translateHtmlFragment(meta.notes)
+    : "";
   const translatedChapters = [];
 
   for (let index = 0; index < chapters.length; index += 1) {
@@ -495,7 +944,17 @@ async function translateFile(fileName) {
       .join("\n"),
     "---",
     "",
+    "<!-- translation-stage: draft -->",
+    "",
   ];
+
+  if (translatedNotes) {
+    output.push(
+      "> Notes / 註記",
+      blockquoteFromHtml(translatedNotes),
+      "",
+    );
+  }
 
   for (let index = 0; index < translatedChapters.length; index += 1) {
     const chapter = translatedChapters[index];
@@ -533,6 +992,21 @@ async function translateFile(fileName) {
 }
 
 (async () => {
+  if (normalizeExisting) {
+    for (const file of files) {
+      const outputPath = path.join(outputDir, file.replace(/\.html$/i, ".md"));
+      if (!fs.existsSync(outputPath)) {
+        throw new Error(`Output does not exist: ${outputPath}`);
+      }
+      const normalized = normalizeExistingMarkdown(
+        fs.readFileSync(outputPath, "utf8"),
+      );
+      fs.writeFileSync(outputPath, `${normalized}\n`, "utf8");
+      console.log(`Normalized ${path.relative(rootDir, outputPath)}`);
+    }
+    return;
+  }
+
   for (const file of files) {
     await translateFile(file);
   }
