@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const { loadSeriesCatalogs } = require("./lib/series-catalog.cjs");
 require("dotenv").config({ quiet: true });
 
 const rootDir = path.resolve(__dirname, "..");
@@ -24,6 +25,7 @@ const ACCESS_SENTINEL = "novel-reader-access-v1";
 const ENCRYPTION_CACHE_VERSION = 1;
 
 const password = process.env.NOVEL_ENCRYPTION_PASSWORD;
+const seriesOnly = process.argv.includes("--series-only");
 
 const SCRYPT_PARAMS = {
   N: 16384,
@@ -213,7 +215,63 @@ function buildEncryptedNovel(novel, plaintext) {
   };
 }
 
+function encryptSeries(catalogs, encryptionCache, nextCacheEntries, counters, accessVerifierIsValid) {
+  for (const series of catalogs) {
+    const stories = [];
+    const outputDirectory = path.join(rootDir, "public", "data", "series", series.id);
+
+    for (const story of series.stories) {
+      const chapters = story.chapters.map((chapter) => {
+        const metadata = { id: chapter.id, title: chapter.title, status: chapter.status };
+        if (chapter.status === "pending") return metadata;
+
+        const novelId = `${story.id}-${chapter.id}`;
+        const encryptedPath = path.join(publicEncryptedDir, series.id, story.id, `${chapter.id}.json`);
+        const cacheKey = cacheKeyFor(encryptedPath);
+        const sourceHash = sha256(chapter.plaintext);
+        const cacheEntry = encryptionCache.entries[cacheKey];
+
+        if (accessVerifierIsValid && canReuseFromHashCache(cacheEntry, encryptedPath, novelId, sourceHash)) {
+          counters.unchanged += 1;
+          counters.hashMatched += 1;
+        } else if (accessVerifierIsValid && canReuseEncryptedFile(encryptedPath, novelId, chapter.plaintext)) {
+          counters.unchanged += 1;
+          counters.verified += 1;
+        } else {
+          writeTextIfChanged(encryptedPath, serializeJson(buildEncryptedNovel({ id: novelId }, chapter.plaintext)));
+          counters.encrypted += 1;
+        }
+
+        nextCacheEntries[cacheKey] = buildCacheEntry(encryptedPath, novelId, sourceHash);
+        return {
+          ...metadata,
+          contentPath: `novels/encrypted/${series.id}/${story.id}/${chapter.id}.json`,
+        };
+      });
+
+      const summary = {
+        id: story.id,
+        title: story.title,
+        category: story.category,
+        description: story.description,
+        publishedCount: chapters.filter((chapter) => chapter.status === "published").length,
+      };
+      stories.push(summary);
+      const metadata = { ...summary, seriesId: series.id, seriesTitle: series.title, chapters };
+      if (writeTextIfChanged(path.join(outputDirectory, `${story.id}.json`), serializeJson(metadata))) {
+        counters.metadata += 1;
+      }
+    }
+
+    const catalog = { id: series.id, title: series.title, stories };
+    if (writeTextIfChanged(path.join(outputDirectory, "index.json"), serializeJson(catalog))) {
+      counters.metadata += 1;
+    }
+  }
+}
+
 function main() {
+  const seriesCatalogs = loadSeriesCatalogs(rootDir);
   const counters = {
     unchanged: 0,
     hashMatched: 0,
@@ -224,7 +282,7 @@ function main() {
     accessVerifier: "unchanged",
   };
   const encryptionCache = readEncryptionCache();
-  const nextCacheEntries = {};
+  const nextCacheEntries = seriesOnly ? { ...encryptionCache.entries } : {};
   const accessVerifierIsValid = canReuseEncryptedFile(
     accessVerifierPath,
     ACCESS_VERIFIER_ID,
@@ -232,15 +290,20 @@ function main() {
   );
 
   if (!accessVerifierIsValid && fs.existsSync(accessVerifierPath)) {
+    if (seriesOnly) {
+      throw new Error("目前密碼與既有書庫不同；請執行完整加密程序。");
+    }
     console.warn(
       "目前密碼無法解開入口驗證；視為密碼已更換，將重新加密全部文章。",
     );
   }
 
-  const cpFiles = fs
-    .readdirSync(sourceDataDir)
-    .filter((fileName) => fileName.endsWith(".json"))
-    .sort((a, b) => a.localeCompare(b, "zh-Hant"));
+  const cpFiles = seriesOnly
+    ? []
+    : fs
+        .readdirSync(sourceDataDir)
+        .filter((fileName) => fileName.endsWith(".json"))
+        .sort((a, b) => a.localeCompare(b, "zh-Hant"));
 
   console.log("開始產生 AES-256-GCM 小說資料……");
 
@@ -315,6 +378,8 @@ function main() {
       counters.metadata += 1;
     }
   }
+
+  encryptSeries(seriesCatalogs, encryptionCache, nextCacheEntries, counters, accessVerifierIsValid);
 
   if (!accessVerifierIsValid) {
     const verifier = buildEncryptedNovel(

@@ -1,0 +1,59 @@
+{
+  "id": "theo-merren",
+  "title": "西奧傳",
+  "category": "人物外傳",
+  "description": "跟隨西奧的視角，從入學前走進他的學院生活。",
+  "publishedCount": 8,
+  "seriesId": "aurelis",
+  "seriesTitle": "Aurelis",
+  "chapters": [
+    {
+      "id": "001",
+      "title": "同一張桌旁",
+      "status": "published",
+      "contentPath": "novels/encrypted/aurelis/theo-merren/001.json"
+    },
+    {
+      "id": "002",
+      "title": "名單以外",
+      "status": "published",
+      "contentPath": "novels/encrypted/aurelis/theo-merren/002.json"
+    },
+    {
+      "id": "003",
+      "title": "逐條讀下去",
+      "status": "published",
+      "contentPath": "novels/encrypted/aurelis/theo-merren/003.json"
+    },
+    {
+      "id": "004",
+      "title": "出發要帶的東西",
+      "status": "published",
+      "contentPath": "novels/encrypted/aurelis/theo-merren/004.json"
+    },
+    {
+      "id": "005",
+      "title": "初來的幾天",
+      "status": "published",
+      "contentPath": "novels/encrypted/aurelis/theo-merren/005.json"
+    },
+    {
+      "id": "006",
+      "title": "叫西奧就好",
+      "status": "published",
+      "contentPath": "novels/encrypted/aurelis/theo-merren/006.json"
+    },
+    {
+      "id": "007",
+      "title": "假期的行李",
+      "status": "published",
+      "contentPath": "novels/encrypted/aurelis/theo-merren/007.json"
+    },
+    {
+      "id": "008",
+      "title": "早餐之後",
+      "status": "published",
+      "contentPath": "novels/encrypted/aurelis/theo-merren/008.json"
+    }
+  ]
+}

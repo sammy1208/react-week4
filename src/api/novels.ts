@@ -17,7 +17,7 @@ export async function fetchNovelList(cpKey: string) {
   return (await res.json()) as NovelsData[];
 }
 
-export async function fetchEncryptedNovel(novel: NovelsData) {
+export async function fetchEncryptedNovel(novel: Pick<NovelsData, "id" | "contentPath">) {
   if (!novel.contentPath) {
     throw new Error(`Novel content path not found: ${novel.id}`);
   }

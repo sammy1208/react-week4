@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist --dotfiles",
     "encrypt:novels": "node scripts/encrypt-novels.cjs",
+    "encrypt:series": "node scripts/encrypt-novels.cjs --series-only",
     "check:novels": "node scripts/check-novels.cjs"
   },
   "dependencies": {

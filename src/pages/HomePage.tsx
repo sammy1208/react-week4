@@ -57,6 +57,29 @@ export default function HomePage() {
 
       <section className="home-library" aria-label="書庫分類">
         <div className="home-library__inner">
+          <article className="home-series-card">
+            <div className="home-series-card__icon" aria-hidden="true">
+              <span className="material-symbols-outlined">auto_stories</span>
+            </div>
+            <div className="home-series-card__content">
+              <p className="home-series-card__eyebrow">原創長篇 · 六部曲</p>
+              <h2 className="home-series-card__title">Aurelis</h2>
+              <p className="home-series-card__description">
+                Aurelis 的六部曲與外傳，將從這裡展開。
+              </p>
+            </div>
+            <button
+              className="home-series-card__link"
+              type="button"
+              onClick={() => navigate("/series/aurelis")}
+            >
+              進入作品
+              <span className="material-symbols-outlined" aria-hidden="true">
+                arrow_forward
+              </span>
+            </button>
+          </article>
+
           {themeData.map((theme) => (
             <article className="theme-card" key={theme.id}>
               <img

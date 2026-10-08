@@ -4,6 +4,9 @@ import HomePage from "../pages/HomePage";
 import WordPage from "../pages/WordPage";
 import BookPage from "../pages/BookPage";
 import CompanionPage from "../pages/companionPage";
+import AurelisPage from "../pages/AurelisPage";
+import SeriesStoryPage from "../pages/SeriesStoryPage";
+import SeriesChapterPage from "../pages/SeriesChapterPage";
 
 const router = createHashRouter([
   {
@@ -17,6 +20,18 @@ const router = createHashRouter([
       {
         path: "word/:id",
         element: <WordPage />,
+      },
+      {
+        path: "series/aurelis",
+        element: <AurelisPage />,
+      },
+      {
+        path: "series/:seriesId/:storyId",
+        element: <SeriesStoryPage />,
+      },
+      {
+        path: "series/:seriesId/:storyId/:chapterId",
+        element: <SeriesChapterPage />,
       },
       {
         path: "CP/:cpId",
