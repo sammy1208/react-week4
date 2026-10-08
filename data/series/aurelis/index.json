@@ -1,0 +1,13 @@
+{
+  "id": "aurelis",
+  "title": "Aurelis",
+  "stories": [
+    {
+      "id": "theo-merren",
+      "title": "西奧傳",
+      "category": "人物外傳",
+      "description": "跟隨西奧的視角，從入學前走進他的學院生活。",
+      "publishedCount": 8
+    }
+  ]
+}
