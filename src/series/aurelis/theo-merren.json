@@ -5,13 +5,13 @@
   "description": "跟隨西奧的視角，從入學前走進他的學院生活。",
   "order": 1,
   "chapters": [
-    { "id": "001", "title": "同一張桌旁", "sourceFile": "src/novels/Aurelis/theo-merren/001.md" },
-    { "id": "002", "title": "名單以外", "sourceFile": "src/novels/Aurelis/theo-merren/002.md" },
-    { "id": "003", "title": "逐條讀下去", "sourceFile": "src/novels/Aurelis/theo-merren/003.md" },
-    { "id": "004", "title": "出發要帶的東西", "sourceFile": "src/novels/Aurelis/theo-merren/004.md" },
-    { "id": "005", "title": "初來的幾天", "sourceFile": "src/novels/Aurelis/theo-merren/005.md" },
-    { "id": "006", "title": "叫西奧就好", "sourceFile": "src/novels/Aurelis/theo-merren/006.md" },
-    { "id": "007", "title": "假期的行李", "sourceFile": "src/novels/Aurelis/theo-merren/007.md" },
-    { "id": "008", "title": "早餐之後", "sourceFile": "src/novels/Aurelis/theo-merren/008.md" }
+    { "id": "001", "title": "同一張桌旁", "status": "published", "sourceFile": "src/novels/Aurelis/theo-merren/001.md" },
+    { "id": "002", "title": "名單以外", "status": "published", "sourceFile": "src/novels/Aurelis/theo-merren/002.md" },
+    { "id": "003", "title": "逐條讀下去", "status": "published", "sourceFile": "src/novels/Aurelis/theo-merren/003.md" },
+    { "id": "004", "title": "出發要帶的東西", "status": "published", "sourceFile": "src/novels/Aurelis/theo-merren/004.md" },
+    { "id": "005", "title": "初來的幾天", "status": "published", "sourceFile": "src/novels/Aurelis/theo-merren/005.md" },
+    { "id": "006", "title": "叫西奧就好", "status": "published", "sourceFile": "src/novels/Aurelis/theo-merren/006.md" },
+    { "id": "007", "title": "假期的行李", "status": "published", "sourceFile": "src/novels/Aurelis/theo-merren/007.md" },
+    { "id": "008", "title": "早餐之後", "status": "published", "sourceFile": "src/novels/Aurelis/theo-merren/008.md" }
   ]
 }

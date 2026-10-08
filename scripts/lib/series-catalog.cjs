@@ -33,8 +33,9 @@ function stripEditorialHeader(markdown, chapter) {
   }
   let index = 1;
   while (lines[index] === "") index += 1;
-  if (lines[index] !== "> 章節狀態：正式正史") {
-    throw new Error(`章節尚未正式接受：${chapter.sourceFile}`);
+  // Publication is controlled by the chapter manifest, not editorial wording.
+  if (!/^>\s*章節狀態\s*[：:]/.test(lines[index] ?? "")) {
+    throw new Error(`缺少章節編輯標頭：${chapter.sourceFile}`);
   }
   while (lines[index]?.startsWith("> ")) index += 1;
   while (lines[index] === "") index += 1;
